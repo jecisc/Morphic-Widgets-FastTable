@@ -1,4 +1,4 @@
-instance-creation
+instance creation
 filterWith: aRegex dataSource: aDataSource
 	^ self new
 		pattern: aRegex;

@@ -1,4 +1,4 @@
-utils - morph creation
+utilities - morph creation
 emptyMorph
 	| icon |
 	icon := (Smalltalk ui icons iconNamed: #emptyIcon) asMorph.

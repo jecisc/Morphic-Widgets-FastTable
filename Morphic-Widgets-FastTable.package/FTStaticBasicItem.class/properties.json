@@ -1,5 +1,5 @@
 {
-	"commentStamp" : "CyrilFerlicot 11/2/2015 16:06",
+	"commentStamp" : "",
 	"super" : "FTBasicItem",
 	"category" : "Morphic-Widgets-FastTable-Tree",
 	"classinstvars" : [ ],

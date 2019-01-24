@@ -1,5 +1,5 @@
 {
-	"commentStamp" : "<historical>",
+	"commentStamp" : "",
 	"super" : "FTTableMorph",
 	"category" : "Morphic-Widgets-FastTable-PluggableAdaptor",
 	"classinstvars" : [ ],

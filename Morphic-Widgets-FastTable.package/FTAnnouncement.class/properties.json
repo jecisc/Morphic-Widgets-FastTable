@@ -1,5 +1,5 @@
 {
-	"commentStamp" : "<historical>",
+	"commentStamp" : "",
 	"super" : "Announcement",
 	"category" : "Morphic-Widgets-FastTable-Announcement",
 	"classinstvars" : [ ],

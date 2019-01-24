@@ -1,5 +1,5 @@
 {
-	"commentStamp" : "<historical>",
+	"commentStamp" : "",
 	"super" : "FTSimpleDataSource",
 	"category" : "Morphic-Widgets-FastTable-Examples",
 	"classinstvars" : [ ],

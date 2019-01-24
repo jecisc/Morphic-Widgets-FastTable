@@ -1,5 +1,5 @@
 {
-	"commentStamp" : "EstebanLorenzano 5/21/2015 19:46",
+	"commentStamp" : "",
 	"super" : "FTFunctionWithField",
 	"category" : "Morphic-Widgets-FastTable-Functions",
 	"classinstvars" : [ ],

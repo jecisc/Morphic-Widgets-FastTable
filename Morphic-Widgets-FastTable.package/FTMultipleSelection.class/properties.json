@@ -1,5 +1,5 @@
 {
-	"commentStamp" : "<historical>",
+	"commentStamp" : "",
 	"super" : "FTSelectionStrategy",
 	"category" : "Morphic-Widgets-FastTable-Selection",
 	"classinstvars" : [ ],

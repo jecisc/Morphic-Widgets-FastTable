@@ -3,4 +3,4 @@ colorForSelection: primarySelection
 	
 	^primarySelection 
 		ifTrue: [ self selectionColor ]
-		ifFalse: [ self secondarySelectionColor    ]
+		ifFalse: [ self secondarySelectionColor ]

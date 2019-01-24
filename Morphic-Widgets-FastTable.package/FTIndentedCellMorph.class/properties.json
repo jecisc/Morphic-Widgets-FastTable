@@ -1,5 +1,5 @@
 {
-	"commentStamp" : "HenrikNergaard 3/25/2016 18:01",
+	"commentStamp" : "",
 	"super" : "FTCellMorph",
 	"category" : "Morphic-Widgets-FastTable",
 	"classinstvars" : [ ],

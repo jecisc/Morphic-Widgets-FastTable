@@ -1,5 +1,5 @@
 {
-	"commentStamp" : "EstebanLorenzano 6/3/2015 15:01",
+	"commentStamp" : "",
 	"super" : "FTTableMorph",
 	"category" : "Morphic-Widgets-FastTable-Easy",
 	"classinstvars" : [ ],
