@@ -1,1 +1,0 @@
-I am a model class to be used in the FTSampleDataSource.

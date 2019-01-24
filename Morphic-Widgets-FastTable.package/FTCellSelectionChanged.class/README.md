@@ -1,1 +1,0 @@
-I announce a cell selection change  (usually a click, but can also be done with arrows up and down)  when the table is on the #column selection mode

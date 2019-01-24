@@ -1,3 +1,0 @@
-accessing
-cellIndex
-	^cellIndex 

@@ -1,1 +1,0 @@
-I announce a strong selection on a FT cell, a Strong selection is basiclly a double click

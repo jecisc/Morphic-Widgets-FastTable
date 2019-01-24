@@ -1,4 +1,0 @@
-accesing
-allowEdit
-	^allowEdit
-	

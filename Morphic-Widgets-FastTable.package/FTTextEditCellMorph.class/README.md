@@ -1,1 +1,0 @@
-I am TextEdit Cell Morph, i uses the RubTextFieldArea morph to view my content.

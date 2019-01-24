@@ -1,3 +1,0 @@
-accessing
-beNotResizableRows
-	resizableRows  := false

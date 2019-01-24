@@ -1,3 +1,0 @@
-accessing
-enableNonUniformRowsHeights
-	self allowNonUniformRowsHeights: true.

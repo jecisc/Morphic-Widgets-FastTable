@@ -1,3 +1,0 @@
-initialization
-tearDown
-	table := nil

@@ -1,1 +1,0 @@
-I hold the basic information of a person.

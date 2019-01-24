@@ -1,1 +1,0 @@
-I represent a set of unit tests for the differente selections methods and stategies.

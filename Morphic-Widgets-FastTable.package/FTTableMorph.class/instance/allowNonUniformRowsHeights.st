@@ -1,3 +1,0 @@
-accessing
-allowNonUniformRowsHeights
-	^allowNonUniformRowsHeights

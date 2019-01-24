@@ -1,3 +1,0 @@
-operations
-showEditor:index
-	^self

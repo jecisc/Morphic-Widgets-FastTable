@@ -1,1 +1,0 @@
-I represent a set of unit tests for the various cell widgets.

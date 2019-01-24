@@ -1,3 +1,0 @@
-accessing
-oldSelectedCellsIndexes
-	^oldSelectedCellsIndexes
