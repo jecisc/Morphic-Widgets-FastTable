@@ -5,7 +5,7 @@ See class side.
 Class {
 	#name : #FTExamples,
 	#superclass : #Object,
-	#category : 'Morphic-Widgets-FastTable-Examples'
+	#category : #'Morphic-Widgets-FastTable-Examples'
 }
 
 { #category : #examples }
@@ -521,6 +521,7 @@ table := FTTableMorph new
 { #category : #examples }
 FTExamples class >> exampleTable1 [
 	"Show a table with all Object methods"
+	<sampleInstance>
 	<example>
 	| table |
 
@@ -532,11 +533,12 @@ FTExamples class >> exampleTable1 [
 		dataSource: (FTExampleMethodTableDataSource for: Object);
 		selectRowIndex: 1;
 		showFirstRowSelection;
-		beMultipleSelection;
 		onAnnouncement: FTSelectionChanged 
 			do: [ :ann | ('rows selected: ', (ann newSelectedRowIndexes asString)) crLog ];
 		onAnnouncement: FTStrongSelectionChanged 
 			do: [ :ann | ('double-click on row: ', (ann selectedRowIndex asString)) crLog ];
+		beMultipleSelection;
+		beResizable;
 		yourself.
 		
 	^ table openInWindow
@@ -545,6 +547,7 @@ FTExamples class >> exampleTable1 [
 { #category : #examples }
 FTExamples class >> exampleTable2 [
 	"Show a table with all Object methods, with a fixed width"
+	<sampleInstance>
 	<example>
 	| table |
 
@@ -561,6 +564,7 @@ FTExamples class >> exampleTable2 [
 		onAnnouncement: FTStrongSelectionChanged 
 			do: [ :ann | ('double-click on row: ', (ann selectedRowIndex asString)) crLog ];
 		beMultipleSelection;
+		beResizable;
 		yourself.
 		
 	^ table openInWindow
@@ -569,6 +573,7 @@ FTExamples class >> exampleTable2 [
 { #category : #examples }
 FTExamples class >> exampleTable3 [
 	"Show a table with all Object methods, with a header"
+	<sampleInstance>
 	<example>
 	| table |
 
@@ -587,6 +592,7 @@ FTExamples class >> exampleTable3 [
 		onAnnouncement: FTStrongSelectionChanged 
 			do: [ :ann | ('double-click on row: ', (ann selectedRowIndex asString)) crLog ];
 		beMultipleSelection;
+		beResizable;
 		yourself.
 		
 	^ table openInWindow
