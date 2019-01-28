@@ -241,10 +241,12 @@ FTTableContainerMorph >> drawOn: canvas [
 			row selectionColor: (self owner colorForSelection: primarySelectionIndex = rowIndex) ]]	
 		].
 	
-	   
-				
-						
+	"We should notify existing rows about deletion and new rows about insertion. 
+	It is required to correctly manage stepping animation of cells"						
+	submorphs do: [:each | 
+		each privateOwner: nil; outOfWorld: self world].
 	submorphs := rowSubviews asArray.
+	submorphs do: [:each | each intoWorld: self world].
 	
 	owner isResizable 
 		ifTrue: [ self addResizeSplitters ].
