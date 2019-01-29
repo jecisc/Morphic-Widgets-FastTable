@@ -30,15 +30,13 @@ Internal Representation and Key Implementation Points.
 "
 Class {
 	#name : #FTCellMorph,
-	#superclass : #Morph,
+	#superclass : #FTSelectableMorph,
 	#instVars : [
 		'topSeparator',
-		'columnSelectionColor',
-		'table',
 		'allowEdit',
 		'cellPosition'
 	],
-	#category : 'Morphic-Widgets-FastTable'
+	#category : #'Morphic-Widgets-FastTable'
 }
 
 { #category : #accessing }
@@ -62,26 +60,6 @@ FTCellMorph >> cellPosition: aPosition [
 	cellPosition := aPosition
 ]
 
-{ #category : #accessing }
-FTCellMorph >> columnSelectionColor [
-	^columnSelectionColor
-
-
-]
-
-{ #category : #accessing }
-FTCellMorph >> columnSelectionColor: aColor [
-	columnSelectionColor := aColor.
-	self color: columnSelectionColor.
-
-
-]
-
-{ #category : #initialize }
-FTCellMorph >> defaultColor [
-	^ Color transparent
-]
-
 { #category : #drawing }
 FTCellMorph >> drawOn: aCanvas [
 	super drawOn: aCanvas.
@@ -91,10 +69,8 @@ FTCellMorph >> drawOn: aCanvas [
 
 { #category : #'event handling' }
 FTCellMorph >> handlesMouseOver: evt [
-table notNil
-ifTrue: [ ^ table selectionMode == #column ].
-^false
-
+	self table ifNotNil: [ :t | ^ t selectionMode == #column ].
+	^ false
 ]
 
 { #category : #testing }
@@ -107,7 +83,6 @@ FTCellMorph >> hasEditingProvider [
 FTCellMorph >> initialize [
 	super initialize.
 	topSeparator := false.
-	columnSelectionColor := self defaultColor.
 	self
 		clipSubmorphs: true;
 		layoutPolicy: TableLayout new;
@@ -116,26 +91,6 @@ FTCellMorph >> initialize [
 		listDirection: #leftToRight;
 		listCentering: #topLeft;
 		wrapCentering: #center
-]
-
-{ #category : #'event handling' }
-FTCellMorph >> mouseEnter: evt [
-	self color: (
-		columnSelectionColor isTransparent 
-			ifTrue: [ self mouseOverColor ]
-			ifFalse: [ self mouseOverColor mixed: 0.5 with: columnSelectionColor ]
-	)
-]
-
-{ #category : #'event handling' }
-FTCellMorph >> mouseLeave: evt [
-	
-	self color: self columnSelectionColor  
-]
-
-{ #category : #accessing }
-FTCellMorph >> mouseOverColor [
-	^ Smalltalk ui theme lightBackgroundColor 
 ]
 
 { #category : #drawing }
@@ -147,16 +102,6 @@ FTCellMorph >> seperatorColor [
 FTCellMorph >> showEditor:index [
 "this message should be overrided by the cell that provide a custom editor or don't need the default editorProvider defined in the data source"
 	self subclassResponsibility
-]
-
-{ #category : #accessing }
-FTCellMorph >> table [
-	^table 
-]
-
-{ #category : #accessing }
-FTCellMorph >> table:aFTMorph [
-	table := aFTMorph 
 ]
 
 { #category : #drawing }

@@ -3,12 +3,12 @@ I am TextEdit Cell Morph, i uses the RubTextFieldArea morph to view my content.
 "
 Class {
 	#name : #FTTextEditCellMorph,
-	#superclass : #FTIndentedCellMorph,
+	#superclass : #FTTemplateCellMoprh,
 	#instVars : [
 		'content',
 		'rubTextField'
 	],
-	#category : 'Morphic-Widgets-FastTable'
+	#category : #'Morphic-Widgets-FastTable'
 }
 
 { #category : #'instance creation' }

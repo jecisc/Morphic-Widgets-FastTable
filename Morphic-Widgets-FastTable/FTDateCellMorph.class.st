@@ -3,13 +3,13 @@ Date Cell Morph with a popup to choose the date from
 "
 Class {
 	#name : #FTDateCellMorph,
-	#superclass : #FTIndentedCellMorph,
+	#superclass : #FTTemplateCellMoprh,
 	#instVars : [
 		'calendar',
 		'date',
 		'cellIndex'
 	],
-	#category : 'Morphic-Widgets-FastTable'
+	#category : #'Morphic-Widgets-FastTable'
 }
 
 { #category : #'instance creation' }

@@ -3,14 +3,14 @@ ComboBox Cell Morph
 "
 Class {
 	#name : #FTDropListCellMorph,
-	#superclass : #FTIndentedCellMorph,
+	#superclass : #FTTemplateCellMoprh,
 	#instVars : [
 		'dropList',
 		'selectedItem',
 		'selectedIndex',
 		'itemSource'
 	],
-	#category : 'Morphic-Widgets-FastTable'
+	#category : #'Morphic-Widgets-FastTable'
 }
 
 { #category : #'instance creation' }

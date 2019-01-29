@@ -3,12 +3,12 @@ CheckBox Cell Morph
 "
 Class {
 	#name : #FTCheckBoxCellMorph,
-	#superclass : #FTIndentedCellMorph,
+	#superclass : #FTTemplateCellMoprh,
 	#instVars : [
 		'checkbox',
 		'content'
 	],
-	#category : 'Morphic-Widgets-FastTable'
+	#category : #'Morphic-Widgets-FastTable'
 }
 
 { #category : #'instance creation' }

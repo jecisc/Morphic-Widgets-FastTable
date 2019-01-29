@@ -61,9 +61,8 @@ FTExampleMethodTableDataSource >> menuColumn: column row: rowIndex [
 
 { #category : #accessing }
 FTExampleMethodTableDataSource >> nameColumn: column row: rowIndex [
-	^ FTCellMorph new  
+	^ FTCellMorph new
 		color: (self colorFor: rowIndex);
-		table:table; "table reference"
 		cellInset: 5;
 		addMorphBack: (self iconFor: rowIndex) asMorph;
 		addMorphBack: (self elementAt: rowIndex) name asStringMorph;
@@ -87,9 +86,8 @@ FTExampleMethodTableDataSource >> nameMenuColumn: column row: rowIndex [
 
 { #category : #accessing }
 FTExampleMethodTableDataSource >> originColumn: column row: rowIndex [
-	^ FTCellMorph new 
+	^ FTCellMorph new
 		color: (self colorFor: rowIndex);
-		table:table; "table reference"
 		addMorph: (self elementAt: rowIndex) origin name asMorph;
 		yourself
 ]
@@ -110,7 +108,6 @@ FTExampleMethodTableDataSource >> originMenuColumn: column row: rowIndex [
 FTExampleMethodTableDataSource >> protocolColumn: column row: rowIndex [
 	^ FTCellMorph new
 		color: (self colorFor: rowIndex);
-		table:table; "table reference"
 		addMorph: (self elementAt: rowIndex) protocol asStringMorph;
 		yourself
 ]

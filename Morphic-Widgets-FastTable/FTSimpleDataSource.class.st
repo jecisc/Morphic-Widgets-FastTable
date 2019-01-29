@@ -68,12 +68,11 @@ pane addMorph: column id asStringMorph.
 
 { #category : #accessing }
 FTSimpleDataSource >> headerColumn: column [
-	column id ifNil: [ ^ nil ]. 
-	^ FTHeaderColumnCellMorph new 
+	column id ifNil: [ ^ nil ].
+	^ FTHeaderColumnCellMorph new
 		listCentering: #left;
 		column: column;
-		table:self table;
-		addMorph: (self getCellMorphContent:column);
+		addMorph: (self getCellMorphContent: column);
 		yourself
 ]
 

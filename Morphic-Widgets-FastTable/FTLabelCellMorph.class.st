@@ -3,11 +3,11 @@ I am TextEdit Cell Morph, i view the cell's data as a simple text morphs, and wh
 "
 Class {
 	#name : #FTLabelCellMorph,
-	#superclass : #FTIndentedCellMorph,
+	#superclass : #FTTemplateCellMoprh,
 	#instVars : [
 		'content'
 	],
-	#category : 'Morphic-Widgets-FastTable'
+	#category : #'Morphic-Widgets-FastTable'
 }
 
 { #category : #'instance creation' }
@@ -49,15 +49,15 @@ FTLabelCellMorph >> content [
 
 { #category : #accessing }
 FTLabelCellMorph >> content: aString [
-|oldValue newValue|
-"self table selectedCellsIndex asString,"
-	cellPosition ifNotNil: [oldValue :=((self table dataSource elements at: self cellPosition  second) perform:  self cellPosition first property).] ifNil: [ oldValue :=nil ].
+	| oldValue |
+	content = aString ifTrue: [ ^ self ].
+	oldValue := content.
 	content := aString.
-	newValue := aString.
-	newValue = oldValue ifFalse:  [ self table doAnnounce:((FTCellContentChanged  from: oldValue  to: newValue)
+	self table
+		doAnnounce:
+			((FTCellContentChanged from: oldValue to: content)
 				fastTable: self table;
-				yourself).  ].
-
+				yourself)
 ]
 
 { #category : #initialization }

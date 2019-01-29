@@ -46,7 +46,7 @@ FTTableContainerMorph class >> rowLeftMargin [
 { #category : #drawing }
 FTTableContainerMorph >> addResizeRowSplitters [
 	| rowHeight nextRow delta |
-	rowHeight := self owner rowHeight rounded.  "need to get a collection of the updated highs"
+	rowHeight := self table rowHeight rounded.  "need to get a collection of the updated highs"
 	nextRow := self top.
 	delta := FTRowResizerMorph  resizerHeight  / 2.
 	self  exposedRows values overlappingPairsWithIndexDo:  [ :topRow :bottomRow :index |
@@ -66,7 +66,7 @@ FTTableContainerMorph >> addResizeSplitters [
 	columnWidths := self calculateColumnWidths.
 	nextColumn := self left.
 	delta := FTColumnResizerMorph resizerWidth / 2.
-	self owner columns overlappingPairsWithIndexDo:  [ :leftColumn :rightColumn :index |
+	self table columns overlappingPairsWithIndexDo:  [ :leftColumn :rightColumn :index |
 		nextColumn := nextColumn + (columnWidths at: index) + self owner intercellSpacing x.
 		self addMorph: ((FTColumnResizerMorph 
 			container: self 
@@ -86,9 +86,9 @@ FTTableContainerMorph >> calculateColumnWidths [
 	  or collect and distribute remaining width"
 
 	| undefinedColumnWidths widths remainingWidth |
-	remainingWidth := self owner bounds width.
+	remainingWidth := self table bounds width.
 
-	widths := self owner columns
+	widths := self table columns
 		collect: [ :c | 
 			| columnWidth |
 			columnWidth := c acquireWidth: remainingWidth.
@@ -110,7 +110,7 @@ FTTableContainerMorph >> calculateExactVisibleRows [
 	"Answer the rows to show in list - with possible fraction"
 
 	| visibleRows |
-	visibleRows := self height / (self owner rowHeight + self owner intercellSpacing y).
+	visibleRows := self height / (self table rowHeight + self table intercellSpacing y).
 	^ headerRow ifNotNil: [ visibleRows - 1 ] ifNil: [ visibleRows ]
 ]
 
@@ -134,9 +134,9 @@ FTTableContainerMorph >> calculateStartIndexWhenShowing: visibleRows [
 	 This works in case we are exceeding the available rows to show"
 
 	| currentIndex startIndex |
-	currentIndex := self owner showIndex.
-	currentIndex + visibleRows - 1 > self owner numberOfRows ifTrue: [ 
-		currentIndex := self owner numberOfRows - visibleRows + 2].
+	currentIndex := self table showIndex.
+	currentIndex + visibleRows - 1 > self table numberOfRows ifTrue: [ 
+		currentIndex := self table numberOfRows - visibleRows + 2].
 	startIndex := currentIndex max: 1.
 	self owner basicMoveShowIndexTo: startIndex.
 	^startIndex
@@ -148,17 +148,17 @@ FTTableContainerMorph >> calculateVisibleRows [
 	"Answer the rows to show in list. 
 	 Ensures we show the maximum amount possible"
 
-	^ self calculateMaxVisibleRows min: self owner numberOfRows
+	^ self calculateMaxVisibleRows min: self table numberOfRows
 ]
 
 { #category : #testing }
 FTTableContainerMorph >> canRefreshValues [
-	^ self needsRefreshExposedRows and: [ self owner isNotNil and: [ self owner hasDataSource ] ]
+	^ self needsRefreshExposedRows and: [ self table isNotNil and: [ self table hasDataSource ] ]
 ]
 
 { #category : #updating }
 FTTableContainerMorph >> changed [
-	self owner ifNil: [ ^ self ].
+	self table ifNil: [ ^ self ].
 	self setNeedsRefreshExposedRows.
 	super changed
 ]
@@ -203,14 +203,14 @@ FTTableContainerMorph >> drawOn: canvas [
 	x := self left + self class rowLeftMargin.
 	y := self top.	
 	cellWidth := self width - self class rowLeftMargin.
-	cellHeight := self owner rowHeight rounded. 
+	cellHeight := self table rowHeight rounded. 
 	highligtedRowIndexes := 
-		self owner selectedRowIndexes, 
-		self owner highlightedRowIndexes.
+		self table selectedRowIndexes, 
+		self table highlightedRowIndexes.
 		
-	SelectedCellIndexes := self owner selectedCellsIndexes.
-	primarySelectionIndex := self owner selectedRowIndex.
-	primarySelectionCellIndex := self owner selectedCellsIndex.
+	SelectedCellIndexes := self table selectedCellsIndexes.
+	primarySelectionIndex := self table selectedRowIndex.
+	primarySelectionCellIndex := self table selectedCellsIndex.
 
 	
 	"For some superweird reason, calling #calculateExposedRows here instead in #changed (where
@@ -223,22 +223,22 @@ FTTableContainerMorph >> drawOn: canvas [
 	rowSubviews := OrderedCollection new: rowsToDisplay size + 1.
 	headerRow ifNotNil: [ 
 		headerRow bounds: (self left@y extent: self width@cellHeight).
-		y := y + cellHeight + self owner intercellSpacing y.		
+		y := y + cellHeight + self table intercellSpacing y.		
 		rowSubviews add: headerRow ].
 	
 	rowsToDisplay keysAndValuesDo: [ :rowIndex :row | | visibleHeight |
 		visibleHeight := cellHeight min: (self bottom - y). 
 		row bounds: (x@y extent: cellWidth@visibleHeight).
-		y := y + visibleHeight + self owner intercellSpacing y.
+		y := y + visibleHeight + self table intercellSpacing y.
 		
 		
 		rowSubviews add: row.		
-		(self owner selectionMode == #column)		 
+		(self table selectionMode == #column)		 
 		 ifTrue: [row submorphs withIndexDo: [ :each :columnIndex |
 				 (SelectedCellIndexes includes: (Array with:rowIndex with:columnIndex)) 
-					ifTrue: [ each columnSelectionColor: (self owner colorForSelection:(primarySelectionCellIndex first = rowIndex and:primarySelectionCellIndex second = columnIndex )) ]]]	
+					ifTrue: [ each selectionColor: (self table colorForSelection:(primarySelectionCellIndex first = rowIndex and:primarySelectionCellIndex second = columnIndex )) ]]]	
 				ifFalse:[(highligtedRowIndexes includes: rowIndex) ifTrue: [ 
-			row selectionColor: (self owner colorForSelection: primarySelectionIndex = rowIndex) ]]	
+			row selectionColor: (self table colorForSelection: primarySelectionIndex = rowIndex) ]]	
 		].
 	
 	"We should notify existing rows about deletion and new rows about insertion. 
@@ -280,8 +280,8 @@ FTTableContainerMorph >> isRowIndexExceding: rowIndex [
 	| headerPresentModificator nextRowIndexByPosition heightWithSpacing |
 	
 	headerPresentModificator := headerRow ifNotNil: [ 1 ] ifNil: [ 0 ].
-	nextRowIndexByPosition := rowIndex - self owner showIndex + 1 + headerPresentModificator.
-	heightWithSpacing := self owner rowHeight + self owner intercellSpacing y.
+	nextRowIndexByPosition := rowIndex - self table showIndex + 1 + headerPresentModificator.
+	heightWithSpacing := self table rowHeight + self table intercellSpacing y.
 	
 	^ (nextRowIndexByPosition * heightWithSpacing) > self height
 ]
@@ -336,9 +336,14 @@ FTTableContainerMorph >> setNeedsRefreshExposedRows [
 	needsRefreshExposedRows := true
 ]
 
+{ #category : #accessing }
+FTTableContainerMorph >> table [
+	^ self owner
+]
+
 { #category : #updating }
 FTTableContainerMorph >> updateAllRows [
-	self owner isShowColumnHeaders 
+	self table isShowColumnHeaders 
 		ifTrue: [ self updateHeaderRow ].
 	self updateExposedRows.
 	
@@ -352,16 +357,16 @@ FTTableContainerMorph >> updateExposedRows [
 
 	visibleRows := self calculateMaxVisibleRows.
 	startIndex := self calculateStartIndexWhenShowing: visibleRows.
-	numberOfColumns := self owner numberOfColumns.
-	columns := self owner columns. 
+	numberOfColumns := self table numberOfColumns.
+	columns := self table columns. 
 	columnWidths := self calculateColumnWidths.
 
 	exposedRows := SmallDictionary new.
-	startIndex to: ((startIndex + visibleRows - 1) min: self owner numberOfRows) do: [ :rowIndex | 
+	startIndex to: ((startIndex + visibleRows - 1) min: self table numberOfRows) do: [ :rowIndex | 
 		| row |
-		row := FTTableRowMorph table: self owner.
+		row := FTTableRowMorph table: self table.
 		1 to: numberOfColumns do: [ :columnIndex | | cell |
-			cell := (self owner dataSource 
+			cell := (self table dataSource 
 				cellColumn: (columns at: columnIndex)
 				row: rowIndex).  
 			cell width: (columnWidths at: columnIndex).
@@ -381,20 +386,20 @@ FTTableContainerMorph >> updateHeaderRow [
 	self canRefreshValues ifFalse: [ ^ self ].
 
 	headerRow := nil.	
-	columnHeaders := Array new: self owner numberOfColumns.
+	columnHeaders := Array new: self table numberOfColumns.
 	columnWidths := self calculateColumnWidths.
 	
-	self owner columns withIndexDo: [ :each :index | | headerCell columnWidth|
+	self table columns withIndexDo: [ :each :index | | headerCell columnWidth|
 		columnWidth := columnWidths at: index.
-		headerCell :=  self owner dataSource headerColumn: each. 
+		headerCell :=  self table dataSource headerColumn: each. 
 		headerCell ifNil: [ ^ self ]. 
 		headerCell 
-			color: self owner headerColor;
+			color: self table headerColor;
 			width: columnWidth.
 		columnHeaders at: index put: headerCell.
 		previousDisplayColumn := FTDisplayColumn column: each width: columnWidth ].
 	 
-	headerRow := (FTTableRowMorph table: self owner)
+	headerRow := (FTTableRowMorph table: self table)
 		privateOwner: self;
 		addAllMorphs: columnHeaders;
 		yourself
