@@ -43,9 +43,3 @@ PlatformSpecificKeyCombination class >> findAgain [
 "Find the next occurrence of the item "
 	^$g meta 
 ]
-
-{ #category : #api }
-PlatformSpecificKeyCombination class >> sellectAll [
-"No need to check for Spesific platform modifier since meta will take care of it"
-	^$a meta 
-]

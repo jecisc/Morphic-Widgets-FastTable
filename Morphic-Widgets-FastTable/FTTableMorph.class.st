@@ -655,7 +655,7 @@ FTTableMorph >> initializeKeyBindings [
 			 ifTrue:[self selectRowIndex: self numberOfRows]
 			ifFalse:[self selectCellIndex: (Array with:self numberOfRows with: self numberOfColumns)]].
 	self 
-		bindKeyCombination: PlatformSpecificKeyCombination sellectAll
+		bindKeyCombination: PharoShortcuts current selectAllShortcut
 		toAction: [ selectionMode==#row
 			ifTrue:[self selectAllRowIndexes]
 			ifFalse:[self selectAllCells ]].
