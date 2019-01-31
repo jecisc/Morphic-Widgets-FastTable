@@ -95,7 +95,7 @@ FTCellMorph >> initialize [
 
 { #category : #drawing }
 FTCellMorph >> seperatorColor [
-	^ Smalltalk ui theme scrollbarColor
+	^ self theme scrollbarColor
 ]
 
 { #category : #operations }
