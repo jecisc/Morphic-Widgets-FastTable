@@ -22,7 +22,7 @@ FTTableRowMorph class >> table: aTableMorph [
 
 { #category : #'event handling' }
 FTTableRowMorph >> handlesMouseOver: evt [
-   self table ifNotNil: [ :t | ^ t selectionMode == #row ].
+	self table ifNotNil: [ :table | ^ table selectionModeStrategy isRowSelection ].
 	^ false
 
 ]

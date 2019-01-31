@@ -69,7 +69,7 @@ FTCellMorph >> drawOn: aCanvas [
 
 { #category : #'event handling' }
 FTCellMorph >> handlesMouseOver: evt [
-	self table ifNotNil: [ :t | ^ t selectionMode == #column ].
+	self table ifNotNil: [ :table | ^ table selectionModeStrategy isCellSelection ].
 	^ false
 ]
 

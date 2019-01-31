@@ -9,7 +9,8 @@ Class {
 
 { #category : #printing }
 FTSelectionModeStrategy class >> symbol [
-	self flag: #toKill.
+	"Because we want to use dispatch with the strategy"
+	self toKill.
 	^ self subclassResponsibility
 ]
 
@@ -18,6 +19,30 @@ FTSelectionModeStrategy class >> table: aTable [
 	^ self new
 		table: aTable;
 		yourself
+]
+
+{ #category : #accessing }
+FTSelectionModeStrategy >> associatedMultipleSelection [
+	"Because we should not have cell and row simple/multiple selections..."
+	self toKill.
+	^ self subclassResponsibility
+]
+
+{ #category : #accessing }
+FTSelectionModeStrategy >> associatedSingleSelection [
+	"Because we should not have cell and row simple/multiple selections..."
+	self toKill.
+	^ self subclassResponsibility
+]
+
+{ #category : #testing }
+FTSelectionModeStrategy >> isCellSelection [
+	^ false
+]
+
+{ #category : #testing }
+FTSelectionModeStrategy >> isRowSelection [
+	^ false
 ]
 
 { #category : #adding }

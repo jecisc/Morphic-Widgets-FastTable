@@ -202,7 +202,7 @@ FTTableMorph >> beCellSelectionMode [
 
 { #category : #accessing }
 FTTableMorph >> beMultipleSelection [
-	selectionStrategy := self selectionMode = #row ifTrue: [ FTMultipleSelection table: self ] ifFalse: [ FTCellMultipleSelection table: self ]
+	selectionStrategy := self selectionModeStrategy associatedMultipleSelection table: self
 ]
 
 { #category : #accessing }
@@ -244,7 +244,7 @@ FTTableMorph >> beRowSelectionMode [
 
 { #category : #'multi-selection' }
 FTTableMorph >> beSingleSelection [
-	selectionStrategy := self selectionMode = #row ifTrue: [ FTSimpleSelection table: self ] ifFalse: [ FTCellSimpleSelection table: self ]
+	selectionStrategy := self selectionModeStrategy associatedSingleSelection table: self
 ]
 
 { #category : #'event handling' }
@@ -1313,7 +1313,7 @@ FTTableMorph >> selectionColor: aColor [
 
 { #category : #accessing }
 FTTableMorph >> selectionMode [
-	"row or column selection mode"
+	"Because we want to use dispatch with the strategy"
 
 	self toKill.
 	^ self selectionModeStrategy class symbol
