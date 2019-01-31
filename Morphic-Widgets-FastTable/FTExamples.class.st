@@ -551,7 +551,7 @@ FTExamples class >> exampleTable1 [
 		selectIndex: 1;
 		showFirstSelection;
 		onAnnouncement: FTSelectionChanged do: [ :ann | ('rows selected: ' , ann newSelectedRowIndexes asString) crLog ];
-		onAnnouncement: FTStrongSelectionChanged do: [ :ann | ('double-click on row: ' , ann selectedIndex asString) crLog ];
+		onAnnouncement: FTStrongSelectionChanged do: [ :ann | ('double-click on row: ' , ann selectedRowIndex asString) crLog ];
 		beMultipleSelection;
 		beResizable;
 		yourself.
@@ -654,7 +654,7 @@ FTExamples class >> exampleTable5 [
 		dataSource: ds;
 		selectIndex: 1;
 		beMultipleSelection;
-		showFirstRowSelection;
+		showFirstSelection;
 		yourself.
 	^ table openInWindow
 ]
@@ -772,7 +772,7 @@ FTExamples class >> exampleTable9 [
 		addColumn: (FTColumn id: 'column5');
 		addColumn: (FTColumn id: 'column6');
 		dataSource: dataSource;
-		selectIndex: 1;
+		selectIndex: #(1 1);
 		showFirstSelection;
 		beMultipleSelection;
 		allowDeselection;
@@ -787,7 +787,7 @@ FTExamples class >> exampleTable9 [
 		addColumn: (FTColumn id: 'column5');
 		addColumn: (FTColumn id: 'column6');
 		dataSource: dataSource;
-		selectIndex: 1;
+		selectIndex: #(1 1);
 		showFirstSelection;
 		beMultipleSelection;
 		layoutInset: 10;

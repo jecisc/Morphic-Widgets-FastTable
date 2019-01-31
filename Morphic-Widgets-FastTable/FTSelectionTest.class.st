@@ -31,25 +31,26 @@ FTSelectionTest >> tearDown [
 
 { #category : #tests }
 FTSelectionTest >> testMultipleCellSelection [
-"Test whether selecting multiple cells really add the cells indexes to the selected cells collection in the table "
-	|columnsCount rowsCount rand cellsArray|
+	"Test whether selecting multiple cells really add the cells indexes to the selected cells collection in the table "
+
+	| columnsCount rowsCount rand cellsArray |
 	"enable cell's seletion mode and deselect all cells"
 	table enableCellSelectionMode.
 	table beMultipleSelection.
-	table deselectAllCells.
-	"select a single cell randomly"	
+	table deselectAll.
+	"select a single cell randomly"
 	columnsCount := table columns size.
 	rowsCount := table dataSource elements size.
-	rand:=Random new.
+	rand := Random new.
 	cellsArray := Array
-                 with: (Array with:(rand nextInt:rowsCount) with:(rand nextInt:columnsCount))
-                 with: (Array with:(rand nextInt:rowsCount) with:(rand nextInt:columnsCount))
-                 with: (Array with:(rand nextInt:rowsCount) with:(rand nextInt:columnsCount))
-                 with: (Array with:(rand nextInt:rowsCount) with:(rand nextInt:columnsCount)).
-	table selectCellIndexes: cellsArray.  
+		with: (Array with: (rand nextInt: rowsCount) with: (rand nextInt: columnsCount))
+		with: (Array with: (rand nextInt: rowsCount) with: (rand nextInt: columnsCount))
+		with: (Array with: (rand nextInt: rowsCount) with: (rand nextInt: columnsCount))
+		with: (Array with: (rand nextInt: rowsCount) with: (rand nextInt: columnsCount)).
+	table selectIndexes: cellsArray.
 	"assert:true, if the cell is really selected"
 
-	self assert: table selectedCellsIndexes size > 1.
+	self assert: table selectedIndexes size > 1
 ]
 
 { #category : #tests }
@@ -70,21 +71,21 @@ FTSelectionTest >> testMultipleRowSelection [
 
 { #category : #tests }
 FTSelectionTest >> testSingleCellSelection [
-|columnsCount rowsCount rand cell|
-"Test whether selecting a single cell really add the cell index to the selected cells collection in the table "
+	| columnsCount rowsCount rand cell |
+	"Test whether selecting a single cell really add the cell index to the selected cells collection in the table "
 	"enable cell's seletion mode and deselect all cells"
 	table enableCellSelectionMode.
 	table beSingleSelection.
-	table deselectAllCells.
-	"select a single cell randomly"	
+	table deselectAll.
+	"select a single cell randomly"
 	columnsCount := table columns size.
 	rowsCount := table dataSource elements size.
-	rand:=Random new.
-	cell := Array with:(rand nextInt:rowsCount) with:(rand nextInt:columnsCount).
-	table selectCellIndex: cell.  
+	rand := Random new.
+	cell := Array with: (rand nextInt: rowsCount) with: (rand nextInt: columnsCount).
+	table selectIndex: cell.
 	"assert:true, if the cell is really selected"
 
-	self assert: table selectedCellsIndex = cell.
+	self assert: table selectedIndex = cell
 ]
 
 { #category : #tests }

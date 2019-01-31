@@ -194,7 +194,7 @@ FTTableContainerMorph >> defaultColor [
 
 { #category : #drawing }
 FTTableContainerMorph >> drawOn: canvas [
-	| x y cellWidth cellHeight rowsToDisplay rowSubviews highligtedRowIndexes primarySelectionIndex primarySelectionCellIndex SelectedCellIndexes |
+	| x y cellWidth cellHeight rowsToDisplay rowSubviews highligtedRowIndexes primarySelectionIndex |
 	super drawOn: canvas.
 	self canRefreshValues ifFalse: [ ^ self ].	"Nothing to update yet"
 
@@ -204,10 +204,9 @@ FTTableContainerMorph >> drawOn: canvas [
 	cellWidth := self width - self class rowLeftMargin.
 	cellHeight := self table rowHeight rounded.
 	highligtedRowIndexes := self table selectedIndexes , self table highlightedIndexes.
+	
 
-	SelectedCellIndexes := self table selectedCellsIndexes.
 	primarySelectionIndex := self table selectedIndex.
-	primarySelectionCellIndex := self table selectedCellsIndex.
 
 
 	"For some superweird reason, calling #calculateExposedRows here instead in #changed (where
@@ -233,10 +232,12 @@ FTTableContainerMorph >> drawOn: canvas [
 
 			rowSubviews add: row.
 			self table selectionMode == #column
-				ifTrue: [ row submorphs
+				ifTrue: [ | selectedCellIndexes |
+					selectedCellIndexes := self table selectedIndexes.
+					row submorphs
 						withIndexDo: [ :each :columnIndex | 
-							(SelectedCellIndexes includes: (Array with: rowIndex with: columnIndex))
-								ifTrue: [ each selectionColor: (self table colorForSelection: (primarySelectionCellIndex first = rowIndex and: primarySelectionCellIndex second = columnIndex)) ] ] ]
+							(selectedCellIndexes includes: (Array with: rowIndex with: columnIndex))
+								ifTrue: [ each selectionColor: (self table colorForSelection: (primarySelectionIndex first = rowIndex and: primarySelectionIndex second = columnIndex)) ] ] ]
 				ifFalse: [ (highligtedRowIndexes includes: rowIndex) ifTrue: [ row selectionColor: (self table colorForSelection: primarySelectionIndex = rowIndex) ] ] ].
 
 	"We should notify existing rows about deletion and new rows about insertion. 

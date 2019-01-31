@@ -50,10 +50,7 @@ FTCellSelectionStrategy >> table [
 
 { #category : #private }
 FTCellSelectionStrategy >> toggleCellIndex: cellIndex [
-	((self table selectedCellsIndexes includes: cellIndex) 
-		and: [ self table selectedCellsIndexes size = 1 "just one selected"
-		and: [ self table allowsDeselection ] ])
-			ifTrue: [  self table selectCellIndexes: #() ]
-			ifFalse: [
-				self table selectCellIndex: cellIndex ]
+	((self table selectedIndexes includes: cellIndex) and: [ self table selectedIndexes size = 1 and: [ self table allowsDeselection ]	"just one selected" ])
+		ifTrue: [ self table selectIndexes: #() ]
+		ifFalse: [ self table selectIndex: cellIndex ]
 ]

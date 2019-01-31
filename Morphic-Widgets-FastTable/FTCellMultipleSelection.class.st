@@ -16,13 +16,13 @@ FTCellMultipleSelection >> isMultiple [
 { #category : #private }
 FTCellMultipleSelection >> selectAppendingCellIndex: cellIndex [
 	| currentSelection newSelection |
-	currentSelection := self table selectedCellsIndexes.
+	currentSelection := self table selectedIndexes.
 	
 	newSelection := (currentSelection includes: cellIndex)
 		ifTrue: [ currentSelection copyWithout: cellIndex ]
 		ifFalse: [ currentSelection copyWithFirst: cellIndex].
 		
-	self table selectCellIndexes: newSelection
+	self table selectIndexes: newSelection
 ]
 
 { #category : #accessing }
@@ -36,12 +36,10 @@ FTCellMultipleSelection >> selectCellIndex: cellIndex event: event [
 ]
 
 { #category : #private }
-FTCellMultipleSelection >> selectCellIndexes: cellIndex previous: oldSelection [		
+FTCellMultipleSelection >> selectCellIndexes: cellIndex previous: oldSelection [
 	"Make sure the selected cell index is the first in selection range"
-	self table selectCellIndexes: (((oldSelection includes: cellIndex)
-		ifTrue: [ oldSelection copyWithout: cellIndex ]
-		ifFalse: [ oldSelection] )
-		copyWithFirst: cellIndex)
+
+	self table selectIndexes: (((oldSelection includes: cellIndex) ifTrue: [ oldSelection copyWithout: cellIndex ] ifFalse: [ oldSelection ]) copyWithFirst: cellIndex)
 ]
 
 { #category : #private }
@@ -51,7 +49,7 @@ FTCellMultipleSelection >> selectCellIndexesUpTo: endIndex [
 	| oldSelected firstIndex stepV stepH tupleCollection|
 	"step vertical and step horizontal help create rectangular selections"
 
-	oldSelected := self table selectedCellsIndexes.
+	oldSelected := self table selectedIndexes.
 	firstIndex :=  oldSelected 
 		ifNotEmpty: [ oldSelected first ]
 		ifEmpty: [ endIndex ].
