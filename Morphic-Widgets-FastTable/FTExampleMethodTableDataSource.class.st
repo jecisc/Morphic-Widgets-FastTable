@@ -61,7 +61,7 @@ FTExampleMethodTableDataSource >> menuColumn: column row: rowIndex [
 
 { #category : #accessing }
 FTExampleMethodTableDataSource >> nameColumn: column row: rowIndex [
-	^ FTCellMorph new
+	^ FTCellMorph new  
 		color: (self colorFor: rowIndex);
 		cellInset: 5;
 		addMorphBack: (self iconFor: rowIndex) asMorph;
@@ -86,7 +86,7 @@ FTExampleMethodTableDataSource >> nameMenuColumn: column row: rowIndex [
 
 { #category : #accessing }
 FTExampleMethodTableDataSource >> originColumn: column row: rowIndex [
-	^ FTCellMorph new
+	^ FTCellMorph new 
 		color: (self colorFor: rowIndex);
 		addMorph: (self elementAt: rowIndex) origin name asMorph;
 		yourself

@@ -67,7 +67,7 @@ FTTableContainerMorph >> addResizeSplitters [
 	nextColumn := self left.
 	delta := FTColumnResizerMorph resizerWidth / 2.
 	self table columns overlappingPairsWithIndexDo:  [ :leftColumn :rightColumn :index |
-		nextColumn := nextColumn + (columnWidths at: index) + self owner intercellSpacing x.
+		nextColumn := nextColumn + (columnWidths at: index) + self table intercellSpacing x.
 		self addMorph: ((FTColumnResizerMorph 
 			container: self 
 				left: (FTDisplayColumn column: leftColumn width: (columnWidths at: index))
@@ -138,7 +138,7 @@ FTTableContainerMorph >> calculateStartIndexWhenShowing: visibleRows [
 	currentIndex + visibleRows - 1 > self table numberOfRows ifTrue: [ 
 		currentIndex := self table numberOfRows - visibleRows + 2].
 	startIndex := currentIndex max: 1.
-	self owner basicMoveShowIndexTo: startIndex.
+	self table basicMoveShowIndexTo: startIndex.
 	^startIndex
 	
 ]

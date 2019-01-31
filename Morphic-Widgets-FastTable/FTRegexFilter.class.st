@@ -23,7 +23,7 @@ FTRegexFilter >> matches: aString [
 { #category : #accessing }
 FTRegexFilter >> pattern: aString [
 	super pattern: aString.
-	
+
 	regex := self patternFromString: aString
 ]
 
