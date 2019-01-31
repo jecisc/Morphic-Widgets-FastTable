@@ -43,6 +43,7 @@ Class {
 		'resizableRows',
 		'allowNonUniformRowsHeights',
 		'selectionMode',
+		'selectionModeStrategy',
 		'mouseMoveSelection',
 		'horizontalScrollBar',
 		'trialHSB'
@@ -102,12 +103,6 @@ FTTableMorph class >> defaultSecondarySelectionColor [
 { #category : #accessing }
 FTTableMorph class >> defaultSelectionColor [
 	^ self theme selectionColor
-]
-
-{ #category : #accessing }
-FTTableMorph class >> defaultSelectionMode [
-"there are two selection mode #row and #column"
-	^ #row
 ]
 
 { #category : #temporary }
@@ -190,9 +185,14 @@ FTTableMorph >> basicSelectRowIndexes: anArray [
 	self basicSelectIndexes: anArray
 ]
 
+{ #category : #accessing }
+FTTableMorph >> beCellSelection [
+	self selectionModeStrategy: (FTCellSelectionModeStrategy table: self)
+]
+
 { #category : #'as yet unclassified' }
 FTTableMorph >> beCellSelectionMode [
-	self selectionMode: #column.
+	self beCellSelection.
 	self selectionStrategy ifNotNil: [ 
 		self isMultipleSelection 
 	   ifTrue:[selectionStrategy := FTCellMultipleSelection table: self]
@@ -202,9 +202,7 @@ FTTableMorph >> beCellSelectionMode [
 
 { #category : #accessing }
 FTTableMorph >> beMultipleSelection [
-   selectionMode == #row
-	ifTrue:[selectionStrategy := FTMultipleSelection table: self]
-	ifFalse:[selectionStrategy := FTCellMultipleSelection table: self]
+	selectionStrategy := self selectionMode = #row ifTrue: [ FTMultipleSelection table: self ] ifFalse: [ FTCellMultipleSelection table: self ]
 ]
 
 { #category : #accessing }
@@ -229,9 +227,14 @@ FTTableMorph >> beResizableRows [
 	self allowNonUniformRowsHeights: self class defaultRowsHeightsUniform
 ]
 
+{ #category : #accessing }
+FTTableMorph >> beRowSelection [
+	self selectionModeStrategy: (FTRowSelectionModeStrategy table: self)
+]
+
 { #category : #'as yet unclassified' }
 FTTableMorph >> beRowSelectionMode [
-	self selectionMode: #row.
+	self beRowSelection.
 	self selectionStrategy ifNotNil: [ 
 		self isMultipleSelection 
 	   ifTrue:[selectionStrategy := FTMultipleSelection table: self]
@@ -241,9 +244,7 @@ FTTableMorph >> beRowSelectionMode [
 
 { #category : #'multi-selection' }
 FTTableMorph >> beSingleSelection [
-	selectionMode == #row
-	ifTrue: [selectionStrategy := FTSimpleSelection table: self]
-	ifFalse: [selectionStrategy := FTCellSimpleSelection table: self]
+	selectionStrategy := self selectionMode = #row ifTrue: [ FTSimpleSelection table: self ] ifFalse: [ FTCellSimpleSelection table: self ]
 ]
 
 { #category : #'event handling' }
@@ -368,12 +369,8 @@ FTTableMorph >> drawSubmorphsOn: aCanvas [
 
 { #category : #'as yet unclassified' }
 FTTableMorph >> enableCellSelectionMode [
-	selectionMode := #column.
-	self selectionStrategy ifNotNil: [ 
-		self isMultipleSelection 
-	   ifTrue:[selectionStrategy := FTCellMultipleSelection table: self]
-		ifFalse:[selectionStrategy := FTCellSimpleSelection table: self]
-	 ]
+	self beCellSelection.
+	self selectionStrategy ifNotNil: [ selectionStrategy := self isMultipleSelection ifTrue: [ FTCellMultipleSelection table: self ] ifFalse: [ FTCellSimpleSelection table: self ] ]
 ]
 
 { #category : #accessing }
@@ -413,12 +410,8 @@ FTTableMorph >> enableNonUniformRowsHeights [
 
 { #category : #'as yet unclassified' }
 FTTableMorph >> enableRowSelectionMode [
-	selectionMode := #row.
-	self selectionStrategy ifNotNil: [ 
-		self isMultipleSelection 
-	   ifTrue:[selectionStrategy := FTMultipleSelection table: self]
-		ifFalse:[selectionStrategy := FTSimpleSelection table: self]
-	 ]
+	self beRowSelection.
+	self selectionStrategy ifNotNil: [ selectionStrategy := self isMultipleSelection ifTrue: [ FTMultipleSelection table: self ] ifFalse: [ FTSimpleSelection table: self ] ]
 ]
 
 { #category : #accessing }
@@ -605,15 +598,13 @@ FTTableMorph >> horizontalScrollBarValue: aNumber [
 ]
 
 { #category : #initialization }
-FTTableMorph >> initialize [ 
+FTTableMorph >> initialize [
 	super initialize.
 	showIndex := 0.
 	showColumnHeaders := true.
-	selectedIndexes := #().
-	highlightedIndexes := #().
 	columns := #().
 	needToggleAtMouseUp := false.
-	selectionMode := self class defaultSelectionMode.
+	self beRowSelection.
 	self beNotResizable.
 	self beNotResizableRows.
 	self beSingleSelection.
@@ -621,7 +612,7 @@ FTTableMorph >> initialize [
 	self initializeScrollBars.
 	self initializeContainer.
 	self initializeKeyBindings.
-	
+
 	self resizeAllSubviews
 ]
 
@@ -649,12 +640,12 @@ FTTableMorph >> initializeKeyBindings [
 		toAction: [ :target :morph :event | self keyStrokeArrowRight: event ].
 	self 
 		bindKeyCombination: Character home asKeyCombination
-		toAction: [ selectionMode==#row
+		toAction: [ self selectionMode =#row
 			ifTrue:[self selectIndex: 1 ]
 			ifFalse:[self selectIndex: #(1 1)]].
 	self 
 		bindKeyCombination: Character end asKeyCombination
-		toAction: [selectionMode==#row
+		toAction: [ self selectionMode =#row
 			 ifTrue:[self selectIndex: self numberOfRows]
 			ifFalse:[self selectIndex: (Array with:self numberOfRows with: self numberOfColumns)]].
 	self 
@@ -682,6 +673,12 @@ FTTableMorph >> initializeScrollBars [
 			yourself.
 		self addMorph: horizontalScrollBar
 		].
+]
+
+{ #category : #initialization }
+FTTableMorph >> initializeSelectedIndexes [
+	selectedIndexes := #().
+	highlightedIndexes := #()
 ]
 
 { #category : #initialization }
@@ -851,7 +848,7 @@ FTTableMorph >> keyStrokeEdit: event [
 "the keystoke edit is triggered by Ctrl+e, and it simply fires the StrongSelection Announcement, the announcement should be
 handled when setting up the table "		
 	| index|
-	selectionMode == #row
+	self selectionMode = #row
 	ifTrue:[index := self selectedRowIndex  .
 	index ifNotNil: [ 
 		self doAnnounce: (FTStrongSelectionChanged rowIndex: index event: event) ]]
@@ -1315,21 +1312,25 @@ FTTableMorph >> selectionColor: aColor [
 ]
 
 { #category : #accessing }
-FTTableMorph >> selectionMode [ 
-"row or column selection mode"
-	^selectionMode ifNil: [ selectionMode  := self class defaultSelectionMode ]
-
-
+FTTableMorph >> selectionMode [
+	"row or column selection mode"
+	self flag: #toKill.
+	^ self selectionModeStrategy class symbol
 ]
 
 { #category : #accessing }
-FTTableMorph >> selectionMode: aString [ 
-"row or column selection mode"
-	(aString == #row or:aString == #column )
-	ifTrue:[selectionMode := aString.
-		self isMultipleSelection 
-		ifTrue:[self beMultipleSelection ] "the selection strategy needs to updated based on the selection mode"
-		ifFalse:[self beSingleSelection ]]
+FTTableMorph >> selectionModeStrategy [
+	^ selectionModeStrategy
+		ifNil: [ self beRowSelection.
+			selectionModeStrategy ]
+]
+
+{ #category : #accessing }
+FTTableMorph >> selectionModeStrategy: aStrategy [
+	(selectionModeStrategy = aStrategy) ifTrue: [ ^ self ].
+
+	selectionModeStrategy := aStrategy.
+	self initializeSelectedIndexes
 ]
 
 { #category : #private }

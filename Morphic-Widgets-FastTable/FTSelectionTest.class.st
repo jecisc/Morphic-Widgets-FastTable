@@ -13,15 +13,15 @@ Class {
 { #category : #initialization }
 FTSelectionTest >> setUp [
 	table := FTTableMorph new
-		extent: 500@500;
+		extent: 500 @ 500;
 		addColumn: (FTColumn id: 'column1');
 		addColumn: (FTColumn id: 'column2');
-		addColumn: (FTColumn id: 'column3');		
-		addColumn: (FTColumn id: 'column4');		
-		dataSource: (FTSampleDataSource new:10);
-		selectRowIndex: 1;
-		showFirstRowSelection;	
-		yourself.
+		addColumn: (FTColumn id: 'column3');
+		addColumn: (FTColumn id: 'column4');
+		dataSource: (FTSampleDataSource new: 10);
+		selectIndex: 1;
+		showFirstSelection;
+		yourself
 ]
 
 { #category : #initialization }
@@ -55,18 +55,20 @@ FTSelectionTest >> testMultipleCellSelection [
 
 { #category : #tests }
 FTSelectionTest >> testMultipleRowSelection [
-"Test whether selecting multiple rows really add the rows indexes to the selected rows collection in the table "
-	|rowsCount rand rows|
+	"Test whether selecting multiple rows really add the rows indexes to the selected rows collection in the table "
+
+	| rowsCount rand rows |
 	table enableRowSelectionMode.
 	table beMultipleSelection.
 	rowsCount := table dataSource elements size.
 	rand := Random new.
-	rows := Array 	with:(rand nextInt: rowsCount)
-	 					with:(rand nextInt: rowsCount)
-	 					with:(rand nextInt: rowsCount)
-	 					with:(rand nextInt: rowsCount).
-	table selectRowIndexes: rows.  
-	self assert: table selectedRowIndexes size > 1.
+	rows := Array
+		with: (rand nextInt: rowsCount)
+		with: (rand nextInt: rowsCount)
+		with: (rand nextInt: rowsCount)
+		with: (rand nextInt: rowsCount).
+	table selectIndexes: rows.
+	self assert: table selectedIndexes size > 1
 ]
 
 { #category : #tests }
@@ -90,13 +92,14 @@ FTSelectionTest >> testSingleCellSelection [
 
 { #category : #tests }
 FTSelectionTest >> testSingleRowSelection [
-"Test whether selecting a single row really add the row index to the selected rows collection in the table "
-	|rowsCount rand row|
+	"Test whether selecting a single row really add the row index to the selected rows collection in the table "
+
+	| rowsCount rand row |
 	table enableRowSelectionMode.
 	table beSingleSelection.
 	rowsCount := table dataSource elements size.
 	rand := Random new.
-	row := (rand nextInt: rowsCount).
-	table selectRowIndex: row.  
-	self assert: table selectedRowIndex = row.
+	row := rand nextInt: rowsCount.
+	table selectIndex: row.
+	self assert: table selectedIndex = row
 ]

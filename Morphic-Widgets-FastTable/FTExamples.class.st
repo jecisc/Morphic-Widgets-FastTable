@@ -46,7 +46,7 @@ FTExamples class >> exampleCheckboxesView [
 	dataSource := FTCellSampleArchitectureDataSource new.
 	table := FTTableMorph new
 		extent: 500 @ 500;
-		selectionMode: #column;
+		beCellSelection;
 		addColumn: (FTColumn id: 'distribution');
 		addColumn: (FTColumn id: 'x86');
 		addColumn: (FTColumn id: 'x8664');
@@ -518,7 +518,7 @@ FTExamples class >> examplePersonsInfo [
 dataSource :=FTCellSamplePersonDataSource  new:10.
 table := FTTableMorph new
 		extent: 500@500;
-		selectionMode: #column;
+		beCellSelection;
 		addColumn: (FTColumn id: 'name');
 		addColumn: (FTColumn id: 'dateOfBirth');
 		addColumn: (FTColumn id: 'gender');				
@@ -647,7 +647,7 @@ FTExamples class >> exampleTable5 [
 	ds := FTExampleMethodTableDataSource for: Object.
 	table := FTTableMorph new
 		extent: 650 @ 500;
-		selectionMode: #column;
+		beCellSelection;
 		addColumn: (FTColumn id: 'Name');
 		addColumn: (FTColumn id: 'Protocol');
 		addColumn: (FTColumn id: 'Origin');
@@ -671,7 +671,7 @@ FTExamples class >> exampleTable6 [
 	ds := FTCellSampleDataSource new: 10.
 	table := FTTableMorph new
 		extent: 500 @ 500;
-		selectionMode: #column;
+		beCellSelection;
 		addColumn: (FTColumn id: 'column1');
 		addColumn: (FTColumn id: 'column2');
 		addColumn: (FTColumn id: 'column3');
@@ -779,7 +779,7 @@ FTExamples class >> exampleTable9 [
 		yourself.
 	table2 := FTTableMorph new
 		extent: 500 @ 500;
-		selectionMode: #column;
+		beCellSelection;
 		addColumn: (FTColumn id: 'column1');
 		addColumn: (FTColumn id: 'column2');
 		addColumn: (FTColumn id: 'column3');
