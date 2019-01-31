@@ -652,7 +652,7 @@ FTExamples class >> exampleTable5 [
 		addColumn: (FTColumn id: 'Protocol');
 		addColumn: (FTColumn id: 'Origin');
 		dataSource: ds;
-		selectIndex: 1;
+		selectIndex: #(1 1);
 		beMultipleSelection;
 		showFirstSelection;
 		yourself.

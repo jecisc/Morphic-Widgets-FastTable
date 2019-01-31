@@ -38,7 +38,6 @@ FTTableRowMorph >> initialize [
 { #category : #initialization }
 FTTableRowMorph >> initializeTable: tableMorph [ 
 	self initialize.
-	table := tableMorph.
 	self 
 		cellInset: tableMorph intercellSpacing";
 		layoutInset: tableMorph intercellSpacing".

@@ -1314,7 +1314,8 @@ FTTableMorph >> selectionColor: aColor [
 { #category : #accessing }
 FTTableMorph >> selectionMode [
 	"row or column selection mode"
-	self flag: #toKill.
+
+	self toKill.
 	^ self selectionModeStrategy class symbol
 ]
 

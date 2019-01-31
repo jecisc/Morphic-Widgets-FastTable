@@ -8,3 +8,11 @@ Class {
 FTRowSelectionModeStrategy class >> symbol [
 	^ #row
 ]
+
+{ #category : #'as yet unclassified' }
+FTRowSelectionModeStrategy >> selectablesToHighlightFromRow: aFTRow at: aRowIndex withHighlightedIndexes: highligtedIndexes andPrimaryIndex: primarySelectionIndex [
+	| selectablesToColorMap |
+	selectablesToColorMap := Dictionary new.
+	(highligtedIndexes includes: aRowIndex) ifTrue: [ selectablesToColorMap at: aFTRow put: primarySelectionIndex = aRowIndex ].
+	^ selectablesToColorMap
+]

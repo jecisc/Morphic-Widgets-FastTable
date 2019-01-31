@@ -194,20 +194,16 @@ FTTableContainerMorph >> defaultColor [
 
 { #category : #drawing }
 FTTableContainerMorph >> drawOn: canvas [
-	| x y cellWidth cellHeight rowsToDisplay rowSubviews highligtedRowIndexes primarySelectionIndex |
+	| x y cellWidth cellHeight rowsToDisplay rowSubviews highligtedIndexes primarySelectionIndex |
 	super drawOn: canvas.
 	self canRefreshValues ifFalse: [ ^ self ].	"Nothing to update yet"
-
 
 	x := self left + self class rowLeftMargin.
 	y := self top.
 	cellWidth := self width - self class rowLeftMargin.
 	cellHeight := self table rowHeight rounded.
-	highligtedRowIndexes := self table selectedIndexes , self table highlightedIndexes.
-	
-
+	highligtedIndexes := self table selectedIndexes , self table highlightedIndexes.
 	primarySelectionIndex := self table selectedIndex.
-
 
 	"For some superweird reason, calling #calculateExposedRows here instead in #changed (where
 	 it should be called) is 10x faster. Since the whole purpose of this component is speed, for 
@@ -229,16 +225,13 @@ FTTableContainerMorph >> drawOn: canvas [
 			row bounds: (x @ y extent: cellWidth @ visibleHeight).
 			y := y + visibleHeight + self table intercellSpacing y.
 
-
 			rowSubviews add: row.
-			self table selectionMode == #column
-				ifTrue: [ | selectedCellIndexes |
-					selectedCellIndexes := self table selectedIndexes.
-					row submorphs
-						withIndexDo: [ :each :columnIndex | 
-							(selectedCellIndexes includes: (Array with: rowIndex with: columnIndex))
-								ifTrue: [ each selectionColor: (self table colorForSelection: (primarySelectionIndex first = rowIndex and: primarySelectionIndex second = columnIndex)) ] ] ]
-				ifFalse: [ (highligtedRowIndexes includes: rowIndex) ifTrue: [ row selectionColor: (self table colorForSelection: primarySelectionIndex = rowIndex) ] ] ].
+
+			(self table selectionModeStrategy
+				selectablesToHighlightFromRow: row
+				at: rowIndex
+				withHighlightedIndexes: highligtedIndexes
+				andPrimaryIndex: primarySelectionIndex) keysAndValuesDo: [ :morph :isPrimary | morph selectionColor: (self table colorForSelection: isPrimary) ] ].
 
 	"We should notify existing rows about deletion and new rows about insertion. 
 	It is required to correctly manage stepping animation of cells"
@@ -252,7 +245,6 @@ FTTableContainerMorph >> drawOn: canvas [
 
 	self table isResizable ifTrue: [ self addResizeSplitters ].
 	self table isRowResizable ifTrue: [ self addResizeRowSplitters ].
-
 
 	needsRefreshExposedRows := false
 ]

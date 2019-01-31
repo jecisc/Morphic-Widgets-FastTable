@@ -20,6 +20,11 @@ FTSelectionModeStrategy class >> table: aTable [
 		yourself
 ]
 
+{ #category : #adding }
+FTSelectionModeStrategy >> selectablesToHighlightFromRow: aFTRow at: aRowIndex withHighlightedIndexes: highligtedIndexes andPrimaryIndex: primarySelectionIndex [
+	^ self subclassResponsibility
+]
+
 { #category : #accessing }
 FTSelectionModeStrategy >> table [
 	^ table
