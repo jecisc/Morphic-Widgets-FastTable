@@ -42,7 +42,6 @@ Class {
 		'resizable',
 		'resizableRows',
 		'allowNonUniformRowsHeights',
-		'selectionMode',
 		'selectionModeStrategy',
 		'mouseMoveSelection',
 		'horizontalScrollBar',
@@ -190,19 +189,9 @@ FTTableMorph >> beCellSelection [
 	self selectionModeStrategy: (FTCellSelectionModeStrategy table: self)
 ]
 
-{ #category : #'as yet unclassified' }
-FTTableMorph >> beCellSelectionMode [
-	self beCellSelection.
-	self selectionStrategy ifNotNil: [ 
-		self isMultipleSelection 
-	   ifTrue:[selectionStrategy := FTCellMultipleSelection table: self]
-		ifFalse:[selectionStrategy := FTCellSimpleSelection table: self]
-	 ]
-]
-
 { #category : #accessing }
 FTTableMorph >> beMultipleSelection [
-	selectionStrategy := self selectionModeStrategy associatedMultipleSelection table: self
+	selectionStrategy := FTMultipleSelection table: self
 ]
 
 { #category : #accessing }
@@ -232,19 +221,9 @@ FTTableMorph >> beRowSelection [
 	self selectionModeStrategy: (FTRowSelectionModeStrategy table: self)
 ]
 
-{ #category : #'as yet unclassified' }
-FTTableMorph >> beRowSelectionMode [
-	self beRowSelection.
-	self selectionStrategy ifNotNil: [ 
-		self isMultipleSelection 
-	   ifTrue:[selectionStrategy := FTMultipleSelection table: self]
-		ifFalse:[selectionStrategy := FTSimpleSelection table: self]
-	 ]
-]
-
 { #category : #'multi-selection' }
 FTTableMorph >> beSingleSelection [
-	selectionStrategy := self selectionModeStrategy associatedSingleSelection table: self
+	selectionStrategy := FTSimpleSelection table: self
 ]
 
 { #category : #'event handling' }
@@ -367,12 +346,6 @@ FTTableMorph >> drawSubmorphsOn: aCanvas [
 
 ]
 
-{ #category : #'as yet unclassified' }
-FTTableMorph >> enableCellSelectionMode [
-	self beCellSelection.
-	self selectionStrategy ifNotNil: [ selectionStrategy := self isMultipleSelection ifTrue: [ FTCellMultipleSelection table: self ] ifFalse: [ FTCellSimpleSelection table: self ] ]
-]
-
 { #category : #accessing }
 FTTableMorph >> enableFilter [
 	"Enables filtering. Not compatible with the search."
@@ -406,12 +379,6 @@ FTTableMorph >> enableFilterWithAction: aBlock named: aString [
 { #category : #accessing }
 FTTableMorph >> enableNonUniformRowsHeights [
 	self allowNonUniformRowsHeights: true.
-]
-
-{ #category : #'as yet unclassified' }
-FTTableMorph >> enableRowSelectionMode [
-	self beRowSelection.
-	self selectionStrategy ifNotNil: [ selectionStrategy := self isMultipleSelection ifTrue: [ FTMultipleSelection table: self ] ifFalse: [ FTSimpleSelection table: self ] ]
 ]
 
 { #category : #accessing }
@@ -726,7 +693,7 @@ FTTableMorph >> isIndexVisible: anIndex [
 
 { #category : #testing }
 FTTableMorph >> isMultipleSelection [
-	^ selectionStrategy isMultiple
+	^ self selectionStrategy isMultiple
 ]
 
 { #category : #testing }
@@ -795,37 +762,31 @@ FTTableMorph >> keyStrokeArrowDown: event [
 		ifTrue: [ index := self selectedIndex.
 			index < self numberOfRows ifFalse: [ ^ self ].
 			self resetFunction.
-			self selectionStrategy selectRowIndex: index + 1 event: event ]
+			self selectIndex: index + 1 event: event ]
 		ifFalse: [ index := self selectedIndex.
 			index first < self numberOfRows ifFalse: [ ^ self ].
 			self resetFunction.
-			self selectionStrategy selectCellIndex: (Array with: index first + 1 with: index second) event: event ]
+			self selectIndex: (Array with: index first + 1 with: index second) event: event ]
 ]
 
 { #category : #'event handling' }
 FTTableMorph >> keyStrokeArrowLeft: event [
 	| cellIndex |
-   self selectionMode == #column
-	ifTrue:[
-	cellIndex := self selectedIndex.
-	cellIndex second > 1
-		ifFalse: [ ^ self ].
-	self resetFunction.
-
-	selectionStrategy selectCellIndex: (Array with:cellIndex first with:cellIndex second - 1) event: event]
+	self selectionMode == #column
+		ifTrue: [ cellIndex := self selectedIndex.
+			cellIndex second > 1 ifFalse: [ ^ self ].
+			self resetFunction.
+			self selectIndex: (Array with: cellIndex first with: cellIndex second - 1) event: event ]
 ]
 
 { #category : #'event handling' }
 FTTableMorph >> keyStrokeArrowRight: event [
 	| cellIndex |
-   self selectionMode == #column
-	ifTrue:[
-	cellIndex := self selectedIndex.
-	cellIndex second < self numberOfColumns
-		ifFalse: [ ^ self ].
-	self resetFunction.
-
-	selectionStrategy selectCellIndex: (Array with:cellIndex first with:cellIndex second + 1) event: event]
+	self selectionMode == #column
+		ifTrue: [ cellIndex := self selectedIndex.
+			cellIndex second < self numberOfColumns ifFalse: [ ^ self ].
+			self resetFunction.
+			self selectIndex: (Array with: cellIndex first with: cellIndex second + 1) event: event ]
 ]
 
 { #category : #'event handling' }
@@ -835,12 +796,11 @@ FTTableMorph >> keyStrokeArrowUp: event [
 		ifTrue: [ index := self selectedIndex.
 			index > 1 ifFalse: [ ^ self ].
 			self resetFunction.
-			selectionStrategy selectRowIndex: index - 1 event: event ]
+			self selectIndex: index - 1 event: event ]
 		ifFalse: [ index := self selectedIndex.
 			index first > 1 ifFalse: [ ^ self ].
 			self resetFunction.
-
-			selectionStrategy selectCellIndex: (Array with: index first - 1 with: index second) event: event ]
+			self selectIndex: (Array with: index first - 1 with: index second) event: event ]
 ]
 
 { #category : #operations }
@@ -897,13 +857,13 @@ FTTableMorph >> mouseDown: event [
 	rowIndex := self container rowIndexContainingPoint: event cursorPoint.
 	rowIndex isNil ifTrue:[^ self ].
 	(self selectedIndexes includes: rowIndex)
-		ifFalse: [ self selectRowIndex: rowIndex event: event ]
+		ifFalse: [ self selectIndex: rowIndex event: event ]
 		ifTrue: [ needToggleAtMouseUp := true ].	"If the cell is selected we let the mouse up toggle to avoid any problem with the drag and drop"]
 	ifFalse:[
 			cellIndex := self container rowAndColumnIndexContainingPoint: event cursorPoint.
 		   cellIndex first isNil ifTrue:[^ self ].
 			(self selectedIndexes includes: cellIndex)
-		ifFalse: [self selectCellIndex: cellIndex event: event ]
+		ifFalse: [self selectIndex: cellIndex event: event ]
 		ifTrue: [ needToggleAtMouseUp := true ].
 			].
 	self wantsKeyboardFocus
@@ -941,14 +901,14 @@ self mouseMoveSelection ifTrue: [  "select cell when the mouseDown moves"
 	rowI := self container rowIndexContainingPoint: event cursorPoint.
 	rowI isNil ifTrue:[^ self ].
 	(self selectedIndexes includes: rowI)
-		ifFalse: [ self selectRowIndex: rowI event: event ]
+		ifFalse: [ self selectIndex: rowI event: event ]
 		ifTrue: [ needToggleAtMouseUp := true ].	"If the cell is selected we let the mouse up toggle to avoid any problem with the drag and drop"]
 	ifFalse:[
 
 			cellI := self container rowAndColumnIndexContainingPoint: event cursorPoint.
 		   cellI first isNil ifTrue:[^ self ].
 			(self selectedIndexes includes: cellI)
-		ifFalse: [self selectionStrategy selectCellIndex: cellI event: event.]
+		ifFalse: [self selectIndex: cellI event: event.]
 		ifTrue: [ needToggleAtMouseUp := true ].
 			].	
 	 ].
@@ -994,10 +954,10 @@ FTTableMorph >> mouseUp: event [
 	self selectionMode == #row
 	ifTrue:[
 	index := self container rowIndexContainingPoint: event cursorPoint.
-	self selectRowIndex: index event: event]
+	self selectIndex: index event: event]
 	ifFalse:[
 	index := self container rowAndColumnIndexContainingPoint: event cursorPoint.
-	self selectCellIndex: index event: event].
+	self selectIndex: index event: event].
 	needToggleAtMouseUp := false.
 	
 ]
@@ -1220,16 +1180,16 @@ FTTableMorph >> selectAllRowIndexes [
 	^ self selectAllIndexes
 ]
 
-{ #category : #private }
-FTTableMorph >> selectCellIndex: cellIndex event: event [
-	cellIndex
-		ifNotNil: [ selectionStrategy selectCellIndex: cellIndex event: event ]
-		ifNil: [ self selectIndexes: #() ].
-]
-
 { #category : #'accessing selection' }
 FTTableMorph >> selectIndex: anArray [
 	self selectIndexes: {anArray}
+]
+
+{ #category : #private }
+FTTableMorph >> selectIndex: index event: event [
+	index
+		ifNotNil: [ self selectionStrategy selectIndex: index event: event ]
+		ifNil: [ self selectIndexes: #() ]
 ]
 
 { #category : #'accessing selection' }
@@ -1260,9 +1220,8 @@ FTTableMorph >> selectRowIndex: aNumber [
 
 { #category : #private }
 FTTableMorph >> selectRowIndex: rowIndex event: event [
-	rowIndex
-		ifNotNil: [ selectionStrategy selectRowIndex: rowIndex event: event ]
-		ifNil: [ self selectIndexes: #() ].
+	self deprecated: 'Use #selectIndex:event: instead' transformWith: '`@receiver selectRowIndex: `@statements1 event: `@statements2' -> '`@receiver selectIndex: `@statements1 event: `@statements2'.
+	self selectIndex: rowIndex event: event
 ]
 
 { #category : #'accessing selection' }

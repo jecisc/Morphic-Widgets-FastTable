@@ -10,17 +10,10 @@ FTRowSelectionModeStrategy class >> symbol [
 ]
 
 { #category : #accessing }
-FTRowSelectionModeStrategy >> associatedMultipleSelection [
-	"Because we should not have cell and row simple/multiple selections..."
-	self toKill.
-	^ FTMultipleSelection
-]
-
-{ #category : #accessing }
-FTRowSelectionModeStrategy >> associatedSingleSelection [
-	"Because we should not have cell and row simple/multiple selections..."
-	self toKill.
-	^ FTSimpleSelection
+FTRowSelectionModeStrategy >> indexesToSelectInMultipleSelectionFrom: firstIndex to: endIndex [
+	| step |
+	step := firstIndex <= endIndex ifTrue: [ 1 ] ifFalse: [ -1 ].
+	^ firstIndex to: endIndex by: step
 ]
 
 { #category : #adding }
@@ -28,7 +21,7 @@ FTRowSelectionModeStrategy >> isRowSelection [
 	^ true
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 FTRowSelectionModeStrategy >> nullIndex [ ^ 0
 ]
 
@@ -38,4 +31,9 @@ FTRowSelectionModeStrategy >> selectablesToHighlightFromRow: aFTRow at: aRowInde
 	selectablesToColorMap := Dictionary new.
 	(highligtedIndexes includes: aRowIndex) ifTrue: [ selectablesToColorMap at: aFTRow put: primarySelectionIndex = aRowIndex ].
 	^ selectablesToColorMap
+]
+
+{ #category : #accessing }
+FTRowSelectionModeStrategy >> selectedRowIndex [
+	^ self table selectedIndex
 ]

@@ -35,7 +35,7 @@ FTSelectionTest >> testMultipleCellSelection [
 
 	| columnsCount rowsCount rand cellsArray |
 	"enable cell's seletion mode and deselect all cells"
-	table enableCellSelectionMode.
+	table beCellSelection.
 	table beMultipleSelection.
 	table deselectAll.
 	"select a single cell randomly"
@@ -58,7 +58,7 @@ FTSelectionTest >> testMultipleRowSelection [
 	"Test whether selecting multiple rows really add the rows indexes to the selected rows collection in the table "
 
 	| rowsCount rand rows |
-	table enableRowSelectionMode.
+	table beRowSelection.
 	table beMultipleSelection.
 	rowsCount := table dataSource elements size.
 	rand := Random new.
@@ -76,7 +76,7 @@ FTSelectionTest >> testSingleCellSelection [
 	| columnsCount rowsCount rand cell |
 	"Test whether selecting a single cell really add the cell index to the selected cells collection in the table "
 	"enable cell's seletion mode and deselect all cells"
-	table enableCellSelectionMode.
+	table beCellSelection.
 	table beSingleSelection.
 	table deselectAll.
 	"select a single cell randomly"
@@ -95,7 +95,7 @@ FTSelectionTest >> testSingleRowSelection [
 	"Test whether selecting a single row really add the row index to the selected rows collection in the table "
 
 	| rowsCount rand row |
-	table enableRowSelectionMode.
+	table beRowSelection.
 	table beSingleSelection.
 	rowsCount := table dataSource elements size.
 	rand := Random new.

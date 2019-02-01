@@ -10,17 +10,11 @@ FTCellSelectionModeStrategy class >> symbol [
 ]
 
 { #category : #accessing }
-FTCellSelectionModeStrategy >> associatedMultipleSelection [
-	"Because we should not have cell and row simple/multiple selections..."
-	self toKill.
-	^ FTCellMultipleSelection
-]
-
-{ #category : #accessing }
-FTCellSelectionModeStrategy >> associatedSingleSelection [
-	"Because we should not have cell and row simple/multiple selections..."
-	self toKill.
-	^ FTCellSimpleSelection
+FTCellSelectionModeStrategy >> indexesToSelectInMultipleSelectionFrom: firstIndex to: endIndex [
+	| stepV stepH |
+	stepV := firstIndex first <= endIndex first ifTrue: [ 1 ] ifFalse: [ -1 ].
+	stepH := firstIndex second <= endIndex second ifTrue: [ 1 ] ifFalse: [ -1 ].
+	^ (firstIndex second to: endIndex second by: stepH) flatCollect: [ :v | (firstIndex first to: endIndex first by: stepV) collect: [ :h | {h . v} ] ]
 ]
 
 { #category : #testing }

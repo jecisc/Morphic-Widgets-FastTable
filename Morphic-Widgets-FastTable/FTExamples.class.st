@@ -703,7 +703,7 @@ FTExamples class >> exampleTable7 [
 	sampleDataSource :=FTCellSampleDataSource new:10.
 	table := FTTableMorph new
 		extent: 500@500;
-		enableCellSelectionMode;
+		beCellSelection;
 		addColumn: (FTColumn id: 'column1');    "editable FTLabelCellMorph"
 		addColumn: (FTColumn id: 'column2');    "non editable FTLabelCellMorph"
 		addColumn: (FTColumn id: 'column3');		"FTTextEditCellMorph"	
@@ -735,7 +735,7 @@ FTExamples class >> exampleTable8 [
 	| table |
 	table := FTTableMorph new
 		extent: 650 @ 500;
-		enableCellSelectionMode;
+		beCellSelection;
 		addColumn: ((FTColumn id: '#') width: 40);
 		addColumn: ((FTColumn id: 'Name') width: 350);
 		addColumn: (FTColumn id: 'Protocol');
@@ -764,7 +764,7 @@ FTExamples class >> exampleTable9 [
 
 	table1 := FTTableMorph new
 		extent: 500 @ 500;
-		enableCellSelectionMode;
+		beCellSelection;
 		addColumn: (FTColumn id: 'column1');
 		addColumn: (FTColumn id: 'column2');
 		addColumn: (FTColumn id: 'column3');

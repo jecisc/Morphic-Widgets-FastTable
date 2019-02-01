@@ -22,16 +22,9 @@ FTSelectionModeStrategy class >> table: aTable [
 ]
 
 { #category : #accessing }
-FTSelectionModeStrategy >> associatedMultipleSelection [
-	"Because we should not have cell and row simple/multiple selections..."
-	self toKill.
-	^ self subclassResponsibility
-]
+FTSelectionModeStrategy >> indexesToSelectInMultipleSelectionFrom: firstIndex to: endIndex [
+	"In case of multiple selection, I wust return the list of indexes to select when the user uses shift + click."
 
-{ #category : #accessing }
-FTSelectionModeStrategy >> associatedSingleSelection [
-	"Because we should not have cell and row simple/multiple selections..."
-	self toKill.
 	^ self subclassResponsibility
 ]
 
@@ -57,6 +50,7 @@ FTSelectionModeStrategy >> selectablesToHighlightFromRow: aFTRow at: aRowIndex w
 
 { #category : #accessing }
 FTSelectionModeStrategy >> selectedRowIndex [
+	self flag: #todo.	"Check this is used at the end"
 	^ self subclassResponsibility
 ]
 

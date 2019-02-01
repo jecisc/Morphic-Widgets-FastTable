@@ -12,21 +12,10 @@ Class {
 }
 
 { #category : #'instance creation' }
-FTSelectionStrategy class >> new [
-	self error: 'Use #table:'
-]
-
-{ #category : #'instance creation' }
 FTSelectionStrategy class >> table: aFastTableMorph [
-	^ self basicNew
-		initializeTable: aFastTableMorph;
+	^ self new
+		table: aFastTableMorph;
 		yourself
-]
-
-{ #category : #initialization }
-FTSelectionStrategy >> initializeTable: aTable [
-	table := aTable.
-	self initialize
 ]
 
 { #category : #testing }
@@ -40,8 +29,13 @@ FTSelectionStrategy >> isSimple [
 ]
 
 { #category : #accessing }
-FTSelectionStrategy >> selectRowIndex: rowIndex event: event [
+FTSelectionStrategy >> selectIndex: rowIndex event: event [
 	self subclassResponsibility
+]
+
+{ #category : #accessing }
+FTSelectionStrategy >> selectionModeStrategy [
+	^ self table selectionModeStrategy
 ]
 
 { #category : #accessing }
@@ -49,9 +43,14 @@ FTSelectionStrategy >> table [
 	^ table
 ]
 
+{ #category : #accessing }
+FTSelectionStrategy >> table: aTable [
+	table := aTable
+]
+
 { #category : #private }
-FTSelectionStrategy >> toggleRowIndex: rowIndex [
-	((self table selectedIndexes includes: rowIndex) and: [ self table selectedIndexes size = 1 and: [ self table allowsDeselection ]	"just one selected" ])
+FTSelectionStrategy >> toggleIndex: index [
+	((self table selectedIndexes includes: index) and: [ self table selectedIndexes size = 1 and: [ self table allowsDeselection ]	"just one selected" ])
 		ifTrue: [ self table selectIndexes: #() ]
-		ifFalse: [ self table selectIndex: rowIndex ]
+		ifFalse: [ self table selectIndex: index ]
 ]
