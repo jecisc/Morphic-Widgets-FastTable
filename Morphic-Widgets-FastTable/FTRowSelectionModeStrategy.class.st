@@ -50,6 +50,11 @@ FTRowSelectionModeStrategy >> nullIndex [ ^ 0
 ]
 
 { #category : #accessing }
+FTRowSelectionModeStrategy >> rowIndexFrom: anIndex [
+	^ anIndex
+]
+
+{ #category : #accessing }
 FTRowSelectionModeStrategy >> selectableIndexAbove: anIndex [
 	^ anIndex - 1
 ]
@@ -79,9 +84,4 @@ FTRowSelectionModeStrategy >> selectablesToHighlightFromRow: aFTRow at: aRowInde
 	selectablesToColorMap := Dictionary new.
 	(highligtedIndexes includes: aRowIndex) ifTrue: [ selectablesToColorMap at: aFTRow put: primarySelectionIndex = aRowIndex ].
 	^ selectablesToColorMap
-]
-
-{ #category : #accessing }
-FTRowSelectionModeStrategy >> selectedRowIndex [
-	^ self table selectedIndex
 ]

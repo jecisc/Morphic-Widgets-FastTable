@@ -48,6 +48,11 @@ FTCellSelectionModeStrategy >> nullIndex [
 ]
 
 { #category : #accessing }
+FTCellSelectionModeStrategy >> rowIndexFrom: anIndex [
+	^ anIndex first
+]
+
+{ #category : #accessing }
 FTCellSelectionModeStrategy >> selectableIndexAbove: anIndex [
 	^ {(anIndex first - 1) . anIndex second}
 ]
@@ -77,9 +82,4 @@ FTCellSelectionModeStrategy >> selectablesToHighlightFromRow: aFTRow at: aRowInd
 			| cellIndex |
 			(highligtedIndexes includes: (cellIndex := {aRowIndex . columnIndex})) ifTrue: [ selectablesToColorMap at: each put: primarySelectionIndex = cellIndex ] ].
 	^ selectablesToColorMap
-]
-
-{ #category : #accessing }
-FTCellSelectionModeStrategy >> selectedRowIndex [
-	^ self table selectedIndex first
 ]

@@ -396,17 +396,10 @@ FTTableMorph >> ensureAtLeastOneColumn [
 
 { #category : #private }
 FTTableMorph >> ensureVisibleFirstSelection [
-	self hasSelection ifFalse: [ ^ self ].
+	| rowIndex |
+	(self hasSelection not or: [ self container isRowIndexFullyVisible: (rowIndex := self selectionModeStrategy selectedRowIndex) ]) ifTrue: [ ^ self ].
 
-	self selectionMode = #row
-		ifTrue: [ | rowIndex |
-			rowIndex := self selectedIndex.
-			(self container isRowIndexFullyVisible: rowIndex)
-				ifFalse: [ rowIndex < self showIndex ifTrue: [ self moveShowIndexTo: rowIndex ] ifFalse: [ self moveShowIndexTo: rowIndex - self container calculateMinVisibleRows + 1 ] ] ]
-		ifFalse: [ | cellIndex |
-			cellIndex := self selectedIndex.
-			(self container isRowIndexFullyVisible: cellIndex first)
-				ifFalse: [ cellIndex first < self showIndex ifTrue: [ self moveShowIndexTo: cellIndex first ] ifFalse: [ self moveShowIndexTo: cellIndex first - self container calculateMinVisibleRows + 1 ] ] ]
+	rowIndex < self showIndex ifTrue: [ self moveShowIndexTo: rowIndex ] ifFalse: [ self moveShowIndexTo: rowIndex - self container calculateMinVisibleRows + 1 ]
 ]
 
 { #category : #accessing }
@@ -968,7 +961,7 @@ FTTableMorph >> moveShowIndexTo: arg [
 	 Use me just in case you need to force a refresh after settign the index"
 
 	| index |
-	index := self selectionMode = #row ifTrue: [ arg ] ifFalse: [ arg first ].
+	index := self selectionModeStrategy rowIndexFrom: arg.
 	self basicMoveShowIndexTo: index.
 	self verticalScrollBar value: (self rowIndexToVerticalScrollBarValue: index).
 	self refresh

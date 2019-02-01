@@ -64,6 +64,11 @@ FTSelectionModeStrategy >> nullIndex [
 ]
 
 { #category : #accessing }
+FTSelectionModeStrategy >> rowIndexFrom: anIndex [
+	^ self subclassResponsibility
+]
+
+{ #category : #accessing }
 FTSelectionModeStrategy >> selectableIndexAbove: anIndex [
 	^ self subclassResponsibility
 ]
@@ -91,7 +96,7 @@ FTSelectionModeStrategy >> selectablesToHighlightFromRow: aFTRow at: aRowIndex w
 { #category : #accessing }
 FTSelectionModeStrategy >> selectedRowIndex [
 	self flag: #todo.	"Check this is used at the end"
-	^ self subclassResponsibility
+	^ self rowIndexFrom: self table selectedIndex
 ]
 
 { #category : #accessing }
