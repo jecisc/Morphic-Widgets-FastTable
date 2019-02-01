@@ -324,7 +324,7 @@ FTTableMorph >> doubleClick: event [
 		ifTrue: [ index := self container rowIndexContainingPoint: event cursorPoint.
 			index ifNotNil: [ self doAnnounce: (FTStrongSelectionChanged index: index event: event) ] ]
 		ifFalse: [ index := self container rowAndColumnIndexContainingPoint: event cursorPoint.
-			index ifNotNil: [ self doAnnounce: (FTCellStrongSelectionChanged index: index event: event) ] ]
+			index ifNotNil: [ self doAnnounce: (FTStrongSelectionChanged index: index event: event) ] ]
 ]
 
 { #category : #drawing }
@@ -765,7 +765,7 @@ handled when setting up the table "
 	ifFalse:[index := self selectedIndex .
 	index ifNotNil:  [ 
 		index first ifNotNil: [  
-		self doAnnounce: (FTCellStrongSelectionChanged cellIndex: index event: event) ]]].
+		self doAnnounce: (FTStrongSelectionChanged cellIndex: index event: event) ]]].
 				
 				
 ]

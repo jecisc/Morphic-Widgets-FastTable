@@ -527,7 +527,7 @@ FTExamples class >> examplePersonsInfo [
 		selectFirst;
 		showFirstRowSelection;
 		beSingleSelection;
-		onAnnouncement: FTCellStrongSelectionChanged
+		onAnnouncement: FTStrongSelectionChanged
 			do: [ :ann | 
 			| index ep |
 			index := ann selectedIndex.
@@ -684,7 +684,7 @@ FTExamples class >> exampleTable6 [
 		showFirstSelection;
 		beMultipleSelection;
 		onAnnouncement: FTSelectionChanged do: [ :ann | ('rows selected: ' , ann newSelectedIndexes asString) crLog ];
-		onAnnouncement: FTCellStrongSelectionChanged
+		onAnnouncement: FTStrongSelectionChanged
 			do: [ :ann | 
 			| index ep |
 			index := ann selectedIndex.
@@ -720,7 +720,7 @@ FTExamples class >> exampleTable7 [
 		beMultipleSelection;
 		onAnnouncement: FTSelectionChanged 
 			do: [ :ann | ('rows selected: ', (ann newSelectedIndexes asString)) crLog ];
-		onAnnouncement: FTCellStrongSelectionChanged 
+		onAnnouncement: FTStrongSelectionChanged 
 			do: [ :ann | |index ep|
 				index := ann selectedIndex.	
 				ep := EditingProvider dateSource: sampleDataSource. ep addCellEditingEvents:index.
