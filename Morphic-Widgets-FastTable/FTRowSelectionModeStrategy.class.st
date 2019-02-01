@@ -54,6 +54,21 @@ FTRowSelectionModeStrategy >> rowIndexFrom: anIndex [
 	^ anIndex
 ]
 
+{ #category : #'accessing selection' }
+FTRowSelectionModeStrategy >> selectAll [
+	self table selectIndexes: (1 to: self table numberOfRows) asArray
+]
+
+{ #category : #'accessing selection' }
+FTRowSelectionModeStrategy >> selectFirst [
+	self table selectIndex: 1
+]
+
+{ #category : #'accessing selection' }
+FTRowSelectionModeStrategy >> selectLast [
+	self table selectIndex: self table numberOfRows
+]
+
 { #category : #accessing }
 FTRowSelectionModeStrategy >> selectableIndexAbove: anIndex [
 	^ anIndex - 1

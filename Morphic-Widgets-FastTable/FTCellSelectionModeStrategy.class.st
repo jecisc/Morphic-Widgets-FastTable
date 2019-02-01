@@ -52,6 +52,21 @@ FTCellSelectionModeStrategy >> rowIndexFrom: anIndex [
 	^ anIndex first
 ]
 
+{ #category : #'accessing selection' }
+FTCellSelectionModeStrategy >> selectAll [
+	self table selectIndexes: ((1 to: self table numberOfRows) flatCollect: [ :rowIndex | (1 to: self table numberOfColumns) collect: [ :columnIndex | {rowIndex . columnIndex} ] ]) asArray
+]
+
+{ #category : #'accessing selection' }
+FTCellSelectionModeStrategy >> selectFirst [
+	self table selectIndex: #(1 1)
+]
+
+{ #category : #'accessing selection' }
+FTCellSelectionModeStrategy >> selectLast [
+	self table selectIndex: {self table numberOfRows . self table numberOfColumns}
+]
+
 { #category : #accessing }
 FTCellSelectionModeStrategy >> selectableIndexAbove: anIndex [
 	^ {(anIndex first - 1) . anIndex second}

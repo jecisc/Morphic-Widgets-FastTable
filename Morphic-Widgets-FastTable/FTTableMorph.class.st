@@ -322,7 +322,7 @@ FTTableMorph >> disableFunction [
 { #category : #'event handling' }
 FTTableMorph >> doubleClick: event [
 	| index|
-	self isRowSelectionMode 
+	(self selectionMode = #row)
 	ifTrue:[
 		index := self container rowIndexContainingPoint: event cursorPoint.
 		index ifNotNil: [ 
@@ -600,17 +600,13 @@ FTTableMorph >> initializeKeyBindings [
 		toAction: [ :target :morph :event | self keyStrokeArrowRight: event ].
 	self 
 		bindKeyCombination: Character home asKeyCombination
-		toAction: [ self selectionMode =#row
-			ifTrue:[self selectIndex: 1 ]
-			ifFalse:[self selectIndex: #(1 1)]].
+		toAction: [ self selectFirst ].
 	self 
 		bindKeyCombination: Character end asKeyCombination
-		toAction: [ self selectionMode =#row
-			 ifTrue:[self selectIndex: self numberOfRows]
-			ifFalse:[self selectIndex: (Array with:self numberOfRows with: self numberOfColumns)]].
+		toAction: [ self selectLast ].
 	self 
 		bindKeyCombination: PharoShortcuts current selectAllShortcut
-		toAction: [ self selectAllIndexes].
+		toAction: [ self selectAll ].
 	self 
 		bindKeyCombination:  PlatformSpecificKeyCombination  edit     "editing works only on cell selection mode"
 		toAction: [ :target :morph :event |self keyStrokeEdit: event ].
@@ -660,11 +656,6 @@ FTTableMorph >> intercellSpacing: aNumberOrPoint [
 	intercellSpacing := aNumberOrPoint asPoint 
 ]
 
-{ #category : #testing }
-FTTableMorph >> isCellSelectionMode [
-	^ (self selectionMode = #column)
-]
-
 { #category : #private }
 FTTableMorph >> isHorizontalScrollBarVisible [
 	^trialHSB 
@@ -709,11 +700,6 @@ FTTableMorph >> isRowIndexVisible: rowIndex [
 { #category : #testing }
 FTTableMorph >> isRowResizable [
 	^ resizableRows 
-]
-
-{ #category : #testing }
-FTTableMorph >> isRowSelectionMode [
-	^ (self selectionMode = #row)
 ]
 
 { #category : #testing }
@@ -869,7 +855,7 @@ FTTableMorph >> mouseMove: event [
 "selection manupuLation"
 self mouseMoveSelection ifTrue: [  "select cell when the mouseDown moves"
 	
-	self isRowSelectionMode
+	(self selectionMode = #row)
 	ifTrue:[
 	rowI := self container rowIndexContainingPoint: event cursorPoint.
 	rowI isNil ifTrue:[^ self ].
@@ -1137,20 +1123,19 @@ FTTableMorph >> secondarySelectionColor: aColor [
 ]
 
 { #category : #'accessing selection' }
-FTTableMorph >> selectAllIndexes [
-	self isMultipleSelection ifFalse: [ ^ self ].
-	self selectionMode = #row
-		ifTrue: [ self selectIndexes: (1 to: self numberOfRows) asArray ]
-		ifFalse: [ | cellIndexes |
-			cellIndexes := OrderedCollection new.
-			1 to: self numberOfRows do: [ :c | 1 to: self numberOfColumns do: [ :r | cellIndexes add: (Array with: c with: r) ] ].
-			self selectIndexes: cellIndexes asArray ]
+FTTableMorph >> selectAll [
+	self selectionStrategy selectAll
 ]
 
 { #category : #'accessing selection' }
 FTTableMorph >> selectAllRowIndexes [
-	self deprecated: 'Use #selectAllIndexes instead' transformWith: '`@receiver selectAllRowIndexes' -> '`@receiver selectAllIndexes'.
-	^ self selectAllIndexes
+	self deprecated: 'Use #selectAll instead' transformWith: '`@receiver selectAllRowIndexes' -> '`@receiver selectAll'.
+	^ self selectAll
+]
+
+{ #category : #'accessing selection' }
+FTTableMorph >> selectFirst [
+	self selectionStrategy selectFirst
 ]
 
 { #category : #'accessing selection' }
@@ -1183,6 +1168,11 @@ FTTableMorph >> selectIndexes: anArray andMakeVisibleIf: shouldEnsureVisibleSele
 			((FTSelectionChanged from: oldSelectedIndexes to: selectedIndexes)
 				fastTable: self;
 				yourself)
+]
+
+{ #category : #'accessing selection' }
+FTTableMorph >> selectLast [
+	self selectionStrategy selectLast
 ]
 
 { #category : #'accessing selection' }

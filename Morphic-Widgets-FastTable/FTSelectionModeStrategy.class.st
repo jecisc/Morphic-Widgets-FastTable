@@ -68,6 +68,21 @@ FTSelectionModeStrategy >> rowIndexFrom: anIndex [
 	^ self subclassResponsibility
 ]
 
+{ #category : #'accessing selection' }
+FTSelectionModeStrategy >> selectAll [
+	self subclassResponsibility
+]
+
+{ #category : #'accessing selection' }
+FTSelectionModeStrategy >> selectFirst [
+	self subclassResponsibility
+]
+
+{ #category : #'accessing selection' }
+FTSelectionModeStrategy >> selectLast [
+	self subclassResponsibility
+]
+
 { #category : #accessing }
 FTSelectionModeStrategy >> selectableIndexAbove: anIndex [
 	^ self subclassResponsibility
