@@ -10,10 +10,12 @@ Class {
 
 { #category : #testing }
 FTCellSimpleSelection >> isMultiple [
+	self toKill.
 	^ false
 ]
 
 { #category : #accessing }
 FTCellSimpleSelection >> selectCellIndex: cellIndex event: event [
+	self toKill.
 	self toggleCellIndex: cellIndex
 ]

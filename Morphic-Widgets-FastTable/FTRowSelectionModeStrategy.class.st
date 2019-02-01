@@ -28,6 +28,10 @@ FTRowSelectionModeStrategy >> isRowSelection [
 	^ true
 ]
 
+{ #category : #'as yet unclassified' }
+FTRowSelectionModeStrategy >> nullIndex [ ^ 0
+]
+
 { #category : #adding }
 FTRowSelectionModeStrategy >> selectablesToHighlightFromRow: aFTRow at: aRowIndex withHighlightedIndexes: highligtedIndexes andPrimaryIndex: primarySelectionIndex [
 	| selectablesToColorMap |

@@ -1281,7 +1281,7 @@ FTTableMorph >> selectRowIndexes: anArray andMakeVisibleIf: shouldEnsureVisibleS
 
 { #category : #'accessing selection' }
 FTTableMorph >> selectedIndex [
-	^ self selectedIndexes ifNotEmpty: #first ifEmpty: [ 0 ]
+	^ self selectedIndexes ifNotEmpty: #first ifEmpty: [ self selectionModeStrategy nullIndex ]
 ]
 
 { #category : #'accessing selection' }

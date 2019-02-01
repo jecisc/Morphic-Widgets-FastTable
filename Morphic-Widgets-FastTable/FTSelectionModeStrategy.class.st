@@ -45,8 +45,18 @@ FTSelectionModeStrategy >> isRowSelection [
 	^ false
 ]
 
+{ #category : #accessing }
+FTSelectionModeStrategy >> nullIndex [
+	^ self subclassResponsibility
+]
+
 { #category : #adding }
 FTSelectionModeStrategy >> selectablesToHighlightFromRow: aFTRow at: aRowIndex withHighlightedIndexes: highligtedIndexes andPrimaryIndex: primarySelectionIndex [
+	^ self subclassResponsibility
+]
+
+{ #category : #accessing }
+FTSelectionModeStrategy >> selectedRowIndex [
 	^ self subclassResponsibility
 ]
 

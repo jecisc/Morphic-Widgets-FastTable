@@ -11,45 +11,45 @@ Class {
 }
 
 { #category : #'instance creation' }
-FTCellSelectionStrategy class >> new [
-	self error: 'Use #table:'
-]
-
-{ #category : #'instance creation' }
 FTCellSelectionStrategy class >> table: aFastTableMorph [
-	^ self basicNew
-		initializeTable: aFastTableMorph;
+	^ self new
+		table: aFastTableMorph;
 		yourself
-]
-
-{ #category : #initialization }
-FTCellSelectionStrategy >> initializeTable: aTable [
-	table := aTable.
-	self initialize
 ]
 
 { #category : #testing }
 FTCellSelectionStrategy >> isMultiple [
+	self toKill.
 	^ self subclassResponsibility
 ]
 
 { #category : #testing }
 FTCellSelectionStrategy >> isSimple [
+	self toKill.
 	^ self isMultiple not
 ]
 
 { #category : #accessing }
 FTCellSelectionStrategy >> selectCellIndex: cellIndex event: event [
+	self toKill.
 	self subclassResponsibility
 ]
 
 { #category : #accessing }
 FTCellSelectionStrategy >> table [
+	self toKill.
 	^ table
+]
+
+{ #category : #accessing }
+FTCellSelectionStrategy >> table: aTable [
+	self toKill.
+	table := aTable
 ]
 
 { #category : #private }
 FTCellSelectionStrategy >> toggleCellIndex: cellIndex [
+	self toKill.
 	((self table selectedIndexes includes: cellIndex) and: [ self table selectedIndexes size = 1 and: [ self table allowsDeselection ]	"just one selected" ])
 		ifTrue: [ self table selectIndexes: #() ]
 		ifFalse: [ self table selectIndex: cellIndex ]

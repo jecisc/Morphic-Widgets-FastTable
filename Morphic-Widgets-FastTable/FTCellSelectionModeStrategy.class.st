@@ -13,19 +13,24 @@ FTCellSelectionModeStrategy class >> symbol [
 FTCellSelectionModeStrategy >> associatedMultipleSelection [
 	"Because we should not have cell and row simple/multiple selections..."
 	self toKill.
-	^ FTCellSimpleSelection
+	^ FTCellMultipleSelection
 ]
 
 { #category : #accessing }
 FTCellSelectionModeStrategy >> associatedSingleSelection [
 	"Because we should not have cell and row simple/multiple selections..."
 	self toKill.
-	^ FTCellMultipleSelection
+	^ FTCellSimpleSelection
 ]
 
 { #category : #testing }
 FTCellSelectionModeStrategy >> isCellSelection [
 	^ true
+]
+
+{ #category : #accessing }
+FTCellSelectionModeStrategy >> nullIndex [
+	^ #(0 0)
 ]
 
 { #category : #adding }
@@ -38,4 +43,9 @@ FTCellSelectionModeStrategy >> selectablesToHighlightFromRow: aFTRow at: aRowInd
 			| cellIndex |
 			(highligtedIndexes includes: (cellIndex := {aRowIndex . columnIndex})) ifTrue: [ selectablesToColorMap at: each put: primarySelectionIndex = cellIndex ] ].
 	^ selectablesToColorMap
+]
+
+{ #category : #accessing }
+FTCellSelectionModeStrategy >> selectedRowIndex [
+	^ self table selectedIndex first
 ]

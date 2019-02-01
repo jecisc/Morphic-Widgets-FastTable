@@ -10,12 +10,14 @@ Class {
 
 { #category : #testing }
 FTCellMultipleSelection >> isMultiple [
+	self toKill.
 	^ true
 ]
 
 { #category : #private }
 FTCellMultipleSelection >> selectAppendingCellIndex: cellIndex [
 	| currentSelection newSelection |
+	self toKill.
 	currentSelection := self table selectedIndexes.
 	
 	newSelection := (currentSelection includes: cellIndex)
@@ -27,18 +29,19 @@ FTCellMultipleSelection >> selectAppendingCellIndex: cellIndex [
 
 { #category : #accessing }
 FTCellMultipleSelection >> selectCellIndex: cellIndex event: event [
+	self toKill.
 	event shiftPressed ifTrue: [ ^ self selectCellIndexesUpTo: cellIndex ].
-	OSPlatform current isMacOS 
-	ifTrue:[event commandKeyPressed ifTrue: [^ self selectAppendingCellIndex: cellIndex  ]] 
-	ifFalse:[event controlKeyPressed ifTrue: [^ self selectAppendingCellIndex: cellIndex  ]].
-	self toggleCellIndex: cellIndex.
-
+	OSPlatform current isMacOS
+		ifTrue: [ event commandKeyPressed ifTrue: [ ^ self selectAppendingCellIndex: cellIndex ] ]
+		ifFalse: [ event controlKeyPressed ifTrue: [ ^ self selectAppendingCellIndex: cellIndex ] ].
+	self toggleCellIndex: cellIndex
 ]
 
 { #category : #private }
 FTCellMultipleSelection >> selectCellIndexes: cellIndex previous: oldSelection [
 	"Make sure the selected cell index is the first in selection range"
 
+	self toKill.
 	self table selectIndexes: (((oldSelection includes: cellIndex) ifTrue: [ oldSelection copyWithout: cellIndex ] ifFalse: [ oldSelection ]) copyWithFirst: cellIndex)
 ]
 
@@ -49,6 +52,7 @@ FTCellMultipleSelection >> selectCellIndexesUpTo: endIndex [
 	| oldSelected firstIndex stepV stepH tupleCollection|
 	"step vertical and step horizontal help create rectangular selections"
 
+	self toKill.
 	oldSelected := self table selectedIndexes.
 	firstIndex :=  oldSelected 
 		ifNotEmpty: [ oldSelected first ]
