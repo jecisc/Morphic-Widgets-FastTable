@@ -59,12 +59,12 @@ FTCellSelectionModeStrategy >> selectableIndexAbove: anIndex [
 
 { #category : #accessing }
 FTCellSelectionModeStrategy >> selectableIndexAfter: anIndex [
-	^ {anIndex second . (anIndex first + 1)}
+	^ {anIndex first . (anIndex second + 1)}
 ]
 
 { #category : #accessing }
 FTCellSelectionModeStrategy >> selectableIndexBefore: anIndex [
-	^ {anIndex second . (anIndex first - 1)}
+	^ {anIndex first . (anIndex second - 1)}
 ]
 
 { #category : #accessing }
