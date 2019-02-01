@@ -757,50 +757,30 @@ FTTableMorph >> keyStroke: event [
 
 { #category : #'event handling' }
 FTTableMorph >> keyStrokeArrowDown: event [
-	| index |
-	self selectionMode == #row
-		ifTrue: [ index := self selectedIndex.
-			index < self numberOfRows ifFalse: [ ^ self ].
-			self resetFunction.
-			self selectIndex: index + 1 event: event ]
-		ifFalse: [ index := self selectedIndex.
-			index first < self numberOfRows ifFalse: [ ^ self ].
-			self resetFunction.
-			self selectIndex: (Array with: index first + 1 with: index second) event: event ]
+	(self selectionModeStrategy is: self selectedIndex aboveRow: self numberOfRows) ifFalse: [ ^ self ].
+	self resetFunction.
+	self selectIndex: (self selectionModeStrategy selectableIndexBellow: self selectedIndex) event: event
 ]
 
 { #category : #'event handling' }
 FTTableMorph >> keyStrokeArrowLeft: event [
-	| cellIndex |
-	self selectionMode == #column
-		ifTrue: [ cellIndex := self selectedIndex.
-			cellIndex second > 1 ifFalse: [ ^ self ].
-			self resetFunction.
-			self selectIndex: (Array with: cellIndex first with: cellIndex second - 1) event: event ]
+	(self selectionModeStrategy is: self selectedIndex afterColumn: 1) ifFalse: [ ^ self ].
+	self resetFunction.
+	self selectIndex: (self selectionModeStrategy selectableIndexBefore: self selectedIndex) event: event
 ]
 
 { #category : #'event handling' }
 FTTableMorph >> keyStrokeArrowRight: event [
-	| cellIndex |
-	self selectionMode == #column
-		ifTrue: [ cellIndex := self selectedIndex.
-			cellIndex second < self numberOfColumns ifFalse: [ ^ self ].
-			self resetFunction.
-			self selectIndex: (Array with: cellIndex first with: cellIndex second + 1) event: event ]
+	(self selectionModeStrategy is: self selectedIndex beforeColumn: self numberOfColumns) ifFalse: [ ^ self ].
+	self resetFunction.
+	self selectIndex: (self selectionModeStrategy selectableIndexAfter: self selectedIndex) event: event
 ]
 
 { #category : #'event handling' }
 FTTableMorph >> keyStrokeArrowUp: event [
-	| index |
-	self selectionMode == #row
-		ifTrue: [ index := self selectedIndex.
-			index > 1 ifFalse: [ ^ self ].
-			self resetFunction.
-			self selectIndex: index - 1 event: event ]
-		ifFalse: [ index := self selectedIndex.
-			index first > 1 ifFalse: [ ^ self ].
-			self resetFunction.
-			self selectIndex: (Array with: index first - 1 with: index second) event: event ]
+	(self selectionModeStrategy is: self selectedIndex bellowRow: 1) ifFalse: [ ^ self ].
+	self resetFunction.
+	self selectIndex: (self selectionModeStrategy selectableIndexAbove: self selectedIndex) event: event
 ]
 
 { #category : #operations }

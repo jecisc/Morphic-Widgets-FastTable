@@ -18,6 +18,26 @@ FTCellSelectionModeStrategy >> indexesToSelectInMultipleSelectionFrom: firstInde
 ]
 
 { #category : #testing }
+FTCellSelectionModeStrategy >> is: anIndex aboveRow: aRowIndex [
+	^ anIndex first < aRowIndex
+]
+
+{ #category : #testing }
+FTCellSelectionModeStrategy >> is: anIndex afterColumn: aColumnIndex [
+	^ anIndex second > aColumnIndex 
+]
+
+{ #category : #testing }
+FTCellSelectionModeStrategy >> is: anIndex beforeColumn: aColumnIndex [
+	^ anIndex second < aColumnIndex 
+]
+
+{ #category : #testing }
+FTCellSelectionModeStrategy >> is: anIndex bellowRow: aRowIndex [
+	^ anIndex first > aRowIndex
+]
+
+{ #category : #testing }
 FTCellSelectionModeStrategy >> isCellSelection [
 	^ true
 ]
@@ -25,6 +45,26 @@ FTCellSelectionModeStrategy >> isCellSelection [
 { #category : #accessing }
 FTCellSelectionModeStrategy >> nullIndex [
 	^ #(0 0)
+]
+
+{ #category : #accessing }
+FTCellSelectionModeStrategy >> selectableIndexAbove: anIndex [
+	^ {(anIndex first - 1) . anIndex second}
+]
+
+{ #category : #accessing }
+FTCellSelectionModeStrategy >> selectableIndexAfter: anIndex [
+	^ {anIndex second . (anIndex first + 1)}
+]
+
+{ #category : #accessing }
+FTCellSelectionModeStrategy >> selectableIndexBefore: anIndex [
+	^ {anIndex second . (anIndex first - 1)}
+]
+
+{ #category : #accessing }
+FTCellSelectionModeStrategy >> selectableIndexBellow: anIndex [
+	^ {(anIndex first + 1) . anIndex second}
 ]
 
 { #category : #adding }

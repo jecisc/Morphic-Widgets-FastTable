@@ -29,6 +29,26 @@ FTSelectionModeStrategy >> indexesToSelectInMultipleSelectionFrom: firstIndex to
 ]
 
 { #category : #testing }
+FTSelectionModeStrategy >> is: anIndex aboveRow: aRowIndex [
+	^ self subclassResponsibility
+]
+
+{ #category : #testing }
+FTSelectionModeStrategy >> is: anIndex afterColumn: aColumnIndex [
+	^ self subclassResponsibility
+]
+
+{ #category : #testing }
+FTSelectionModeStrategy >> is: anIndex beforeColumn: aColumn [
+	^ self subclassResponsibility
+]
+
+{ #category : #testing }
+FTSelectionModeStrategy >> is: anIndex bellowRow: aRowIndex [
+	^ self subclassResponsibility
+]
+
+{ #category : #testing }
 FTSelectionModeStrategy >> isCellSelection [
 	^ false
 ]
@@ -40,6 +60,26 @@ FTSelectionModeStrategy >> isRowSelection [
 
 { #category : #accessing }
 FTSelectionModeStrategy >> nullIndex [
+	^ self subclassResponsibility
+]
+
+{ #category : #accessing }
+FTSelectionModeStrategy >> selectableIndexAbove: anIndex [
+	^ self subclassResponsibility
+]
+
+{ #category : #accessing }
+FTSelectionModeStrategy >> selectableIndexAfter: anIndex [
+	^ self subclassResponsibility
+]
+
+{ #category : #accessing }
+FTSelectionModeStrategy >> selectableIndexBefore: anIndex [
+	^ self subclassResponsibility
+]
+
+{ #category : #accessing }
+FTSelectionModeStrategy >> selectableIndexBellow: anIndex [
 	^ self subclassResponsibility
 ]
 

@@ -16,6 +16,30 @@ FTRowSelectionModeStrategy >> indexesToSelectInMultipleSelectionFrom: firstIndex
 	^ firstIndex to: endIndex by: step
 ]
 
+{ #category : #testing }
+FTRowSelectionModeStrategy >> is: anIndex aboveRow: aRowIndex [
+	^ anIndex < aRowIndex
+]
+
+{ #category : #testing }
+FTRowSelectionModeStrategy >> is: anIndex afterColumn: aColumnIndex [
+	"Not possible for rows."
+
+	^ false
+]
+
+{ #category : #testing }
+FTRowSelectionModeStrategy >> is: anIndex beforeColumn: aColumn [
+	"Not possible for rows."
+
+	^ false
+]
+
+{ #category : #testing }
+FTRowSelectionModeStrategy >> is: anIndex bellowRow: aRowIndex [
+	^ anIndex > aRowIndex
+]
+
 { #category : #adding }
 FTRowSelectionModeStrategy >> isRowSelection [
 	^ true
@@ -23,6 +47,30 @@ FTRowSelectionModeStrategy >> isRowSelection [
 
 { #category : #accessing }
 FTRowSelectionModeStrategy >> nullIndex [ ^ 0
+]
+
+{ #category : #accessing }
+FTRowSelectionModeStrategy >> selectableIndexAbove: anIndex [
+	^ anIndex - 1
+]
+
+{ #category : #accessing }
+FTRowSelectionModeStrategy >> selectableIndexAfter: anIndex [
+	"Because rows cannot have something at the right or left."
+
+	self shouldNotImplement
+]
+
+{ #category : #accessing }
+FTRowSelectionModeStrategy >> selectableIndexBefore: anIndex [
+	"Because rows cannot have something at the right or left."
+
+	self shouldNotImplement
+]
+
+{ #category : #accessing }
+FTRowSelectionModeStrategy >> selectableIndexBellow: anIndex [
+	^ anIndex + 1
 ]
 
 { #category : #adding }
