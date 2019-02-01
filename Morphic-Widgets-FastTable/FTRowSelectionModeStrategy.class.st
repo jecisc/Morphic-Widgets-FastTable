@@ -93,6 +93,11 @@ FTRowSelectionModeStrategy >> selectableIndexBellow: anIndex [
 	^ anIndex + 1
 ]
 
+{ #category : #accessing }
+FTRowSelectionModeStrategy >> selectableIndexContainingPoint: aPoint [
+	^ self tableContainer rowIndexContainingPoint: aPoint
+]
+
 { #category : #adding }
 FTRowSelectionModeStrategy >> selectablesToHighlightFromRow: aFTRow at: aRowIndex withHighlightedIndexes: highligtedIndexes andPrimaryIndex: primarySelectionIndex [
 	| selectablesToColorMap |

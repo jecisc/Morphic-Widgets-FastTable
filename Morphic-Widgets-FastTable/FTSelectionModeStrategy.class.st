@@ -103,6 +103,11 @@ FTSelectionModeStrategy >> selectableIndexBellow: anIndex [
 	^ self subclassResponsibility
 ]
 
+{ #category : #accessing }
+FTSelectionModeStrategy >> selectableIndexContainingPoint: aPoint [
+	^ self subclassResponsibility
+]
+
 { #category : #adding }
 FTSelectionModeStrategy >> selectablesToHighlightFromRow: aFTRow at: aRowIndex withHighlightedIndexes: highligtedIndexes andPrimaryIndex: primarySelectionIndex [
 	^ self subclassResponsibility
@@ -122,4 +127,9 @@ FTSelectionModeStrategy >> table [
 { #category : #accessing }
 FTSelectionModeStrategy >> table: anObject [
 	table := anObject
+]
+
+{ #category : #accessing }
+FTSelectionModeStrategy >> tableContainer [
+	^ self table container
 ]

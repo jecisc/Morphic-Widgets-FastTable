@@ -319,12 +319,7 @@ FTTableMorph >> disableFunction [
 
 { #category : #'event handling' }
 FTTableMorph >> doubleClick: event [
-	| index |
-	self selectionMode = #row
-		ifTrue: [ index := self container rowIndexContainingPoint: event cursorPoint.
-			index ifNotNil: [ self doAnnounce: (FTStrongSelectionChanged index: index event: event) ] ]
-		ifFalse: [ index := self container rowAndColumnIndexContainingPoint: event cursorPoint.
-			index ifNotNil: [ self doAnnounce: (FTStrongSelectionChanged index: index event: event) ] ]
+	(self selectionModeStrategy selectableIndexContainingPoint: event cursorPoint) ifNotNil: [ :index | self doAnnounce: (FTStrongSelectionChanged index: index event: event) ]
 ]
 
 { #category : #drawing }
@@ -799,25 +794,18 @@ FTTableMorph >> minWidth [
 
 { #category : #'event handling' }
 FTTableMorph >> mouseDown: event [
-	| rowIndex cellIndex|
 	"perform the click"
+
 	needToggleAtMouseUp ifTrue: [ ^ self ].
-	self selectionMode ==#row
-	ifTrue:[
-	rowIndex := self container rowIndexContainingPoint: event cursorPoint.
-	rowIndex isNil ifTrue:[^ self ].
-	(self selectedIndexes includes: rowIndex)
-		ifFalse: [ self selectIndex: rowIndex event: event ]
-		ifTrue: [ needToggleAtMouseUp := true ].	"If the cell is selected we let the mouse up toggle to avoid any problem with the drag and drop"]
-	ifFalse:[
-			cellIndex := self container rowAndColumnIndexContainingPoint: event cursorPoint.
-		   cellIndex first isNil ifTrue:[^ self ].
-			(self selectedIndexes includes: cellIndex)
-		ifFalse: [self selectIndex: cellIndex event: event ]
-		ifTrue: [ needToggleAtMouseUp := true ].
-			].
-	self wantsKeyboardFocus
-		ifTrue: [ self takeKeyboardFocus ].
+
+	(self selectionModeStrategy selectableIndexContainingPoint: event cursorPoint)
+		ifNotNil: [ :index | 
+			(self selectedIndexes includes: index)
+				ifFalse: [ self selectIndex: index event: event ]
+				ifTrue: [ needToggleAtMouseUp := true ] "If the cell is selected we let the mouse up toggle to avoid any problem with the drag and drop" ]
+		ifNil: [ ^ self ].
+
+	self wantsKeyboardFocus ifTrue: [ self takeKeyboardFocus ].
 	event hand waitForClicksOrDrag: self event: event
 ]
 
@@ -896,20 +884,12 @@ FTTableMorph >> mouseMoveSelection: aBool [
 
 { #category : #'event handling' }
 FTTableMorph >> mouseUp: event [
-	| index |
-	
 	needToggleAtMouseUp ifFalse: [ ^ self ].
-	
+
 	"perform the click if the mouse down didn't do it."
-	self selectionMode == #row
-	ifTrue:[
-	index := self container rowIndexContainingPoint: event cursorPoint.
-	self selectIndex: index event: event]
-	ifFalse:[
-	index := self container rowAndColumnIndexContainingPoint: event cursorPoint.
-	self selectIndex: index event: event].
-	needToggleAtMouseUp := false.
-	
+	(self selectionModeStrategy selectableIndexContainingPoint: event cursorPoint) ifNotNil: [ :index | self selectIndex: index event: event ].
+
+	needToggleAtMouseUp := false
 ]
 
 { #category : #'event handling' }

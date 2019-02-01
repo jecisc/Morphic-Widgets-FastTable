@@ -87,6 +87,11 @@ FTCellSelectionModeStrategy >> selectableIndexBellow: anIndex [
 	^ {(anIndex first + 1) . anIndex second}
 ]
 
+{ #category : #accessing }
+FTCellSelectionModeStrategy >> selectableIndexContainingPoint: aPoint [
+	^ self tableContainer rowAndColumnIndexContainingPoint: aPoint
+]
+
 { #category : #adding }
 FTCellSelectionModeStrategy >> selectablesToHighlightFromRow: aFTRow at: aRowIndex withHighlightedIndexes: highligtedIndexes andPrimaryIndex: primarySelectionIndex [
 	| selectablesToColorMap |
