@@ -113,10 +113,8 @@ FTTableMorph class >> newTrialHorizontalScrollBar [
 
 { #category : #'drag and drop' }
 FTTableMorph >> acceptDroppingMorph: aMorph event: event [
-	self dataSource 
-		dropElements: aMorph passenger 
-		index: ((self container rowIndexContainingPoint: event position) ifNil: [ 0 ]).
-	self basicHighlightRowIndexes: #().
+	self dataSource dropElements: aMorph passenger index: ((self container rowIndexContainingPoint: event position) ifNil: [ 0 ]).
+	self basicHighlightIndexes: #().
 	self refresh
 ]
 
@@ -321,19 +319,12 @@ FTTableMorph >> disableFunction [
 
 { #category : #'event handling' }
 FTTableMorph >> doubleClick: event [
-	| index|
-	(self selectionMode = #row)
-	ifTrue:[
-		index := self container rowIndexContainingPoint: event cursorPoint.
-		index ifNotNil: [ 
-			self doAnnounce: (FTStrongSelectionChanged rowIndex: index event: event) ]
-		]
-	ifFalse:[
-		index := self container rowAndColumnIndexContainingPoint: event cursorPoint.
-		index ifNotNil: [ 
-			self doAnnounce: (FTCellStrongSelectionChanged cellIndex: index event: event) ]
-		].
-	
+	| index |
+	self selectionMode = #row
+		ifTrue: [ index := self container rowIndexContainingPoint: event cursorPoint.
+			index ifNotNil: [ self doAnnounce: (FTStrongSelectionChanged index: index event: event) ] ]
+		ifFalse: [ index := self container rowAndColumnIndexContainingPoint: event cursorPoint.
+			index ifNotNil: [ self doAnnounce: (FTCellStrongSelectionChanged index: index event: event) ] ]
 ]
 
 { #category : #drawing }
@@ -1124,7 +1115,7 @@ FTTableMorph >> secondarySelectionColor: aColor [
 
 { #category : #'accessing selection' }
 FTTableMorph >> selectAll [
-	self selectionStrategy selectAll
+	self selectionModeStrategy selectAll
 ]
 
 { #category : #'accessing selection' }
@@ -1135,7 +1126,7 @@ FTTableMorph >> selectAllRowIndexes [
 
 { #category : #'accessing selection' }
 FTTableMorph >> selectFirst [
-	self selectionStrategy selectFirst
+	self selectionModeStrategy selectFirst
 ]
 
 { #category : #'accessing selection' }
@@ -1172,7 +1163,7 @@ FTTableMorph >> selectIndexes: anArray andMakeVisibleIf: shouldEnsureVisibleSele
 
 { #category : #'accessing selection' }
 FTTableMorph >> selectLast [
-	self selectionStrategy selectLast
+	self selectionModeStrategy selectLast
 ]
 
 { #category : #'accessing selection' }

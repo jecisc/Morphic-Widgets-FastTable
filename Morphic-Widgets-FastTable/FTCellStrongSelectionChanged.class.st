@@ -5,16 +5,22 @@ Class {
 	#name : #FTCellStrongSelectionChanged,
 	#superclass : #FTAnnouncement,
 	#instVars : [
-		'selectedCellIndex',
-		'event'
+		'event',
+		'selectedIndex'
 	],
-	#category : 'Morphic-Widgets-FastTable-Announcement'
+	#category : #'Morphic-Widgets-FastTable-Announcement'
 }
 
 { #category : #'instance creation' }
-FTCellStrongSelectionChanged class >> cellIndex: aTuple event: anEvent [
-	^ self new 
-		selectedCellIndex: aTuple;
+FTCellStrongSelectionChanged class >> cellIndex: aNumber event: anEvent [
+	self deprecated: 'Use #index:event: instead' transformWith: '`@receiver cellIndex: `@statements1 event: `@statements2' -> '`@receiver index: `@statements1 event: `@statements2'.
+	^ self index: aNumber event: anEvent
+]
+
+{ #category : #'instance creation' }
+FTCellStrongSelectionChanged class >> index: aTuple event: anEvent [
+	^ self new
+		selectedIndex: aTuple;
 		event: anEvent;
 		yourself
 ]
@@ -31,10 +37,22 @@ FTCellStrongSelectionChanged >> event: anEvent [
 
 { #category : #accessing }
 FTCellStrongSelectionChanged >> selectedCellIndex [
-	^ selectedCellIndex 
+	self deprecated: 'Use #selectedIndex instead' transformWith: '`@receiver selectedCellIndex' -> '`@receiver selectedIndex'.
+	^ self selectedIndex
 ]
 
 { #category : #accessing }
-FTCellStrongSelectionChanged >> selectedCellIndex: anObject [
-	selectedCellIndex := anObject
+FTCellStrongSelectionChanged >> selectedCellIndex: aNumber [
+	self deprecated: 'Use #selectedIndex: instead' transformWith: '`@receiver selectedCellIndex: `@statements1' -> '`@receiver selectedIndex: `@statements1'.
+	self selectedIndex: aNumber
+]
+
+{ #category : #accessing }
+FTCellStrongSelectionChanged >> selectedIndex [
+	^ selectedIndex 
+]
+
+{ #category : #accessing }
+FTCellStrongSelectionChanged >> selectedIndex: anObject [
+	selectedIndex := anObject
 ]
