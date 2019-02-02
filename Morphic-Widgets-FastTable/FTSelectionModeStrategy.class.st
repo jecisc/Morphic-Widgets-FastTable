@@ -7,13 +7,6 @@ Class {
 	#category : #'Morphic-Widgets-FastTable-Selection'
 }
 
-{ #category : #printing }
-FTSelectionModeStrategy class >> symbol [
-	"Because we want to use dispatch with the strategy"
-	self toKill.
-	^ self subclassResponsibility
-]
-
 { #category : #'instance creation' }
 FTSelectionModeStrategy class >> table: aTable [
 	^ self new

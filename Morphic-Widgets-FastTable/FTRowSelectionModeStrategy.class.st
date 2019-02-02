@@ -4,11 +4,6 @@ Class {
 	#category : #'Morphic-Widgets-FastTable-Selection'
 }
 
-{ #category : #printing }
-FTRowSelectionModeStrategy class >> symbol [
-	^ #row
-]
-
 { #category : #accessing }
 FTRowSelectionModeStrategy >> indexesToSelectInMultipleSelectionFrom: firstIndex to: endIndex [
 	| step |

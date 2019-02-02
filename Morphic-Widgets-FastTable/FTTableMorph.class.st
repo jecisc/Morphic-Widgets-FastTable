@@ -302,7 +302,7 @@ FTTableMorph >> denyDeselection [
 	self allowsDeselection: false
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'accessing selection' }
 FTTableMorph >> deselectAll [ 
 	self selectIndexes: #()
 ]
@@ -750,19 +750,11 @@ FTTableMorph >> keyStrokeArrowUp: event [
 
 { #category : #operations }
 FTTableMorph >> keyStrokeEdit: event [
-"the keystoke edit is triggered by Ctrl+e, and it simply fires the StrongSelection Announcement, the announcement should be
-handled when setting up the table "		
-	| index|
-	self selectionMode = #row
-	ifTrue:[index := self selectedRowIndex  .
-	index ifNotNil: [ 
-		self doAnnounce: (FTStrongSelectionChanged rowIndex: index event: event) ]]
-	ifFalse:[index := self selectedIndex .
-	index ifNotNil:  [ 
-		index first ifNotNil: [  
-		self doAnnounce: (FTStrongSelectionChanged cellIndex: index event: event) ]]].
-				
-				
+	"the keystoke edit is triggered by Ctrl+e, and it simply fires the StrongSelection Announcement, the announcement should be handled when setting up the table "
+
+	self selectionModeStrategy selectedRowIndex ifNil: [ ^ self ].
+	
+	self doAnnounce: (FTStrongSelectionChanged index: self selectedIndex event: event)
 ]
 
 { #category : #'event handling' }
@@ -819,57 +811,34 @@ FTTableMorph >> mouseEnterDragging: event [
 { #category : #'event handling' }
 FTTableMorph >> mouseLeaveDragging: event [
 	"The mouse has left with a button down."
-	
-	(self dropEnabled and: [event hand hasSubmorphs]) 
-		ifFalse: [ "no d&d" ^ super mouseLeaveDragging: event].
-		
-	self basicHighlightRowIndexes: #().
+
+	(self dropEnabled and: [ event hand hasSubmorphs ]) ifFalse: [ "no d&d" ^ super mouseLeaveDragging: event ].
+
+	self basicHighlightIndexes: #().
 	self refresh
-				
 ]
 
 { #category : #'event handling' }
 FTTableMorph >> mouseMove: event [
-|rowI cellI|
-"selection manupuLation"
-self mouseMoveSelection ifTrue: [  "select cell when the mouseDown moves"
-	
-	(self selectionMode = #row)
-	ifTrue:[
-	rowI := self container rowIndexContainingPoint: event cursorPoint.
-	rowI isNil ifTrue:[^ self ].
-	(self selectedIndexes includes: rowI)
-		ifFalse: [ self selectIndex: rowI event: event ]
-		ifTrue: [ needToggleAtMouseUp := true ].	"If the cell is selected we let the mouse up toggle to avoid any problem with the drag and drop"]
-	ifFalse:[
+	self mouseMoveSelection
+		ifTrue: [ (self selectionModeStrategy selectableIndexContainingPoint: event cursorPoint)
+				ifNotNil: [ :index | (self selectedIndexes includes: index) ifFalse: [ self selectIndex: index event: event ] ifTrue: [ needToggleAtMouseUp := true ] ]
+				ifNil: [ ^ self ] ].
 
-			cellI := self container rowAndColumnIndexContainingPoint: event cursorPoint.
-		   cellI first isNil ifTrue:[^ self ].
-			(self selectedIndexes includes: cellI)
-		ifFalse: [self selectIndex: cellI event: event.]
-		ifTrue: [ needToggleAtMouseUp := true ].
-			].	
-	 ].
-
-"Draging event manupulations"
 	event isDraggingEvent ifFalse: [ ^ self ].
-	event hand hasSubmorphs ifFalse: [ ^self ].
-	(self wantsDroppedMorph: event hand submorphs first event: event) ifFalse: [ ^self ].
-	
-	(self container rowIndexContainingPoint: event position) 
-		ifNotNil: [ :rowIndex | 
-			self basicHighlightRowIndexes: { rowIndex }.
-			self refresh ].
-	
-	(self container bounds containsPoint: event position) ifTrue: [ 
-		(event position y <= (self container top + self autoScrollHeightLimit)) ifTrue: [ 
-			^self verticalScrollBar scrollUp: 1
-		].
-		(event position y >= (self container bottom - self autoScrollHeightLimit)) ifTrue: [ 
-			^self verticalScrollBar scrollDown: 1
-		] 			
-	]
+	event hand hasSubmorphs ifFalse: [ ^ self ].
 
+	(self wantsDroppedMorph: event hand submorphs first event: event) ifFalse: [ ^ self ].
+
+	(self container rowIndexContainingPoint: event position)
+		ifNotNil: [ :rowIndex | 
+			self basicHighlightIndexes: {rowIndex}.
+			self refresh ].
+
+	(self container bounds containsPoint: event position) ifFalse: [ ^ self ].
+
+	event position y <= (self container top + self autoScrollHeightLimit) ifTrue: [ ^ self verticalScrollBar scrollUp: 1 ].
+	event position y >= (self container bottom - self autoScrollHeightLimit) ifTrue: [ ^ self verticalScrollBar scrollDown: 1 ]
 ]
 
 { #category : #accessing }
@@ -1118,7 +1087,7 @@ FTTableMorph >> selectIndex: anArray [
 FTTableMorph >> selectIndex: index event: event [
 	index
 		ifNotNil: [ self selectionStrategy selectIndex: index event: event ]
-		ifNil: [ self selectIndexes: #() ]
+		ifNil: [ self deselectAll ]
 ]
 
 { #category : #'accessing selection' }
@@ -1202,14 +1171,6 @@ FTTableMorph >> selectionColor [
 { #category : #'accessing colors' }
 FTTableMorph >> selectionColor: aColor [
 	selectionColor := aColor
-]
-
-{ #category : #accessing }
-FTTableMorph >> selectionMode [
-	"Because we want to use dispatch with the strategy"
-
-	self toKill.
-	^ self selectionModeStrategy class symbol
 ]
 
 { #category : #accessing }

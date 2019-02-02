@@ -53,8 +53,7 @@ FTHeaderColumnCellMorph >> initialize [
 
 { #category : #accessing }
 FTHeaderColumnCellMorph >> isSortEnabled [
-     self table selectionMode =#row ifTrue:[^false].
-	^self column isSortActivated
+	^ self column isSortActivated
 ]
 
 { #category : #'event handling' }

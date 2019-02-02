@@ -51,6 +51,6 @@ FTSelectionStrategy >> table: aTable [
 { #category : #private }
 FTSelectionStrategy >> toggleIndex: index [
 	((self table selectedIndexes includes: index) and: [ self table selectedIndexes size = 1 and: [ self table allowsDeselection ]	"just one selected" ])
-		ifTrue: [ self table selectIndexes: #() ]
+		ifTrue: [ self table deselectAll ]
 		ifFalse: [ self table selectIndex: index ]
 ]
