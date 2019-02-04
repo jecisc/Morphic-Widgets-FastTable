@@ -5,6 +5,11 @@ Class {
 }
 
 { #category : #accessing }
+FTRowSelectionModeStrategy >> indexFromPosition: aTuple [
+	^ aTuple first
+]
+
+{ #category : #accessing }
 FTRowSelectionModeStrategy >> indexesToSelectInMultipleSelectionFrom: firstIndex to: endIndex [
 	| step |
 	step := firstIndex <= endIndex ifTrue: [ 1 ] ifFalse: [ -1 ].

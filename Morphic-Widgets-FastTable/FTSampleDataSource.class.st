@@ -4,7 +4,7 @@ This is a SimpleDataSource that populate a fastTable with FTSampleClassModel obj
 Class {
 	#name : #FTSampleDataSource,
 	#superclass : #FTSimpleDataSource,
-	#category : 'Morphic-Widgets-FastTable-Tests'
+	#category : #'Morphic-Widgets-FastTable-Tests'
 }
 
 { #category : #'instance creation' }

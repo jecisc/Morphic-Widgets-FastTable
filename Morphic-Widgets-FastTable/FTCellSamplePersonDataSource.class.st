@@ -4,7 +4,7 @@ I am a sample datasource class for a bunch of persons basic informtion table (na
 Class {
 	#name : #FTCellSamplePersonDataSource,
 	#superclass : #FTSimpleDataSource,
-	#category : 'Morphic-Widgets-FastTable-Examples'
+	#category : #'Morphic-Widgets-FastTable-Examples'
 }
 
 { #category : #'instance creation' }

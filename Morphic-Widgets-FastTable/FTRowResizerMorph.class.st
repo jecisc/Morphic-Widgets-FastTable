@@ -12,7 +12,7 @@ Class {
 		'oldColor',
 		'traceMorph'
 	],
-	#category : 'Morphic-Widgets-FastTable'
+	#category : #'Morphic-Widgets-FastTable'
 }
 
 { #category : #'instance creation' }

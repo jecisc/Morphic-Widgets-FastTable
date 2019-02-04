@@ -10,7 +10,7 @@ Class {
 		'property3',
 		'property4'
 	],
-	#category : 'Morphic-Widgets-FastTable-Tests'
+	#category : #'Morphic-Widgets-FastTable-Tests'
 }
 
 { #category : #'instance creation' }

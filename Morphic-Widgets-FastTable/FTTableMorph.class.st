@@ -1228,21 +1228,14 @@ FTTableMorph >> showIndex [
 ]
 
 { #category : #menu }
-FTTableMorph >> showMenuForPosition: aPoint [
-	| tuple |
+FTTableMorph >> showMenuForIndex: aTuple [
+	| menu rowIndex columnIndex |
 	
-	tuple := self container rowAndColumnIndexContainingPoint: aPoint.
-	self 
-		showMenuForRowIndex: tuple first
-		columnIndex: tuple second
-]
-
-{ #category : #menu }
-FTTableMorph >> showMenuForRowIndex: rowIndex columnIndex: columnIndex [
-	| menu |
+	rowIndex := aTuple first.
+	columnIndex := aTuple second.
 
 	(rowIndex notNil and: [ (self isIndexSelected: rowIndex) not ]) ifTrue: [ 
-		self selectIndex: rowIndex ].
+		self selectIndex: (self selectionModeStrategy indexFromPosition: aTuple) ].
 
 	menu := self dataSource 
 		menuColumn: (columnIndex ifNotNil: [self columns at: columnIndex])
@@ -1253,6 +1246,13 @@ FTTableMorph >> showMenuForRowIndex: rowIndex columnIndex: columnIndex [
 	menu popUpInWorld: self currentWorld
 
 	
+]
+
+{ #category : #menu }
+FTTableMorph >> showMenuForPosition: aPoint [
+	| tuple |
+	tuple := self container rowAndColumnIndexContainingPoint: aPoint.
+	self showMenuForIndex: tuple
 ]
 
 { #category : #'drag and drop' }

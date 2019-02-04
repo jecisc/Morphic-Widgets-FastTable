@@ -15,6 +15,11 @@ FTSelectionModeStrategy class >> table: aTable [
 ]
 
 { #category : #accessing }
+FTSelectionModeStrategy >> indexFromPosition: aTuple [
+	^ self subclassResponsibility
+]
+
+{ #category : #accessing }
 FTSelectionModeStrategy >> indexesToSelectInMultipleSelectionFrom: firstIndex to: endIndex [
 	"In case of multiple selection, I wust return the list of indexes to select when the user uses shift + click."
 

@@ -9,7 +9,7 @@ Class {
 		'dateOfBirth',
 		'gender'
 	],
-	#category : 'Morphic-Widgets-FastTable-Examples'
+	#category : #'Morphic-Widgets-FastTable-Examples'
 }
 
 { #category : #'instance creation' }

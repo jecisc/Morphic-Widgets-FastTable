@@ -4,7 +4,7 @@ I am a custom calendar widget used inside the fast table, basiclly i handle some
 Class {
 	#name : #CellCalendarMorph,
 	#superclass : #CalendarMorph,
-	#category : 'Morphic-Widgets-FastTable-Custom-Widgets'
+	#category : #'Morphic-Widgets-FastTable-Custom-Widgets'
 }
 
 { #category : #'event handling' }

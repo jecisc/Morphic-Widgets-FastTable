@@ -10,7 +10,7 @@ Class {
 		'isColumnOrderedFromLeast',
 		'isColumnOrderedFromGreatest'
 	],
-	#category : 'Morphic-Widgets-FastTable'
+	#category : #'Morphic-Widgets-FastTable'
 }
 
 { #category : #accessing }

@@ -4,7 +4,7 @@ This is a SimpleDataSource that populate a fastTable with FTCellSampleClassModel
 Class {
 	#name : #FTCellSampleDataSource,
 	#superclass : #FTSimpleDataSource,
-	#category : 'Morphic-Widgets-FastTable-Examples'
+	#category : #'Morphic-Widgets-FastTable-Examples'
 }
 
 { #category : #'instance creation' }

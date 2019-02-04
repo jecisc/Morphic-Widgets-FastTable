@@ -5,6 +5,11 @@ Class {
 }
 
 { #category : #accessing }
+FTCellSelectionModeStrategy >> indexFromPosition: aTuple [
+	^ aTuple
+]
+
+{ #category : #accessing }
 FTCellSelectionModeStrategy >> indexesToSelectInMultipleSelectionFrom: firstIndex to: endIndex [
 	| stepV stepH |
 	stepV := firstIndex first <= endIndex first ifTrue: [ 1 ] ifFalse: [ -1 ].

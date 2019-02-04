@@ -8,7 +8,7 @@ Class {
 		'oldCellContent',
 		'newCellContent'
 	],
-	#category : 'Morphic-Widgets-FastTable-Announcement'
+	#category : #'Morphic-Widgets-FastTable-Announcement'
 }
 
 { #category : #'instance creation' }

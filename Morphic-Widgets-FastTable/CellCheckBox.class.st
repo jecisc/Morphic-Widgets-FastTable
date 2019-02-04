@@ -4,7 +4,7 @@ I am a custom checkbox widget used inside the fast table, basiclly i don't have 
 Class {
 	#name : #CellCheckBox,
 	#superclass : #CheckboxMorph,
-	#category : 'Morphic-Widgets-FastTable-Custom-Widgets'
+	#category : #'Morphic-Widgets-FastTable-Custom-Widgets'
 }
 
 { #category : #accessing }

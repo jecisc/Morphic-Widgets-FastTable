@@ -12,7 +12,7 @@ Class {
 		'property5',
 		'property6'
 	],
-	#category : 'Morphic-Widgets-FastTable-Examples'
+	#category : #'Morphic-Widgets-FastTable-Examples'
 }
 
 { #category : #'instance creation' }

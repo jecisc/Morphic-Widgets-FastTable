@@ -5,7 +5,7 @@ I provide a specific key combination for the current platform to be used to hadl
 Class {
 	#name : #PlatformSpecificKeyCombination,
 	#superclass : #Object,
-	#category : 'Morphic-Widgets-FastTable'
+	#category : #'Morphic-Widgets-FastTable'
 }
 
 { #category : #api }

@@ -15,7 +15,7 @@ Class {
 		'sparc64',
 		'arm'
 	],
-	#category : 'Morphic-Widgets-FastTable-Examples'
+	#category : #'Morphic-Widgets-FastTable-Examples'
 }
 
 { #category : #'instance creation' }

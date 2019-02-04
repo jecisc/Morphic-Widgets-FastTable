@@ -4,7 +4,7 @@ I am a sample datasource class for the architecture checkboxes fast table.
 Class {
 	#name : #FTCellSampleArchitectureDataSource,
 	#superclass : #FTSimpleDataSource,
-	#category : 'Morphic-Widgets-FastTable-Examples'
+	#category : #'Morphic-Widgets-FastTable-Examples'
 }
 
 { #category : #'instance creation' }

@@ -7,7 +7,7 @@ Class {
 	#instVars : [
 		'table'
 	],
-	#category : 'Morphic-Widgets-FastTable-Tests'
+	#category : #'Morphic-Widgets-FastTable-Tests'
 }
 
 { #category : #initialization }
