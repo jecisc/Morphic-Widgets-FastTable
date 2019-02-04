@@ -40,13 +40,14 @@ FTRowSelectionModeStrategy >> is: anIndex bellowRow: aRowIndex [
 	^ anIndex > aRowIndex
 ]
 
-{ #category : #adding }
+{ #category : #testing }
 FTRowSelectionModeStrategy >> isRowSelection [
 	^ true
 ]
 
 { #category : #accessing }
-FTRowSelectionModeStrategy >> nullIndex [ ^ 0
+FTRowSelectionModeStrategy >> nullIndex [
+	^ 0
 ]
 
 { #category : #accessing }
@@ -54,17 +55,17 @@ FTRowSelectionModeStrategy >> rowIndexFrom: anIndex [
 	^ anIndex
 ]
 
-{ #category : #'accessing selection' }
+{ #category : #selection }
 FTRowSelectionModeStrategy >> selectAll [
 	self table selectIndexes: (1 to: self table numberOfRows) asArray
 ]
 
-{ #category : #'accessing selection' }
+{ #category : #selection }
 FTRowSelectionModeStrategy >> selectFirst [
 	self table selectIndex: 1
 ]
 
-{ #category : #'accessing selection' }
+{ #category : #selection }
 FTRowSelectionModeStrategy >> selectLast [
 	self table selectIndex: self table numberOfRows
 ]

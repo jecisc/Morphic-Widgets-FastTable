@@ -219,7 +219,7 @@ FTTableMorph >> beRowSelection [
 	self selectionModeStrategy: (FTRowSelectionModeStrategy table: self)
 ]
 
-{ #category : #'multi-selection' }
+{ #category : #accessing }
 FTTableMorph >> beSingleSelection [
 	selectionStrategy := FTSimpleSelection table: self
 ]
@@ -1064,6 +1064,8 @@ FTTableMorph >> secondarySelectionColor: aColor [
 
 { #category : #'accessing selection' }
 FTTableMorph >> selectAll [
+	self isMultipleSelection ifFalse: [ ^ self ].
+
 	self selectionModeStrategy selectAll
 ]
 
@@ -1176,8 +1178,6 @@ FTTableMorph >> selectionColor: aColor [
 { #category : #accessing }
 FTTableMorph >> selectionModeStrategy [
 	^ selectionModeStrategy
-		ifNil: [ self beRowSelection.
-			selectionModeStrategy ]
 ]
 
 { #category : #accessing }

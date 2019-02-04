@@ -66,18 +66,24 @@ FTSelectionModeStrategy >> rowIndexFrom: anIndex [
 	^ self subclassResponsibility
 ]
 
-{ #category : #'accessing selection' }
+{ #category : #selection }
 FTSelectionModeStrategy >> selectAll [
+	"This method should select all elements of the table."
+
 	self subclassResponsibility
 ]
 
-{ #category : #'accessing selection' }
+{ #category : #selection }
 FTSelectionModeStrategy >> selectFirst [
+	"This method should select the first element of the table."
+
 	self subclassResponsibility
 ]
 
-{ #category : #'accessing selection' }
+{ #category : #selection }
 FTSelectionModeStrategy >> selectLast [
+	"This method should select the first element of the table."
+
 	self subclassResponsibility
 ]
 
