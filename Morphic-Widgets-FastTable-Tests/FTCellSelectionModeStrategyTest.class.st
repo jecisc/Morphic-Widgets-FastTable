@@ -86,6 +86,26 @@ FTCellSelectionModeStrategyTest >> testSelectLast [
 ]
 
 { #category : #test }
+FTCellSelectionModeStrategyTest >> testSelectableIndexAbove [
+	self assert: (strategy selectableIndexAbove: #(2 3)) equals: #(1 3)
+]
+
+{ #category : #test }
+FTCellSelectionModeStrategyTest >> testSelectableIndexAfter [
+	self assert: (strategy selectableIndexAfter: #(2 3)) equals: #(2 4)
+]
+
+{ #category : #test }
+FTCellSelectionModeStrategyTest >> testSelectableIndexBefore [
+	self assert: (strategy selectableIndexBefore: #(2 3)) equals: #(2 2)
+]
+
+{ #category : #test }
+FTCellSelectionModeStrategyTest >> testSelectableIndexBellow [
+	self assert: (strategy selectableIndexBellow: #(2 3)) equals: #(3 3)
+]
+
+{ #category : #test }
 FTCellSelectionModeStrategyTest >> testSelectedRowIndex [
 	table selectIndex: #(3 5).
 	self assert: strategy selectedRowIndex equals: 3.

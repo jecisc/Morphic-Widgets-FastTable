@@ -90,6 +90,26 @@ FTSelectionModeStrategyTest >> testSelectLast [
 ]
 
 { #category : #test }
+FTSelectionModeStrategyTest >> testSelectableIndexAbove [
+	self subclassResponsibility
+]
+
+{ #category : #test }
+FTSelectionModeStrategyTest >> testSelectableIndexAfter [
+	self subclassResponsibility
+]
+
+{ #category : #test }
+FTSelectionModeStrategyTest >> testSelectableIndexBefore [
+	self subclassResponsibility
+]
+
+{ #category : #test }
+FTSelectionModeStrategyTest >> testSelectableIndexBellow [
+	self subclassResponsibility
+]
+
+{ #category : #test }
 FTSelectionModeStrategyTest >> testSelectedRowIndex [
 	self subclassResponsibility
 ]

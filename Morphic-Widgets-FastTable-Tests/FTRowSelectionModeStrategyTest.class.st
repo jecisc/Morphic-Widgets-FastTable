@@ -82,6 +82,26 @@ FTRowSelectionModeStrategyTest >> testSelectLast [
 ]
 
 { #category : #test }
+FTRowSelectionModeStrategyTest >> testSelectableIndexAbove [
+	self assert: (strategy selectableIndexAbove: 2) equals: 1
+]
+
+{ #category : #test }
+FTRowSelectionModeStrategyTest >> testSelectableIndexAfter [
+	self should: [ strategy selectableIndexAfter: 2 ] raise: Error
+]
+
+{ #category : #test }
+FTRowSelectionModeStrategyTest >> testSelectableIndexBefore [
+	self should: [ strategy selectableIndexBefore: 2 ] raise: Error
+]
+
+{ #category : #test }
+FTRowSelectionModeStrategyTest >> testSelectableIndexBellow [
+	self assert: (strategy selectableIndexBellow: 2) equals: 3
+]
+
+{ #category : #test }
 FTRowSelectionModeStrategyTest >> testSelectedRowIndex [
 	table selectIndex: 3.
 	self assert: strategy selectedRowIndex equals: 3.

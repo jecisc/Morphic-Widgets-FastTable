@@ -121,21 +121,29 @@ FTSelectionModeStrategy >> selectLast [
 
 { #category : #accessing }
 FTSelectionModeStrategy >> selectableIndexAbove: anIndex [
+	"When getting in this method we should already know there is a selectable above this one."
+
 	^ self subclassResponsibility
 ]
 
 { #category : #accessing }
 FTSelectionModeStrategy >> selectableIndexAfter: anIndex [
+	"When getting in this method we should already know there is a selectable after this one."
+	
 	^ self subclassResponsibility
 ]
 
 { #category : #accessing }
 FTSelectionModeStrategy >> selectableIndexBefore: anIndex [
+	"When getting in this method we should already know there is a selectable before this one."
+
 	^ self subclassResponsibility
 ]
 
 { #category : #accessing }
 FTSelectionModeStrategy >> selectableIndexBellow: anIndex [
+	"When getting in this method we should already know there is a selectable before this one."
+
 	^ self subclassResponsibility
 ]
 
