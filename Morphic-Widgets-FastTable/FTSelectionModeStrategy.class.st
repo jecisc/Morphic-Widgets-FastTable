@@ -48,6 +48,11 @@ FTSelectionModeStrategy >> allowsRowSelection [
 ]
 
 { #category : #accessing }
+FTSelectionModeStrategy >> indexForRow: aRowIndex [
+	^ self subclassResponsibility
+]
+
+{ #category : #accessing }
 FTSelectionModeStrategy >> indexFromPosition: aTuple [
 	"I receive a tuple representing a row and a column index in my table and I should return the index of the selectable element that can be selected at this position."
 

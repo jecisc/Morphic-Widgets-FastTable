@@ -30,12 +30,10 @@ FTSelectionModeStrategyTest >> setStrategy [
 FTSelectionModeStrategyTest >> setUp [
 	super setUp.
 	table := FTTableMorph new
-		extent: 500 @ 500;
 		addColumn: (FTColumn id: 'column1');
 		addColumn: (FTColumn id: 'column2');
 		addColumn: (FTColumn id: 'column3');
-		addColumn: (FTColumn id: 'column4');
-		dataSource: (FTSimpleDataSource elements: (1 to: 100));
+		dataSource: (FTSimpleDataSource elements: (1 to: 10));
 		yourself.
 	self setStrategy.
 	strategy := table selectionModeStrategy
@@ -48,5 +46,50 @@ FTSelectionModeStrategyTest >> testIndexFromPosition [
 
 { #category : #test }
 FTSelectionModeStrategyTest >> testIndexesToSelectInMultipleSelectionFromTo [
+	self subclassResponsibility
+]
+
+{ #category : #test }
+FTSelectionModeStrategyTest >> testIsAboveRow [
+	self subclassResponsibility
+]
+
+{ #category : #test }
+FTSelectionModeStrategyTest >> testIsAfterColumn [
+	self subclassResponsibility
+]
+
+{ #category : #test }
+FTSelectionModeStrategyTest >> testIsBeforeColumn [
+	self subclassResponsibility
+]
+
+{ #category : #test }
+FTSelectionModeStrategyTest >> testIsBellowRow [
+	self subclassResponsibility
+]
+
+{ #category : #test }
+FTSelectionModeStrategyTest >> testRowIndexFrom [
+	self subclassResponsibility
+]
+
+{ #category : #test }
+FTSelectionModeStrategyTest >> testSelectAll [
+	self subclassResponsibility
+]
+
+{ #category : #test }
+FTSelectionModeStrategyTest >> testSelectFirst [
+	self subclassResponsibility
+]
+
+{ #category : #test }
+FTSelectionModeStrategyTest >> testSelectLast [
+	self subclassResponsibility
+]
+
+{ #category : #test }
+FTSelectionModeStrategyTest >> testSelectedRowIndex [
 	self subclassResponsibility
 ]
