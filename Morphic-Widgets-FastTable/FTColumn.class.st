@@ -89,7 +89,7 @@ FTColumn >> isColumnOrderedFromLeast: aBool [
 
 { #category : #testing }
 FTColumn >> isSortActivated [
-	^ (self isColumnOrderedFromGreatest or: self isColumnOrderedFromLeast) 
+	^ self isColumnOrderedFromGreatest or: [ self isColumnOrderedFromLeast ]
 ]
 
 { #category : #accessing }
