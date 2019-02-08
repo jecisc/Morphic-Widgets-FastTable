@@ -475,7 +475,7 @@ FTTableMorph >> highlightIndex: aNumber [
 
 { #category : #'accessing selection' }
 FTTableMorph >> highlightIndexes: anArray [
-	anArray = highlightedIndexes ifTrue: [ ^ self ].
+	anArray = self highlightedIndexes ifTrue: [ ^ self ].
 
 	self basicHighlightIndexes: anArray.
 
@@ -595,7 +595,7 @@ FTTableMorph >> initializeKeyBindings [
 		bindKeyCombination: Character end asKeyCombination
 		toAction: [ self selectLast ].
 	self 
-		bindKeyCombination: PharoShortcuts current selectAllShortcut
+		bindKeyCombination: self shortcutProvider selectAllShortcut
 		toAction: [ self selectAll ].
 	self 
 		bindKeyCombination:  PlatformSpecificKeyCombination  edit     "editing works only on cell selection mode"
@@ -1104,14 +1104,14 @@ FTTableMorph >> selectIndexes: anArray [
 { #category : #'accessing selection' }
 FTTableMorph >> selectIndexes: anArray andMakeVisibleIf: shouldEnsureVisibleSelection [
 	| oldSelectedIndexes |
-	anArray = selectedIndexes ifTrue: [ ^ self ].
-	oldSelectedIndexes := selectedIndexes.
+	anArray = self selectedIndexes ifTrue: [ ^ self ].
+	oldSelectedIndexes := self selectedIndexes.
 	self basicSelectIndexes: anArray.
 	shouldEnsureVisibleSelection ifTrue: [ self ensureVisibleFirstSelection ].
 	self refresh.
 	self
 		doAnnounce:
-			((FTSelectionChanged from: oldSelectedIndexes to: selectedIndexes)
+			((FTSelectionChanged from: oldSelectedIndexes to: self selectedIndexes)
 				fastTable: self;
 				yourself)
 ]
@@ -1203,6 +1203,11 @@ FTTableMorph >> setMultipleSelection: aBoolean [
 	aBoolean
 		ifTrue: [ self beMultipleSelection ]
 		ifFalse: [ self beSingleSelection ]
+]
+
+{ #category : #accessing }
+FTTableMorph >> shortcutProvider [
+	^ PharoShortcuts current
 ]
 
 { #category : #accessing }

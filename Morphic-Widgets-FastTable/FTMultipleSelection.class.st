@@ -50,7 +50,9 @@ FTMultipleSelection >> selectIndexesUpTo: endIndex [
 
 	| oldSelected firstIndex |
 	oldSelected := self table selectedIndexes.
-	firstIndex := oldSelected ifNotEmpty: [ oldSelected first ] ifEmpty: [ endIndex ].
+	firstIndex :=  oldSelected 
+		ifNotEmpty: [ oldSelected first ]
+		ifEmpty: [ endIndex ].
 
 	self selectIndexes: endIndex previous: (oldSelected union: (self table selectionModeStrategy indexesToSelectInMultipleSelectionFrom: firstIndex to: endIndex))
 ]
