@@ -47,10 +47,10 @@ FTColumn >> acquireWidth: anOwnerWidth [
 	^ self widthOrUndefined min: anOwnerWidth
 ]
 
-{ #category : #testing }
-FTColumn >> desableSort [
-	 isColumnOrderedFromGreatest:=false.
-	 isColumnOrderedFromLeast:= false.
+{ #category : #accessing }
+FTColumn >> disableSort [
+	isColumnOrderedFromGreatest := false.
+	isColumnOrderedFromLeast := false
 ]
 
 { #category : #accessing }
@@ -58,9 +58,15 @@ FTColumn >> id [
 	^ id
 ]
 
-{ #category : #initialization }
+{ #category : #accessing }
 FTColumn >> id: anObject [
 	id := anObject
+]
+
+{ #category : #initialization }
+FTColumn >> initialize [
+	super initialize.
+	self disableSort
 ]
 
 { #category : #accessing }
