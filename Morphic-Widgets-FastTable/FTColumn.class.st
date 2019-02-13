@@ -87,8 +87,16 @@ FTColumn >> property: aPropertyName [
 	property := aPropertyName
 ]
 
+{ #category : #initialization }
+FTColumn >> resetSorting [
+	self sortingStrategy reset
+]
+
 { #category : #accessing }
 FTColumn >> sortDataSource: aDataSource [
+
+	"If other columns are already sorted, we need to reset them."
+	(aDataSource table columns copyWithout: self) do: #resetSorting.
 	self sortingStrategy sortDataSource: aDataSource
 ]
 

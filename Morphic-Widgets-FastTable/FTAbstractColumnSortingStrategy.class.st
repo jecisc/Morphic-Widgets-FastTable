@@ -34,6 +34,11 @@ FTAbstractColumnSortingStrategy >> morphicIconNamed: aString [
 	^ (self iconNamed: aString) asMorph
 ]
 
+{ #category : #initialization }
+FTAbstractColumnSortingStrategy >> reset [
+	self subclassResponsibility
+]
+
 { #category : #sorting }
 FTAbstractColumnSortingStrategy >> sortDataSource: aDataSource [
 	self subclassResponsibility

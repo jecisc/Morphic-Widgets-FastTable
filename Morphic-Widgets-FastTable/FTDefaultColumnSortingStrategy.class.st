@@ -10,6 +10,11 @@ Class {
 { #category : #initialization }
 FTDefaultColumnSortingStrategy >> initialize [
 	super initialize.
+	self reset
+]
+
+{ #category : #initialization }
+FTDefaultColumnSortingStrategy >> reset [
 	self state: (FTUnsortedColumnState context: self)
 ]
 

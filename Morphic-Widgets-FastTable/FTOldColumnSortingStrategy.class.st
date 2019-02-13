@@ -11,8 +11,7 @@ Class {
 { #category : #initialization }
 FTOldColumnSortingStrategy >> initialize [
 	super initialize.
-	isColumnOrderedFromGreatest := false.
-	isColumnOrderedFromLeast := false
+	self reset
 ]
 
 { #category : #accessing }
@@ -42,6 +41,12 @@ FTOldColumnSortingStrategy >> isColumnOrderedFromLeast: aBool [
 { #category : #testing }
 FTOldColumnSortingStrategy >> isSortingEnabled [
 	^ true
+]
+
+{ #category : #initialization }
+FTOldColumnSortingStrategy >> reset [
+	isColumnOrderedFromGreatest := false.
+	isColumnOrderedFromLeast := false
 ]
 
 { #category : #sorting }
