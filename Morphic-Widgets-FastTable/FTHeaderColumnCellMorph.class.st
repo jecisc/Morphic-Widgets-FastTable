@@ -15,7 +15,7 @@ Class {
 
 { #category : #accessing }
 FTHeaderColumnCellMorph >> column [
-	^column 
+	^ column
 ]
 
 { #category : #accessing }

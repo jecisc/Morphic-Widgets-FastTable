@@ -43,27 +43,22 @@ FTSimpleDataSource >> elements: anObject [
 
 { #category : #'private ' }
 FTSimpleDataSource >> getCellMorphContent: column [
-	column isSortEnabled ifFalse: [ ^ column id asStringMorph ]
-	ifTrue:[ 
-		|trg pane|
-pane := Morph new.
-pane layoutPolicy: TableLayout new. 
-pane listDirection: #rightToLeft. 
-pane hResizing: #shrinkWrap.
-pane vResizing: #shrinkWrap.
-pane layoutInset: 5@2. 
-pane  cellInset:5@0.
-pane color: Color transparent.
-column sortingStrategy isColumnOrderedFromGreatest ifTrue: [ trg:= (Smalltalk ui icons 
-iconNamed: #arrowDown) asMorph ].
-column sortingStrategy isColumnOrderedFromLeast  ifTrue: [ trg:= (Smalltalk ui icons 
-iconNamed: #arrowUp) asMorph ].
-
-
-pane addMorph: trg.
-pane addMorph: column id asStringMorph.
-^ pane ]
-	
+	column isSortEnabled
+		ifFalse: [ ^ column id asStringMorph ]
+		ifTrue: [ | trg pane |
+			pane := Morph new.
+			pane layoutPolicy: TableLayout new.
+			pane listDirection: #rightToLeft.
+			pane hResizing: #shrinkWrap.
+			pane vResizing: #shrinkWrap.
+			pane layoutInset: 5 @ 2.
+			pane cellInset: 5 @ 0.
+			pane color: Color transparent.
+			trg := column sortingIcon.
+			
+			trg ifNotNil: [ pane addMorph: trg ].
+			pane addMorph: column id asStringMorph.
+			^ pane ]
 ]
 
 { #category : #accessing }

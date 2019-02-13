@@ -29,7 +29,17 @@ FTAbstractColumnSortingStrategy >> isSortingEnabled [
 	^ true
 ]
 
+{ #category : #accessing }
+FTAbstractColumnSortingStrategy >> morphicIconNamed: aString [
+	^ (self iconNamed: aString) asMorph
+]
+
 { #category : #sorting }
 FTAbstractColumnSortingStrategy >> sortDataSource: aDataSource [
 	self subclassResponsibility
+]
+
+{ #category : #accessing }
+FTAbstractColumnSortingStrategy >> sortingIcon [
+	^ self subclassResponsibility
 ]

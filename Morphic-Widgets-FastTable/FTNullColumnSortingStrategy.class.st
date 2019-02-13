@@ -13,3 +13,8 @@ FTNullColumnSortingStrategy >> isSortingEnabled [
 FTNullColumnSortingStrategy >> sortDataSource: aDataSource [
 	"Nothing to do here"
 ]
+
+{ #category : #'as yet unclassified' }
+FTNullColumnSortingStrategy >> sortingIcon [
+	^ nil
+]

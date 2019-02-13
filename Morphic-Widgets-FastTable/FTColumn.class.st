@@ -73,7 +73,7 @@ FTColumn >> initialize [
 
 { #category : #testing }
 FTColumn >> isSortEnabled [
-	^ self isColumnOrderedFromGreatest or: [ self isColumnOrderedFromLeast ]
+	^ self sortingStrategy isSortingEnabled
 ]
 
 { #category : #accessing }
@@ -90,6 +90,11 @@ FTColumn >> property: aPropertyName [
 { #category : #accessing }
 FTColumn >> sortDataSource: aDataSource [
 	self sortingStrategy sortDataSource: aDataSource
+]
+
+{ #category : #'as yet unclassified' }
+FTColumn >> sortingIcon [
+	^ self sortingStrategy sortingIcon
 ]
 
 { #category : #accessing }

@@ -41,7 +41,7 @@ FTOldColumnSortingStrategy >> isColumnOrderedFromLeast: aBool [
 
 { #category : #testing }
 FTOldColumnSortingStrategy >> isSortingEnabled [
-	^ self isColumnOrderedFromGreatest or: [ self isColumnOrderedFromLeast ]
+	^ true
 ]
 
 { #category : #sorting }
@@ -61,4 +61,11 @@ FTOldColumnSortingStrategy >> sortDataSource: aDataSource [
 			self isColumnOrderedFromGreatest: false.
 			^ self ].
 	^ self
+]
+
+{ #category : #accessing }
+FTOldColumnSortingStrategy >> sortingIcon [
+	self isColumnOrderedFromGreatest ifTrue: [ ^ self morphicIconNamed: #arrowDown ].
+	self isColumnOrderedFromLeast ifTrue: [ ^ self morphicIconNamed: #arrowUp ].
+	^ self morphicIconNamed: #arrowUpAndDown
 ]
