@@ -20,8 +20,7 @@ Class {
 		'id',
 		'property',
 		'width',
-		'isColumnOrderedFromLeast',
-		'isColumnOrderedFromGreatest'
+		'sortingStrategy'
 	],
 	#category : #'Morphic-Widgets-FastTable'
 }
@@ -30,8 +29,6 @@ Class {
 FTColumn class >> id: anObject [
 	^ self new
 		id: anObject;
-		isColumnOrderedFromGreatest: false;
-		isColumnOrderedFromLeast: false;
 		yourself
 ]
 
@@ -49,8 +46,12 @@ FTColumn >> acquireWidth: anOwnerWidth [
 
 { #category : #accessing }
 FTColumn >> disableSort [
-	isColumnOrderedFromGreatest := false.
-	isColumnOrderedFromLeast := false
+	self sortingStrategy: (FTNullColumnSortingStrategy column: self)
+]
+
+{ #category : #accessing }
+FTColumn >> enableSort [
+	self sortingStrategy: (FTDefaultColumnSortingStrategy column: self)
 ]
 
 { #category : #accessing }
@@ -66,35 +67,12 @@ FTColumn >> id: anObject [
 { #category : #initialization }
 FTColumn >> initialize [
 	super initialize.
-	self disableSort
-]
-
-{ #category : #accessing }
-FTColumn >> isColumnOrderedFromGreatest [
-	^isColumnOrderedFromGreatest
-]
-
-{ #category : #accessing }
-FTColumn >> isColumnOrderedFromGreatest: aBool [
-	isColumnOrderedFromGreatest := aBool.
-   isColumnOrderedFromLeast:= aBool not.
-]
-
-{ #category : #accessing }
-FTColumn >> isColumnOrderedFromLeast [
-	^isColumnOrderedFromLeast
-
-]
-
-{ #category : #accessing }
-FTColumn >> isColumnOrderedFromLeast: aBool [
-	isColumnOrderedFromLeast := aBool.
-   isColumnOrderedFromGreatest := aBool not.
-
+	self flag: #todo.	"The old one should be removed after my refactor."
+	self sortingStrategy: (FTOldColumnSortingStrategy column: self)
 ]
 
 { #category : #testing }
-FTColumn >> isSortActivated [
+FTColumn >> isSortEnabled [
 	^ self isColumnOrderedFromGreatest or: [ self isColumnOrderedFromLeast ]
 ]
 
@@ -107,6 +85,21 @@ FTColumn >> property [
 FTColumn >> property: aPropertyName [
 "i am the name of the property linked to this column"
 	property := aPropertyName
+]
+
+{ #category : #accessing }
+FTColumn >> sortDataSource: aDataSource [
+	self sortingStrategy sortDataSource: aDataSource
+]
+
+{ #category : #accessing }
+FTColumn >> sortingStrategy [
+	^ sortingStrategy
+]
+
+{ #category : #accessing }
+FTColumn >> sortingStrategy: anObject [
+	sortingStrategy := anObject
 ]
 
 { #category : #accessing }
