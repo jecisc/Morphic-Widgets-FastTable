@@ -25,13 +25,8 @@ FTAbstractColumnState >> context: anObject [
 ]
 
 { #category : #sorting }
-FTAbstractColumnState >> executeSorting [
+FTAbstractColumnState >> executeSortingOn: aDataSource [
 	self subclassResponsibility
-]
-
-{ #category : #sorting }
-FTAbstractColumnState >> moveToNextState [
-	self context state: self nextState
 ]
 
 { #category : #accessing }
@@ -41,8 +36,10 @@ FTAbstractColumnState >> nextState [
 
 { #category : #sorting }
 FTAbstractColumnState >> sort: aDataSource [
-	self executeSorting.
-	self moveToNextState
+	| nextState |
+	nextState := self nextState.
+	self context state: nextState.
+	nextState executeSortingOn: aDataSource
 ]
 
 { #category : #accessing }

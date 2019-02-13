@@ -62,8 +62,7 @@ FTColumn >> id: anObject [
 { #category : #initialization }
 FTColumn >> initialize [
 	super initialize.
-	self flag: #todo.	"The old one should be removed after my refactor."
-	self sortingStrategy: (FTOldColumnSortingStrategy column: self)
+	self disableSort
 ]
 
 { #category : #testing }
@@ -95,11 +94,9 @@ FTColumn >> sortDataSource: aDataSource [
 	self sortingStrategy sortDataSource: aDataSource
 ]
 
-{ #category : #accessing }
-FTColumn >> sortable [
-	"Enable sorting with default option."
-
-	self sortingStrategy: (FTDefaultColumnSortingStrategy column: self)
+{ #category : #'as yet unclassified' }
+FTColumn >> sortableOnProperty: aProperty [
+	self sortingStrategy: (FTDefaultColumnSortingStrategy column: self property: aProperty)
 ]
 
 { #category : #accessing }

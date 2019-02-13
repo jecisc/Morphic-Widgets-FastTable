@@ -4,6 +4,11 @@ Class {
 	#category : #'Morphic-Widgets-FastTable'
 }
 
+{ #category : #sorting }
+FTUnsortedColumnState >> executeSortingOn: aDataSource [
+	aDataSource unsort
+]
+
 { #category : #accessing }
 FTUnsortedColumnState >> nextState [
 	^ FTAscendingColumnState context: self context

@@ -2,15 +2,33 @@ Class {
 	#name : #FTDefaultColumnSortingStrategy,
 	#superclass : #FTAbstractColumnSortingStrategy,
 	#instVars : [
-		'state'
+		'state',
+		'property'
 	],
 	#category : #'Morphic-Widgets-FastTable'
 }
+
+{ #category : #'instance creation' }
+FTDefaultColumnSortingStrategy class >> column: aColumn property: aValuable [
+	^ (self column: aColumn)
+		property: aValuable;
+		yourself
+]
 
 { #category : #initialization }
 FTDefaultColumnSortingStrategy >> initialize [
 	super initialize.
 	self reset
+]
+
+{ #category : #accessing }
+FTDefaultColumnSortingStrategy >> property [
+	^ property
+]
+
+{ #category : #accessing }
+FTDefaultColumnSortingStrategy >> property: aString [ 
+	property := aString
 ]
 
 { #category : #initialization }

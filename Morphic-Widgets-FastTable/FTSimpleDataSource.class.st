@@ -42,34 +42,20 @@ FTSimpleDataSource >> elements: anObject [
 	elements := anObject
 ]
 
-{ #category : #'private ' }
-FTSimpleDataSource >> getCellMorphContent: column [
-	column isSortEnabled
-		ifFalse: [ ^ column id asStringMorph ]
-		ifTrue: [ | trg pane |
-			pane := Morph new.
-			pane layoutPolicy: TableLayout new.
-			pane listDirection: #rightToLeft.
-			pane hResizing: #shrinkWrap.
-			pane vResizing: #shrinkWrap.
-			pane layoutInset: 5 @ 2.
-			pane cellInset: 5 @ 0.
-			pane color: Color transparent.
-			trg := column sortingIcon.
-			
-			trg ifNotNil: [ pane addMorph: trg ].
-			pane addMorph: column id asStringMorph.
-			^ pane ]
-]
-
 { #category : #accessing }
 FTSimpleDataSource >> headerColumn: column [
+	| cell |
 	column id ifNil: [ ^ nil ].
-	^ FTHeaderColumnCellMorph new
-		listCentering: #left;
+	cell := FTHeaderColumnCellMorph new
+		listCentering: #center;
 		column: column;
-		addMorph: (self getCellMorphContent: column);
-		yourself
+		cellInset: 5;
+		addMorph: column id asStringMorph;
+		yourself.
+
+	column sortingIcon ifNotNil: [ :icon | cell addMorph: icon ].
+
+	^ cell
 ]
 
 { #category : #accessing }

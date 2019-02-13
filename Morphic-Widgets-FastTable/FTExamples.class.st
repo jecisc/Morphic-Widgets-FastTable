@@ -554,7 +554,7 @@ FTExamples class >> examplePersonsInfo [
 ]
 
 { #category : #examples }
-FTExamples class >> exampleSortableListWithHeader [
+FTExamples class >> exampleSortableList [
 	"Show a list with all Object methods with a header"
 
 	<example>
@@ -563,13 +563,80 @@ FTExamples class >> exampleSortableListWithHeader [
 	list := FTTableMorph new
 		extent: 300 @ 550;
 		addColumn:
-			((FTColumn id: 'Method name')
-				sortable;
+			((FTColumn id: 'Class name')
+				sortableOnProperty: #printString;
 				yourself);
-		dataSource: (FTExampleMethodListDataSource for: Object);
+		dataSource: (FTExampleDataSource elements: Smalltalk allClassesAndTraits shuffled);
 		yourself.
 
 	^ list openInWindow
+]
+
+{ #category : #examples }
+FTExamples class >> exampleSortableTable1 [
+	"Show a table with all Object methods"
+
+	<sampleInstance>
+	<example>
+	| table |
+	table := FTTableMorph new
+		extent: 650 @ 500;
+		addColumn:
+			((FTColumn id: 'Name')
+				sortableOnProperty: #name;
+				yourself);
+		addColumn:
+			((FTColumn id: 'Protocol')
+				sortableOnProperty: #protocol;
+				yourself);
+		addColumn:
+			((FTColumn id: 'Origin')
+				sortableOnProperty: [ :entity | entity origin name ];
+				yourself);
+		dataSource: (FTExampleMethodTableDataSource for: Object);
+		selectFirst;
+		showFirstSelection;
+		onAnnouncement: FTSelectionChanged do: [ :ann | ('rows selected: ' , ann newSelectedIndexes asString) crLog ];
+		onAnnouncement: FTStrongSelectionChanged do: [ :ann | ('double-click on row: ' , ann selectedIndex asString) crLog ];
+		beMultipleSelection;
+		beResizable;
+		yourself.
+
+	^ table openInWindow
+]
+
+{ #category : #examples }
+FTExamples class >> exampleSortableTable2 [
+	"Show a table with all Object methods"
+
+	<sampleInstance>
+	<example>
+	| table |
+	table := FTTableMorph new
+		extent: 650 @ 500;
+		addColumn:
+			((FTColumn id: 'Icon')
+				width: 40;
+				yourself);
+		addColumn:
+			((FTColumn id: 'Name')
+				sortableOnProperty: #name;
+				yourself);
+		addColumn:
+			((FTColumn id: 'Number of methods')
+				sortableOnProperty: #numberOfMethods;
+				yourself);
+		addColumn:
+			((FTColumn id: 'Number of instance variables')
+				sortableOnProperty: #numberOfInstanceVariables;
+				yourself);
+		dataSource: FTExampleClassInfoTableDataSource new;
+		selectFirst;
+		showFirstSelection;
+		beResizable;
+		yourself.
+
+	^ table openInWindow
 ]
 
 { #category : #examples }
@@ -709,11 +776,26 @@ FTExamples class >> exampleTable6 [
 	table := FTTableMorph new
 		extent: 500 @ 500;
 		beCellSelection;
-		addColumn: (FTColumn id: 'column1');
-		addColumn: (FTColumn id: 'column2');
-		addColumn: (FTColumn id: 'column3');
-		addColumn: (FTColumn id: 'column4');
-		addColumn: (FTColumn id: 'column5');
+		addColumn:
+			((FTColumn id: 'column1')
+				sortableOnProperty: #property1;
+				yourself);
+		addColumn:
+			((FTColumn id: 'column2')
+				sortableOnProperty: #property2;
+				yourself);
+		addColumn:
+			((FTColumn id: 'column3')
+				sortableOnProperty: #property3;
+				yourself);
+		addColumn:
+			((FTColumn id: 'column4')
+				sortableOnProperty: [ :entity | entity property4 asString ];
+				yourself);
+		addColumn:
+			((FTColumn id: 'column5')
+				sortableOnProperty: #property5;
+				yourself);
 		dataSource: ds;
 		selectFirst;
 		showFirstSelection;
@@ -733,36 +815,54 @@ FTExamples class >> exampleTable6 [
 { #category : #examples }
 FTExamples class >> exampleTable7 [
 	"Show a table with cell selection mode enabled, and different cell wodgets"
+
 	<sampleInstance>
 	<example>
-	|table sampleDataSource|
-	
-	sampleDataSource :=FTCellSampleDataSource new:10.
+	| table sampleDataSource |
+	sampleDataSource := FTCellSampleDataSource new: 10.
 	table := FTTableMorph new
-		extent: 500@500;
+		extent: 500 @ 500;
 		beCellSelection;
-		addColumn: (FTColumn id: 'column1');    "editable FTLabelCellMorph"
-		addColumn: (FTColumn id: 'column2');    "non editable FTLabelCellMorph"
-		addColumn: (FTColumn id: 'column3');		"FTTextEditCellMorph"	
-		addColumn: (FTColumn id: 'column4');    "FTCheckBoxCellMorph"
-		addColumn: (FTColumn id: 'column5');	   "FTDropListCellMorph"
-		addColumn: (FTColumn id: 'column6');	   "FTDateCellMorph"
+		addColumn:
+			((FTColumn id: 'column1')
+				sortableOnProperty: #property1;
+				yourself);
+		addColumn:
+			((FTColumn id: 'column2')
+				sortableOnProperty: #property2;
+				yourself);
+		addColumn:
+			((FTColumn id: 'column3')
+				sortableOnProperty: #property3;
+				yourself);
+		addColumn:
+			((FTColumn id: 'column4')
+				sortableOnProperty: [ :entity | entity property4 asString ];
+				yourself);
+		addColumn:
+			((FTColumn id: 'column5')
+				sortableOnProperty: #property5;
+				yourself);
+		addColumn:
+			((FTColumn id: 'column6')
+				sortableOnProperty: #property6;
+				yourself);
 		beResizableRows;
 		dataSource: sampleDataSource;
 		selectFirst;
 		mouseMoveSelection: true;
-		showFirstSelection;	
+		showFirstSelection;
 		beMultipleSelection;
-		onAnnouncement: FTSelectionChanged 
-			do: [ :ann | ('rows selected: ', (ann newSelectedIndexes asString)) crLog ];
-		onAnnouncement: FTStrongSelectionChanged 
-			do: [ :ann | |index ep|
-				index := ann selectedIndex.	
-				ep := EditingProvider dateSource: sampleDataSource. ep addCellEditingEvents:index.
-		];
-	   allowDeselection;
+		onAnnouncement: FTSelectionChanged do: [ :ann | ('rows selected: ' , ann newSelectedIndexes asString) crLog ];
+		onAnnouncement: FTStrongSelectionChanged
+			do: [ :ann | 
+			| index ep |
+			index := ann selectedIndex.
+			ep := EditingProvider dateSource: sampleDataSource.
+			ep addCellEditingEvents: index ];
+		allowDeselection;
 		yourself.
-		^ table openInWindow.
+	^ table openInWindow
 ]
 
 { #category : #examples }
@@ -802,12 +902,30 @@ FTExamples class >> exampleTable9 [
 	table1 := FTTableMorph new
 		extent: 500 @ 500;
 		beCellSelection;
-		addColumn: (FTColumn id: 'column1');
-		addColumn: (FTColumn id: 'column2');
-		addColumn: (FTColumn id: 'column3');
-		addColumn: (FTColumn id: 'column4');
-		addColumn: (FTColumn id: 'column5');
-		addColumn: (FTColumn id: 'column6');
+		addColumn:
+			((FTColumn id: 'column1')
+				sortableOnProperty: #property1;
+				yourself);
+		addColumn:
+			((FTColumn id: 'column2')
+				sortableOnProperty: #property2;
+				yourself);
+		addColumn:
+			((FTColumn id: 'column3')
+				sortableOnProperty: #property3;
+				yourself);
+		addColumn:
+			((FTColumn id: 'column4')
+				sortableOnProperty: [ :entity | entity property4 asString ];
+				yourself);
+		addColumn:
+			((FTColumn id: 'column5')
+				sortableOnProperty: #property5;
+				yourself);
+		addColumn:
+			((FTColumn id: 'column6')
+				sortableOnProperty: #property6;
+				yourself);
 		dataSource: dataSource;
 		selectIndex: #(1 1);
 		showFirstSelection;
@@ -817,12 +935,30 @@ FTExamples class >> exampleTable9 [
 	table2 := FTTableMorph new
 		extent: 500 @ 500;
 		beCellSelection;
-		addColumn: (FTColumn id: 'column1');
-		addColumn: (FTColumn id: 'column2');
-		addColumn: (FTColumn id: 'column3');
-		addColumn: (FTColumn id: 'column4');
-		addColumn: (FTColumn id: 'column5');
-		addColumn: (FTColumn id: 'column6');
+		addColumn:
+			((FTColumn id: 'column1')
+				sortableOnProperty: #property1;
+				yourself);
+		addColumn:
+			((FTColumn id: 'column2')
+				sortableOnProperty: #property2;
+				yourself);
+		addColumn:
+			((FTColumn id: 'column3')
+				sortableOnProperty: #property3;
+				yourself);
+		addColumn:
+			((FTColumn id: 'column4')
+				sortableOnProperty: [ :entity | entity property4 asString ];
+				yourself);
+		addColumn:
+			((FTColumn id: 'column5')
+				sortableOnProperty: #property5;
+				yourself);
+		addColumn:
+			((FTColumn id: 'column6')
+				sortableOnProperty: #property6;
+				yourself);
 		dataSource: dataSource;
 		selectFirst;
 		showFirstSelection;
