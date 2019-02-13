@@ -7,7 +7,8 @@ Class {
 	#name : #FTSimpleDataSource,
 	#superclass : #FTDataSource,
 	#instVars : [
-		'elements'
+		'elements',
+		'unsortedElements'
 	],
 	#category : #'Morphic-Widgets-FastTable-DataSource'
 }
@@ -97,8 +98,14 @@ FTSimpleDataSource >> searchText: aString [
 	^ result asArray
 ]
 
-{ #category : #operations }
+{ #category : #sorting }
 FTSimpleDataSource >> sortElements: aBlock [
-	self elements:  (self elements asSortedCollection: aBlock).
-	self table refresh.
+	unsortedElements ifNil: [ unsortedElements := self elements copy ].
+	self elements sort: aBlock
+]
+
+{ #category : #sorting }
+FTSimpleDataSource >> unsortElements [
+	self elements: unsortedElements.
+	unsortedElements := nil
 ]

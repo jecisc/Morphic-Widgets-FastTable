@@ -121,6 +121,19 @@ FTDataSource >> searchText: aString [
 	^ #()
 ]
 
+{ #category : #sorting }
+FTDataSource >> sortElements: aSortFunction [
+	"This method should sort the elements of the datasource using the sort function as parameter."
+
+	self subclassResponsibility
+]
+
+{ #category : #sorting }
+FTDataSource >> sortWith: aSortFunction [
+	self sortElements: aSortFunction.
+	self table refresh
+]
+
 { #category : #accessing }
 FTDataSource >> table [
 	"this the table binded to this dataSource"
@@ -143,6 +156,19 @@ FTDataSource >> toString: anObject [
 	"Override me if you expect something else."
 
 	^ anObject asString
+]
+
+{ #category : #sorting }
+FTDataSource >> unsort [
+	self unsortElements.
+	self table refresh
+]
+
+{ #category : #sorting }
+FTDataSource >> unsortElements [
+	"This method should return the elements in their initial state."
+
+	self subclassResponsibility
 ]
 
 { #category : #'drag and drop' }

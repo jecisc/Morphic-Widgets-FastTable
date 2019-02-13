@@ -50,11 +50,6 @@ FTColumn >> disableSort [
 ]
 
 { #category : #accessing }
-FTColumn >> enableSort [
-	self sortingStrategy: (FTDefaultColumnSortingStrategy column: self)
-]
-
-{ #category : #accessing }
 FTColumn >> id [
 	^ id
 ]
@@ -100,7 +95,14 @@ FTColumn >> sortDataSource: aDataSource [
 	self sortingStrategy sortDataSource: aDataSource
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
+FTColumn >> sortable [
+	"Enable sorting with default option."
+
+	self sortingStrategy: (FTDefaultColumnSortingStrategy column: self)
+]
+
+{ #category : #accessing }
 FTColumn >> sortingIcon [
 	^ self sortingStrategy sortingIcon
 ]

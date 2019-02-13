@@ -52,16 +52,15 @@ FTOldColumnSortingStrategy >> reset [
 { #category : #sorting }
 FTOldColumnSortingStrategy >> sortDataSource: aDataSource [
 	(self isColumnOrderedFromLeast not and: [ self isColumnOrderedFromGreatest not ])
-		ifTrue: [ aDataSource sortElements: [ :a :c | (a perform: self column property) asString > (c perform: self column property) asString ].
+		ifTrue: [ aDataSource sortWith: [ :a :c | (a perform: self column property) asString > (c perform: self column property) asString ].
 			self isColumnOrderedFromLeast: false.
 			self isColumnOrderedFromGreatest: true.
 			^ self ].
 	self isColumnOrderedFromLeast
-		ifTrue: [ aDataSource sortElements: [ :a :c | (a perform: self column property) asString > (c perform: self column property) asString ].
-			self isColumnOrderedFromLeast: false.
-			self isColumnOrderedFromGreatest: true.
+		ifTrue: [ aDataSource unsort.
+			self reset.
 			^ self ]
-		ifFalse: [ aDataSource sortElements: [ :a :c | (a perform: self column property) asString < (c perform: self column property) asString ].
+		ifFalse: [ aDataSource sortWith: [ :a :c | (a perform: self column property) asString < (c perform: self column property) asString ].
 			self isColumnOrderedFromLeast: true.
 			self isColumnOrderedFromGreatest: false.
 			^ self ].
