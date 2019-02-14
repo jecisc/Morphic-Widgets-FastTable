@@ -76,8 +76,9 @@ FTDateCellMorph >> date: aDate [
 
 { #category : #testing }
 FTDateCellMorph >> hasEditingProvider [
-"the date cell morph  has its own editing provider that shows the calender morph"
-	^true
+	"the date cell morph  has its own editing provider that shows the calender morph"
+
+	^ true
 ]
 
 { #category : #initialization }

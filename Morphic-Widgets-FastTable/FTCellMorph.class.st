@@ -32,32 +32,14 @@ Class {
 	#name : #FTCellMorph,
 	#superclass : #FTSelectableMorph,
 	#instVars : [
-		'topSeparator',
-		'allowEdit',
-		'cellPosition'
+		'topSeparator'
 	],
 	#category : #'Morphic-Widgets-FastTable'
 }
 
 { #category : #accessing }
 FTCellMorph >> allowEdit [
-	^allowEdit
-]
-
-{ #category : #accessing }
-FTCellMorph >> allowEdit: aBool [
-	allowEdit := aBool.
-
-]
-
-{ #category : #accessing }
-FTCellMorph >> cellPosition [
-	^ cellPosition
-]
-
-{ #category : #accessing }
-FTCellMorph >> cellPosition: aPosition [
-	cellPosition := aPosition
+	^ false
 ]
 
 { #category : #drawing }
@@ -97,13 +79,6 @@ FTCellMorph >> initialize [
 { #category : #drawing }
 FTCellMorph >> seperatorColor [
 	^ self theme scrollbarColor
-]
-
-{ #category : #operations }
-FTCellMorph >> showEditor: index [
-	"this message should be overrided by the cell that provide a custom editor or don't need the default editorProvider defined in the data source"
-
-	self subclassResponsibility
 ]
 
 { #category : #accessing }

@@ -56,8 +56,9 @@ FTTextEditCellMorph >> content: aString [
 
 { #category : #accessing }
 FTTextEditCellMorph >> hasEditingProvider [
-"the textEdit cell morph  has a RubTextFieldArea which is basiclly an editing textbox"
-	^true
+	"the textEdit cell morph  has a RubTextFieldArea which is basiclly an editing textbox"
+
+	^ true
 ]
 
 { #category : #initialization }
