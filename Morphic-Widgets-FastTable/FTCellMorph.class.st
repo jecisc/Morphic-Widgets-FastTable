@@ -52,7 +52,7 @@ FTCellMorph >> allowEdit: aBool [
 
 { #category : #accessing }
 FTCellMorph >> cellPosition [
-	^cellPosition 
+	^ cellPosition
 ]
 
 { #category : #accessing }
@@ -75,8 +75,9 @@ FTCellMorph >> handlesMouseOver: evt [
 
 { #category : #testing }
 FTCellMorph >> hasEditingProvider [
-"this message indicated that this cell doest has a custom editing, so it can use the editing provider implemented in the data source"
-	^false
+	"this message indicated that this cell doest has a custom editing, so it can use the editing provider implemented in the data source"
+
+	^ false
 ]
 
 { #category : #initialization }
@@ -99,15 +100,10 @@ FTCellMorph >> seperatorColor [
 ]
 
 { #category : #operations }
-FTCellMorph >> showEditor:index [
-"this message should be overrided by the cell that provide a custom editor or don't need the default editorProvider defined in the data source"
-	self subclassResponsibility
-]
+FTCellMorph >> showEditor: index [
+	"this message should be overrided by the cell that provide a custom editor or don't need the default editorProvider defined in the data source"
 
-{ #category : #drawing }
-FTCellMorph >> updateCellColor [
-	|selectedCells|
-	
+	self subclassResponsibility
 ]
 
 { #category : #accessing }

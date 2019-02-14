@@ -31,16 +31,9 @@ FTTextEditCellMorph class >> table: aTable content: aString allowEdit: aBoolean 
 ]
 
 { #category : #accessing }
-FTTextEditCellMorph >> allowEdit [
-	^allowEdit
-	
-]
-
-{ #category : #accessing }
 FTTextEditCellMorph >> allowEdit: aBool [
-	allowEdit := aBool.
-	self rubTextField notNil ifTrue:[ self rubTextField lock: aBool not]
-
+	super allowEdit: aBool.
+	self rubTextField ifNotNil: [ self rubTextField lock: aBool not ]
 ]
 
 { #category : #accessing }
@@ -101,9 +94,8 @@ FTTextEditCellMorph >> setupRubTextFieldArea [
 ]
 
 { #category : #operations }
-FTTextEditCellMorph >> showEditor:index [
-	^self
-
+FTTextEditCellMorph >> showEditor: index [
+	"Nothing to do"
 ]
 
 { #category : #operations }

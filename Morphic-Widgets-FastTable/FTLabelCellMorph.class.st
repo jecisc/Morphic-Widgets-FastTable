@@ -30,19 +30,6 @@ FTLabelCellMorph class >> table: aTable content: aString allowEdit: aBoolean  po
 ]
 
 { #category : #accessing }
-FTLabelCellMorph >> allowEdit [
-	^allowEdit
-	
-]
-
-{ #category : #accessing }
-FTLabelCellMorph >> allowEdit: aBool [
-	allowEdit := aBool.
-
-	
-]
-
-{ #category : #accessing }
 FTLabelCellMorph >> content [
 	^content 
 ]

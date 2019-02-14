@@ -26,16 +26,9 @@ FTDropListCellMorph class >> table:aTable datasource: aList selectedItem:anObjec
 ]
 
 { #category : #accessing }
-FTDropListCellMorph >> allowEdit [
-	^allowEdit
-	
-]
-
-{ #category : #accessing }
 FTDropListCellMorph >> allowEdit: aBool [
-	allowEdit := aBool.
-	self dropList notNil ifTrue:[ self dropList lock: aBool not]
-
+	super allowEdit: aBool.
+	self dropList ifNotNil: [ self dropList lock: aBool not ]
 ]
 
 { #category : #accessing }
@@ -152,9 +145,10 @@ FTDropListCellMorph >> setupDropList [
 ]
 
 { #category : #operations }
-FTDropListCellMorph >> showEditor:index [
-	^self
+FTDropListCellMorph >> showEditor: index [
+	"Nothing to do"
 
+	
 ]
 
 { #category : #operations }

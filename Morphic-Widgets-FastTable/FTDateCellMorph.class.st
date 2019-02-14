@@ -32,15 +32,9 @@ FTDateCellMorph class >> table: aTable date: aDate allowEdit: aBoolean  position
 ]
 
 { #category : #accessing }
-FTDateCellMorph >> allowEdit [
-	^allowEdit
-]
-
-{ #category : #accessing }
 FTDateCellMorph >> allowEdit: aBool [
-	allowEdit := aBool.
-	calendar notNil ifTrue:[aBool ifTrue: [self calendar delete]]
-	
+	super allowEdit: aBool.
+	calendar ifNotNil: [ aBool ifTrue: [ self calendar delete ] ]
 ]
 
 { #category : #accessing }
@@ -120,17 +114,16 @@ FTDateCellMorph >> setupCalendarMorph [
 ]
 
 { #category : #operations }
-FTDateCellMorph >> showEditor:index [
-|cal|
-	self allowEdit ifFalse: [ ^self ].
-	cal :=  (CellCalendarMorph on: (self date ifNil: [Date today] ifNotNil: [self date])).
+FTDateCellMorph >> showEditor: index [
+	| cal |
+	self allowEdit ifFalse: [ ^ self ].
+	cal := CellCalendarMorph on: (self date ifNil: [ Date today ] ifNotNil: [ self date ]).
 	self cellIndex: index.
-	cal position: (self bounds topLeft +  (10@10)). 
+	cal position: self bounds topLeft + (10 @ 10).
 	self calendar: cal.
 	cal takeKeyboardFocus.
 	cal openInWorld.
-	cal onChoiceSend: #updateDate to: self.
-	
+	cal onChoiceSend: #updateDate to: self
 ]
 
 { #category : #operations }

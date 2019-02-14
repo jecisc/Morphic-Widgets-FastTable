@@ -31,16 +31,9 @@ FTCheckBoxCellMorph class >> table: aTable content: aBooleanContent allowEdit: a
 ]
 
 { #category : #accesing }
-FTCheckBoxCellMorph >> allowEdit [
-	^allowEdit
-	
-]
-
-{ #category : #accesing }
 FTCheckBoxCellMorph >> allowEdit: aBool [
-	allowEdit := aBool.
-	checkbox notNil ifTrue:[  self checkbox lock:aBool not ]
-	
+	super allowEdit: aBool.
+	checkbox ifNotNil: [ self checkbox lock: aBool not ]
 ]
 
 { #category : #accesing }
@@ -113,10 +106,10 @@ FTCheckBoxCellMorph >> setupCheckBox [
 ]
 
 { #category : #operations }
-FTCheckBoxCellMorph >> showEditor:index [
-"this message is used to define a custom editor"
-	^self
+FTCheckBoxCellMorph >> showEditor: index [
+	"Nothing to do"
 
+	
 ]
 
 { #category : #operations }
