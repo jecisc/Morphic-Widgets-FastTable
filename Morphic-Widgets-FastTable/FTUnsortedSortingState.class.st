@@ -7,7 +7,7 @@ I am a sorting state for unsorted table.
 Class {
 	#name : #FTUnsortedSortingState,
 	#superclass : #FTAbstractSortingState,
-	#category : #'Morphic-Widgets-FastTable'
+	#category : #'Morphic-Widgets-FastTable-Sorting'
 }
 
 { #category : #sorting }

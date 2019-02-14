@@ -29,7 +29,7 @@ Class {
 	#instVars : [
 		'column'
 	],
-	#category : #'Morphic-Widgets-FastTable'
+	#category : #'Morphic-Widgets-FastTable-Sorting'
 }
 
 { #category : #accessing }

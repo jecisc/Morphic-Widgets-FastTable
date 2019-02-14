@@ -44,18 +44,7 @@ FTSimpleDataSource >> elements: anObject [
 
 { #category : #accessing }
 FTSimpleDataSource >> headerColumn: column [
-	| cell |
-	column id ifNil: [ ^ nil ].
-	cell := FTHeaderColumnCellMorph new
-		listCentering: #center;
-		column: column;
-		cellInset: 5;
-		addMorph: column id asStringMorph;
-		yourself.
-
-	column sortingIcon ifNotNil: [ :icon | cell addMorph: icon ].
-
-	^ cell
+	^ self basicHeaderCellFor: column
 ]
 
 { #category : #accessing }

@@ -640,6 +640,24 @@ FTExamples class >> exampleSortableTable2 [
 ]
 
 { #category : #examples }
+FTExamples class >> exampleSortableTree [
+	"Show a list with all Object methods with a header"
+
+	<example>
+	<sampleInstance>
+	| ds |
+	ds := FTTreeDataSource roots: (ProtoObject allSubclasses reject: [ :e | e isMeta ]) children: [ :data | data subclasses ].
+	FTTableMorph new
+		extent: 200 @ 400;
+		addColumn:
+			((FTColumn id: 'Class name')
+				sortableOnProperty: #printString;
+				yourself);
+		dataSource: ds;
+		openInWindow
+]
+
+{ #category : #examples }
 FTExamples class >> exampleTable1 [
 	"Show a table with all Object methods"
 

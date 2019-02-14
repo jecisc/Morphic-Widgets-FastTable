@@ -26,7 +26,7 @@ Class {
 		'state',
 		'property'
 	],
-	#category : #'Morphic-Widgets-FastTable'
+	#category : #'Morphic-Widgets-FastTable-Sorting'
 }
 
 { #category : #'instance creation' }

@@ -40,6 +40,22 @@ Class {
 }
 
 { #category : #accessing }
+FTDataSource >> basicHeaderCellFor: column [
+	| cell |
+	column id ifNil: [ ^ nil ].
+	cell := FTHeaderColumnCellMorph new
+		listCentering: #center;
+		column: column;
+		cellInset: 5;
+		addMorph: column id asStringMorph;
+		yourself.
+
+	column sortingIcon ifNotNil: [ :icon | cell addMorph: icon ].
+
+	^ cell
+]
+
+{ #category : #accessing }
 FTDataSource >> cellColumn: column row: rowIndex [
 	"Answer a morph with the cell view. I will probably return a FTCellMorph."
 

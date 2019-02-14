@@ -9,7 +9,7 @@ By default I will display nothing in the header cell and do nothing we I am aske
 Class {
 	#name : #FTNullColumnSortingStrategy,
 	#superclass : #FTAbstractColumnSortingStrategy,
-	#category : #'Morphic-Widgets-FastTable'
+	#category : #'Morphic-Widgets-FastTable-Sorting'
 }
 
 { #category : #testing }

@@ -7,7 +7,7 @@ I am a sorting state for descending sorted table.
 Class {
 	#name : #FTDescendingSortingState,
 	#superclass : #FTAbstractSortingState,
-	#category : #'Morphic-Widgets-FastTable'
+	#category : #'Morphic-Widgets-FastTable-Sorting'
 }
 
 { #category : #sorting }
