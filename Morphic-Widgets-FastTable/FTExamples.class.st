@@ -541,7 +541,7 @@ FTExamples class >> examplePersonsInfo [
 		addColumn: (FTColumn id: 'gender');
 		dataSource: dataSource;
 		selectFirst;
-		showFirstRowSelection;
+		showFirstSelection;
 		beSingleSelection;
 		onAnnouncement: FTStrongSelectionChanged
 			do: [ :ann | 

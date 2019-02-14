@@ -1,16 +1,47 @@
 "
-I'm a column definition for a fast  table.
-
 Description 
 ------------------
  
-I keep an id and relevant information of my behaviour, but this behaviour is better defined in FTDataSource>>#headerTable:column:
+I'm a column definition for a fast table.
+
+I keep an id and relevant informations of my behaviour, but this behaviour is better defined in FTDataSource>>#headerColumn:
+
+I can have a sorting strategy, by default I uses a null sorting strategy. The datasource can ask to me informations from the current strategy such as an icon to display in the header cell. When the header is clicked, I'll give a datasource to the strategy and ask to sort it.
+
+Examples
+--------------------
+
+	FTTableMorph new
+		extent: 650 @ 500;
+		addColumn:
+			((FTColumn id: 'Icon')
+				width: 40;
+				yourself);
+		addColumn:
+			((FTColumn id: 'Name')
+				sortableOnProperty: #name;
+				yourself);
+		addColumn:
+			((FTColumn id: 'Number of methods')
+				sortableOnProperty: #numberOfMethods;
+				yourself);
+		addColumn:
+			((FTColumn id: 'Number of instance variables')
+				sortableOnProperty: #numberOfInstanceVariables;
+				yourself);
+		dataSource: FTExampleClassInfoTableDataSource new;
+		selectFirst;
+		showFirstSelection;
+		beResizable;
+		openInWindow
  
 Internal Representation and Key Implementation Points.
------------------
+--------------------
+
     Instance Variables
-	id:		An id for the column
-	width:		An Integer that represent the width of a column.
+	id:							<aSymbol>							An id for the column
+	sortingStrategy:		<aColumnSortingStrategy>		A subclass of FTAbstractColumnSortingStrategy that will manage all the behavior of the table sorting
+	width:						<anInteger>						An Integer that represent the width of a column
 
 "
 Class {
@@ -44,7 +75,7 @@ FTColumn >> acquireWidth: anOwnerWidth [
 	^ self widthOrUndefined min: anOwnerWidth
 ]
 
-{ #category : #accessing }
+{ #category : #sorting }
 FTColumn >> disableSort [
 	self sortingStrategy: (FTNullColumnSortingStrategy column: self)
 ]
@@ -75,12 +106,6 @@ FTColumn >> property [
 	^ property
 ]
 
-{ #category : #accessing }
-FTColumn >> property: aPropertyName [
-"i am the name of the property linked to this column"
-	property := aPropertyName
-]
-
 { #category : #initialization }
 FTColumn >> resetSorting [
 	self sortingStrategy reset
@@ -94,7 +119,7 @@ FTColumn >> sortDataSource: aDataSource [
 	self sortingStrategy sortDataSource: aDataSource
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #sorting }
 FTColumn >> sortableOnProperty: aProperty [
 	self sortingStrategy: (FTDefaultColumnSortingStrategy column: self property: aProperty)
 ]

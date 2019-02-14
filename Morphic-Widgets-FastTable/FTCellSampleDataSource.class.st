@@ -17,24 +17,12 @@ FTCellSampleDataSource class >> new: anInteger [
 { #category : #accessing }
 FTCellSampleDataSource >> cellColumn: column row: rowIndex [
 	column id = '#' ifTrue: [ ^ FTCellMorph new addMorph: rowIndex asMorph ].
-	column id = 'column1'
-		ifTrue: [ column property: #property1.
-			^ self prop1Column: column row: rowIndex ].
-	column id = 'column2'
-		ifTrue: [ column property: #property2.
-			^ self prop2Column: column row: rowIndex ].
-	column id = 'column3'
-		ifTrue: [ column property: #property3.
-			^ self prop3Column: column row: rowIndex ].
-	column id = 'column4'
-		ifTrue: [ column property: #property4.
-			^ self prop4Column: column row: rowIndex ].
-	column id = 'column5'
-		ifTrue: [ column property: #property5.
-			^ self prop5Column: column row: rowIndex ].
-	column id = 'column6'
-		ifTrue: [ column property: #property6.
-			^ self prop6Column: column row: rowIndex ].
+	column id = 'column1' ifTrue: [ ^ self prop1Column: column row: rowIndex ].
+	column id = 'column2' ifTrue: [ ^ self prop2Column: column row: rowIndex ].
+	column id = 'column3' ifTrue: [ ^ self prop3Column: column row: rowIndex ].
+	column id = 'column4' ifTrue: [ ^ self prop4Column: column row: rowIndex ].
+	column id = 'column5' ifTrue: [ ^ self prop5Column: column row: rowIndex ].
+	column id = 'column6' ifTrue: [ ^ self prop6Column: column row: rowIndex ].
 
 	self error: 'Invalid column'
 ]
@@ -76,6 +64,7 @@ FTCellSampleDataSource >> prop1Column: column row: rowIndex [
 		content: (self elementAt: rowIndex) property1
 		allowEdit: true
 		position: (Array with: column with: rowIndex)
+		property: #property1
 ]
 
 { #category : #accessing }
@@ -85,6 +74,7 @@ FTCellSampleDataSource >> prop2Column: column row: rowIndex [
 		content: (self elementAt: rowIndex) property2
 		allowEdit: false
 		position: (Array with: column with: rowIndex)
+		property: #property2
 ]
 
 { #category : #accessing }
@@ -94,6 +84,7 @@ FTCellSampleDataSource >> prop3Column: column row: rowIndex [
 		content: (self elementAt: rowIndex) property3
 		allowEdit: true
 		position: (Array with: column with: rowIndex)
+		property: #property3
 ]
 
 { #category : #accessing }
@@ -103,6 +94,7 @@ FTCellSampleDataSource >> prop4Column: column row: rowIndex [
 		content: (self elementAt: rowIndex) property4
 		allowEdit: true
 		position: (Array with: column with: rowIndex)
+		property: #property4
 ]
 
 { #category : #accessing }
@@ -113,6 +105,7 @@ FTCellSampleDataSource >> prop5Column: column row: rowIndex [
 		selectedItem: (self elementAt: rowIndex) property5
 		allowEdit: true
 		position: (Array with: column with: rowIndex)
+		property: #property5
 ]
 
 { #category : #accessing }
@@ -122,4 +115,5 @@ FTCellSampleDataSource >> prop6Column: column row: rowIndex [
 		date: (self elementAt: rowIndex) property6
 		allowEdit: true
 		position: (Array with: column with: rowIndex)
+		property: #property6
 ]

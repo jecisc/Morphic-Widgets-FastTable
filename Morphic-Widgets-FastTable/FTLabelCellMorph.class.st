@@ -11,12 +11,13 @@ Class {
 }
 
 { #category : #'instance creation' }
-FTLabelCellMorph class >> table: aTable content: aString allowEdit: aBoolean position: aPosition [
+FTLabelCellMorph class >> table: aTable content: aString allowEdit: aBoolean position: aPosition property: aSymbol [
 	^ self new
 		initialize: aTable
 			content: aString
 			allowEdit: aBoolean
-			position: aPosition;
+			position: aPosition
+			property: aSymbol;
 		yourself
 ]
 
@@ -39,9 +40,10 @@ FTLabelCellMorph >> content: aString [
 ]
 
 { #category : #initialization }
-FTLabelCellMorph >> initialize: aTable content: aString allowEdit: aBoolean position: aPosition [
+FTLabelCellMorph >> initialize: aTable content: aString allowEdit: aBoolean position: aPosition property: aSymbol [
 	self
 		table: aTable;
+		property: aSymbol;
 		allowEdit: aBoolean;
 		cellPosition: aPosition;
 		content: aString;

@@ -12,12 +12,14 @@ Class {
 }
 
 { #category : #'instance creation' }
-FTCheckBoxCellMorph class >> table: aTable content: aBooleanContent allowEdit: aBoolean position: aPosition [
+FTCheckBoxCellMorph class >> table: aTable content: aBooleanContent allowEdit: aBoolean position: aPosition property: aSymbol [
 	^ self new
 		initialize: aTable
-		content: aBooleanContent
-		allowEdit: aBoolean
-		position: aPosition yourself
+			content: aBooleanContent
+			allowEdit: aBoolean
+			position: aPosition
+			property: aSymbol;
+		yourself
 ]
 
 { #category : #accesing }
@@ -44,7 +46,7 @@ FTCheckBoxCellMorph >> content [
 { #category : #accesing }
 FTCheckBoxCellMorph >> content: aBool [
 	| oldValue newValue |
-	cellPosition ifNotNil: [ oldValue := (self table dataSource elementAt: self cellPosition second) perform: self cellPosition first property ] ifNil: [ oldValue := nil ].
+	cellPosition ifNotNil: [ oldValue := (self table dataSource elementAt: self cellPosition second) perform: self property ] ifNil: [ oldValue := nil ].
 	content := aBool.
 	newValue := aBool.
 	newValue = oldValue
@@ -64,9 +66,10 @@ FTCheckBoxCellMorph >> hasEditingProvider [
 ]
 
 { #category : #initialization }
-FTCheckBoxCellMorph >> initialize: aTable content: aBooleanContent allowEdit: aBoolean position: aPosition [
+FTCheckBoxCellMorph >> initialize: aTable content: aBooleanContent allowEdit: aBoolean position: aPosition property: aSymbol [
 	self
 		table: aTable;
+		property: aSymbol;
 		cellPosition: aPosition;
 		content: aBooleanContent;
 		setupCheckBox;

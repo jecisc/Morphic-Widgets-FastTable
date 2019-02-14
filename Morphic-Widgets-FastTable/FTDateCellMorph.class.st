@@ -13,12 +13,13 @@ Class {
 }
 
 { #category : #'instance creation' }
-FTDateCellMorph class >> table: aTable date: aDate allowEdit: aBoolean position: aPosition [
+FTDateCellMorph class >> table: aTable date: aDate allowEdit: aBoolean position: aPosition property: aSymbol [
 	^ self new
 		initialize: aTable
 			date: aDate
 			allowEdit: aBoolean
-			position: aPosition;
+			position: aPosition
+			property: aSymbol;
 		yourself
 ]
 
@@ -56,7 +57,7 @@ FTDateCellMorph >> date [
 { #category : #accessing }
 FTDateCellMorph >> date: aDate [
 	| oldValue newValue |
-	cellPosition ifNotNil: [ oldValue := (self table dataSource elementAt: self cellPosition second) perform: self cellPosition first property ] ifNil: [ oldValue := nil ].
+	cellPosition ifNotNil: [ oldValue := (self table dataSource elementAt: self cellPosition second) perform: self property ] ifNil: [ oldValue := nil ].
 	date := aDate.
 	newValue := aDate.
 	newValue = oldValue
@@ -75,9 +76,10 @@ FTDateCellMorph >> hasEditingProvider [
 ]
 
 { #category : #initialization }
-FTDateCellMorph >> initialize: aTable date: aDate allowEdit: aBoolean position: aPosition [
+FTDateCellMorph >> initialize: aTable date: aDate allowEdit: aBoolean position: aPosition property: aSymbol [
 	self
 		table: aTable;
+		property: aSymbol;
 		cellPosition: aPosition;
 		allowEdit: aBoolean;
 		date: aDate;

@@ -16,33 +16,48 @@ FTCellSampleArchitectureDataSource class >> new [
 
 { #category : #accesing }
 FTCellSampleArchitectureDataSource >> armColumn: column row: rowIndex [
-	^ FTCheckBoxCellMorph table: table content: ((self elementAt: rowIndex) arm ) allowEdit: false position: (Array with:column with: rowIndex)
+	^ FTCheckBoxCellMorph
+		table: table
+		content: (self elementAt: rowIndex) arm
+		allowEdit: false
+		position: (Array with: column with: rowIndex)
+		property: #arm
 ]
 
 { #category : #accesing }
-FTCellSampleArchitectureDataSource >> cellColumn: column row: rowIndex [ 
+FTCellSampleArchitectureDataSource >> cellColumn: column row: rowIndex [
 	column id = '#' ifTrue: [ ^ FTCellMorph new addMorph: rowIndex asMorph ].
-	column id = 'distribution' ifTrue: [ column property: #distribution. ^ self distributionColumn: column row: rowIndex ].
-	column id = 'x86' ifTrue: [ column property: #x86. ^ self x86Column: column row: rowIndex ].
-	column id = 'x8664' ifTrue: [ column property: #x8664. ^ self x8664Column: column row: rowIndex ].
-	column id = 'ia64' ifTrue: [ column property: #ia64. ^ self ia64Column: column row: rowIndex ].
-	column id = 'ppc' ifTrue: [ column property: #ppc. ^ self ppcColumn: column row: rowIndex ].
-	column id = 'ppc64' ifTrue: [ column property: #ppc64. ^ self ppc64Column: column row: rowIndex ].
-	column id = 'sparc32' ifTrue: [ column property: #sparc32. ^ self sparc32Column: column row: rowIndex ].
-	column id = 'sparc64' ifTrue: [ column property: #sparc64. ^ self ppc64Column: column row: rowIndex ].
-	column id = 'arm' ifTrue: [ column property: #arm. ^ self armColumn: column row: rowIndex ].
-	
-self error: 'Invalid column'
+	column id = 'distribution' ifTrue: [ ^ self distributionColumn: column row: rowIndex ].
+	column id = 'x86' ifTrue: [ ^ self x86Column: column row: rowIndex ].
+	column id = 'x8664' ifTrue: [ ^ self x8664Column: column row: rowIndex ].
+	column id = 'ia64' ifTrue: [ ^ self ia64Column: column row: rowIndex ].
+	column id = 'ppc' ifTrue: [ ^ self ppcColumn: column row: rowIndex ].
+	column id = 'ppc64' ifTrue: [ ^ self ppc64Column: column row: rowIndex ].
+	column id = 'sparc32' ifTrue: [ ^ self sparc32Column: column row: rowIndex ].
+	column id = 'sparc64' ifTrue: [ ^ self ppc64Column: column row: rowIndex ].
+	column id = 'arm' ifTrue: [ ^ self armColumn: column row: rowIndex ].
+
+	self error: 'Invalid column'
 ]
 
 { #category : #accesing }
 FTCellSampleArchitectureDataSource >> distributionColumn: column row: rowIndex [
-	^ FTLabelCellMorph table: table content: ((self elementAt: rowIndex) distribution ) allowEdit: false position: (Array with:column with: rowIndex)
+	^ FTLabelCellMorph
+		table: table
+		content: (self elementAt: rowIndex) distribution
+		allowEdit: false
+		position: (Array with: column with: rowIndex)
+		property: #distribution
 ]
 
 { #category : #accesing }
 FTCellSampleArchitectureDataSource >> ia64Column: column row: rowIndex [
-	^ FTCheckBoxCellMorph table: table content: ((self elementAt: rowIndex) ia64 ) allowEdit: false position: (Array with:column with: rowIndex)
+	^ FTCheckBoxCellMorph
+		table: table
+		content: (self elementAt: rowIndex) ia64
+		allowEdit: false
+		position: (Array with: column with: rowIndex)
+		property: #ia64
 ]
 
 { #category : #initialization }
@@ -70,30 +85,60 @@ FTCellSampleArchitectureDataSource >> populataTheTable [
 
 { #category : #accesing }
 FTCellSampleArchitectureDataSource >> ppc64Column: column row: rowIndex [
-	^ FTCheckBoxCellMorph table: table content: ((self elementAt: rowIndex) ppc64 ) allowEdit: false position: (Array with:column with: rowIndex)
+	^ FTCheckBoxCellMorph
+		table: table
+		content: (self elementAt: rowIndex) ppc64
+		allowEdit: false
+		position: (Array with: column with: rowIndex)
+		property: #ppc64
 ]
 
 { #category : #accesing }
 FTCellSampleArchitectureDataSource >> ppcColumn: column row: rowIndex [
-	^ FTCheckBoxCellMorph table: table content: ((self elementAt: rowIndex) ppc ) allowEdit: false position: (Array with:column with: rowIndex)
+	^ FTCheckBoxCellMorph
+		table: table
+		content: (self elementAt: rowIndex) ppc
+		allowEdit: false
+		position: (Array with: column with: rowIndex)
+		property: #ppc
 ]
 
 { #category : #accesing }
 FTCellSampleArchitectureDataSource >> sparc32Column: column row: rowIndex [
-	^ FTCheckBoxCellMorph table: table content: ((self elementAt: rowIndex) sparc32 ) allowEdit: false position: (Array with:column with: rowIndex)
+	^ FTCheckBoxCellMorph
+		table: table
+		content: (self elementAt: rowIndex) sparc32
+		allowEdit: false
+		position: (Array with: column with: rowIndex)
+		property: #sparc32
 ]
 
 { #category : #accesing }
 FTCellSampleArchitectureDataSource >> sparc64Column: column row: rowIndex [
-	^ FTCheckBoxCellMorph table: table content: ((self elementAt: rowIndex) sparc64 ) allowEdit: false position: (Array with:column with: rowIndex)
+	^ FTCheckBoxCellMorph
+		table: table
+		content: (self elementAt: rowIndex) sparc64
+		allowEdit: false
+		position: (Array with: column with: rowIndex)
+		property: #sparc64
 ]
 
 { #category : #accesing }
 FTCellSampleArchitectureDataSource >> x8664Column: column row: rowIndex [
-	^ FTCheckBoxCellMorph table: table content: ((self elementAt: rowIndex) x8664 ) allowEdit: false position: (Array with:column with: rowIndex)
+	^ FTCheckBoxCellMorph
+		table: table
+		content: (self elementAt: rowIndex) x8664
+		allowEdit: false
+		position: (Array with: column with: rowIndex)
+		property: #x8664
 ]
 
 { #category : #accesing }
 FTCellSampleArchitectureDataSource >> x86Column: column row: rowIndex [
-	^ FTCheckBoxCellMorph table: table content: ((self elementAt: rowIndex) x86 ) allowEdit: false position: (Array with:column with: rowIndex)
+	^ FTCheckBoxCellMorph
+		table: table
+		content: (self elementAt: rowIndex) x86
+		allowEdit: false
+		position: (Array with: column with: rowIndex)
+		property: #x86
 ]

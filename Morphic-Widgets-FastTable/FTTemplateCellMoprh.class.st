@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'table',
 		'allowEdit',
-		'cellPosition'
+		'cellPosition',
+		'property'
 	],
 	#category : #'Morphic-Widgets-FastTable'
 }
@@ -28,6 +29,16 @@ FTTemplateCellMoprh >> cellPosition [
 { #category : #accessing }
 FTTemplateCellMoprh >> cellPosition: aPosition [
 	cellPosition := aPosition
+]
+
+{ #category : #accessing }
+FTTemplateCellMoprh >> property [
+	^ property
+]
+
+{ #category : #accessing }
+FTTemplateCellMoprh >> property: anObject [
+	property := anObject
 ]
 
 { #category : #operations }

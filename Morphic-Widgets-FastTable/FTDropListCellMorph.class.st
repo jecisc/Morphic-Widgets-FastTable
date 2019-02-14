@@ -14,13 +14,14 @@ Class {
 }
 
 { #category : #'instance creation' }
-FTDropListCellMorph class >> table: aTable datasource: aList selectedItem: anObject allowEdit: aBoolean position: aPosition [
+FTDropListCellMorph class >> table: aTable datasource: aList selectedItem: anObject allowEdit: aBoolean position: aPosition property: aSymbol [
 	^ self new
 		initialize: aTable
 			datasource: aList
 			selectedItem: anObject
 			allowEdit: aBoolean
-			position: aPosition;
+			position: aPosition
+			property: aSymbol;
 		yourself
 ]
 
@@ -48,11 +49,12 @@ FTDropListCellMorph >> hasEditingProvider [
 ]
 
 { #category : #initialization }
-FTDropListCellMorph >> initialize: aTable datasource: aList selectedItem: anObject allowEdit: aBoolean position: aPosition [
+FTDropListCellMorph >> initialize: aTable datasource: aList selectedItem: anObject allowEdit: aBoolean position: aPosition property: aSymbol [
 	"All editing is in reality allow change selection"
 
 	self
 		table: aTable;
+		property: aSymbol;
 		itemSource: aList;
 		cellPosition: aPosition;
 		selectedItem: anObject;
@@ -99,7 +101,7 @@ FTDropListCellMorph >> selectedItem: anItem [
 		ifNil: [ index := itemSource indexOf: anItem ifAbsent: [ 0 ].
 			index > 0 ifTrue: [ selectedIndex := index ] ifFalse: [ ^ self	"i should raise an exception here" ] ].
 
-	cellPosition ifNotNil: [ oldValue := (self table dataSource elementAt: self cellPosition second) perform: self cellPosition first property ] ifNil: [ oldValue := nil ].
+	cellPosition ifNotNil: [ oldValue := (self table dataSource elementAt: self cellPosition second) perform: self property ] ifNil: [ oldValue := nil ].
 	newValue := anItem.
 	selectedItem := anItem.
 	newValue = oldValue

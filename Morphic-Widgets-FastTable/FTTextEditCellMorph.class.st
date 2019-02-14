@@ -12,12 +12,13 @@ Class {
 }
 
 { #category : #'instance creation' }
-FTTextEditCellMorph class >> table: aTable content: aString allowEdit: aBoolean position: aPosition [
+FTTextEditCellMorph class >> table: aTable content: aString allowEdit: aBoolean position: aPosition property: aSymbol [
 	^ self new
 		initialize: aTable
 			content: aString
 			allowEdit: aBoolean
-			position: aPosition;
+			position: aPosition
+			property: aSymbol;
 		yourself
 ]
 
@@ -35,7 +36,7 @@ FTTextEditCellMorph >> content [
 { #category : #accessing }
 FTTextEditCellMorph >> content: aString [
 	| oldValue newValue |
-	cellPosition ifNotNil: [ oldValue := (self table dataSource elementAt: self cellPosition second) perform: self cellPosition first property ] ifNil: [ oldValue := nil ].
+	cellPosition ifNotNil: [ oldValue := (self table dataSource elementAt: self cellPosition second) perform: self property ] ifNil: [ oldValue := nil ].
 	content := aString.
 	newValue := aString.
 	self rubTextField ifNotNil: [ rubTextField setTextWith: content ].
@@ -56,9 +57,10 @@ FTTextEditCellMorph >> hasEditingProvider [
 ]
 
 { #category : #initialization }
-FTTextEditCellMorph >> initialize: aTable content: aString allowEdit: aBoolean position: aPosition [
+FTTextEditCellMorph >> initialize: aTable content: aString allowEdit: aBoolean position: aPosition property: aSymbol [
 	self
 		table: aTable;
+		property: aSymbol;
 		allowEdit: aBoolean;
 		cellPosition: aPosition;
 		setupRubTextFieldArea.
