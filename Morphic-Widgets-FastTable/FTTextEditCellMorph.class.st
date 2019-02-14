@@ -12,15 +12,13 @@ Class {
 }
 
 { #category : #'instance creation' }
-FTTextEditCellMorph class >> new [
-	self error: 'use #table:content:allowEdit:position:'
-]
-
-{ #category : #'instance creation' }
-FTTextEditCellMorph class >> table: aTable content: aString allowEdit: aBoolean  position: aPosition [ 
-	^self basicNew 
-	initialize:aTable content: aString allowEdit: aBoolean  position: aPosition 
-	yourself 
+FTTextEditCellMorph class >> table: aTable content: aString allowEdit: aBoolean position: aPosition [
+	^ self new
+		initialize: aTable
+			content: aString
+			allowEdit: aBoolean
+			position: aPosition;
+		yourself
 ]
 
 { #category : #accessing }
@@ -58,16 +56,16 @@ FTTextEditCellMorph >> hasEditingProvider [
 ]
 
 { #category : #initialization }
-FTTextEditCellMorph >> initialize:aTable content: aString allowEdit: aBoolean  position: aPosition [ 
-
-	super initialize.
-	self table: aTable.
-	self allowEdit: aBoolean.
-	self cellPosition: aPosition.
-	self setupRubTextFieldArea.
-	self rubTextField announcer when: RubReturnEntered send: #value to:  [ self content: rubTextField text asString].
-	self content: aString.
-	self addMorphBack: self rubTextField.
+FTTextEditCellMorph >> initialize: aTable content: aString allowEdit: aBoolean position: aPosition [
+	self
+		table: aTable;
+		allowEdit: aBoolean;
+		cellPosition: aPosition;
+		setupRubTextFieldArea.
+	self rubTextField announcer when: RubReturnEntered send: #value to: [ self content: rubTextField text asString ].
+	self
+		content: aString;
+		addMorphBack: self rubTextField
 ]
 
 { #category : #accessing }

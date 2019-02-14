@@ -12,15 +12,12 @@ Class {
 }
 
 { #category : #'instance creation' }
-FTCheckBoxCellMorph class >> new [
-	self error: 'use #table:content:allowEdit:position:'
-]
-
-{ #category : #'instance creation' }
 FTCheckBoxCellMorph class >> table: aTable content: aBooleanContent allowEdit: aBoolean position: aPosition [
-	^self basicNew 
-	initialize:aTable content: aBooleanContent allowEdit: aBoolean position: aPosition 
-	yourself 
+	^ self new
+		initialize: aTable
+		content: aBooleanContent
+		allowEdit: aBoolean
+		position: aPosition yourself
 ]
 
 { #category : #accesing }
@@ -67,15 +64,14 @@ FTCheckBoxCellMorph >> hasEditingProvider [
 ]
 
 { #category : #initialization }
-FTCheckBoxCellMorph >> initialize: aTable content: aBooleanContent allowEdit: aBoolean  position: aPosition [ 
-
-	super initialize.
-	self table: aTable.
-	self cellPosition: aPosition.
-	self content: aBooleanContent.
-	self setupCheckBox.
-	self allowEdit: aBoolean.
-	self addMorphBack:checkbox.
+FTCheckBoxCellMorph >> initialize: aTable content: aBooleanContent allowEdit: aBoolean position: aPosition [
+	self
+		table: aTable;
+		cellPosition: aPosition;
+		content: aBooleanContent;
+		setupCheckBox;
+		allowEdit: aBoolean;
+		addMorphBack: checkbox
 ]
 
 { #category : #initialization }

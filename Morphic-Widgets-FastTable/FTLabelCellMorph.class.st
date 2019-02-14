@@ -11,15 +11,13 @@ Class {
 }
 
 { #category : #'instance creation' }
-FTLabelCellMorph class >> new [
-	self error: 'use #table:content:allowEdit:position:'
-]
-
-{ #category : #'instance creation' }
-FTLabelCellMorph class >> table: aTable content: aString allowEdit: aBoolean  position: aPosition [ 
-	^self basicNew 
-	initialize:aTable content: aString allowEdit: aBoolean  position: aPosition 
-	yourself 
+FTLabelCellMorph class >> table: aTable content: aString allowEdit: aBoolean position: aPosition [
+	^ self new
+		initialize: aTable
+			content: aString
+			allowEdit: aBoolean
+			position: aPosition;
+		yourself
 ]
 
 { #category : #accessing }
@@ -41,12 +39,11 @@ FTLabelCellMorph >> content: aString [
 ]
 
 { #category : #initialization }
-FTLabelCellMorph >> initialize:aTable content: aString allowEdit: aBoolean  position: aPosition [ 
-
-	super initialize.
-	self table: aTable.
-	self allowEdit: aBoolean.
-	self cellPosition: aPosition.
-	self content: aString.
-	self addMorphBack: content asStringMorph.
+FTLabelCellMorph >> initialize: aTable content: aString allowEdit: aBoolean position: aPosition [
+	self
+		table: aTable;
+		allowEdit: aBoolean;
+		cellPosition: aPosition;
+		content: aString;
+		addMorphBack: content asStringMorph
 ]

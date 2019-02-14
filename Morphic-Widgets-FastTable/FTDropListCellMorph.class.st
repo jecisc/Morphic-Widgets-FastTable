@@ -14,15 +14,14 @@ Class {
 }
 
 { #category : #'instance creation' }
-FTDropListCellMorph class >> new [
-	self error: 'use #table:itemSource:selectedItem:allowEdit:position:'
-]
-
-{ #category : #'instance creation' }
-FTDropListCellMorph class >> table:aTable datasource: aList selectedItem:anObject allowEdit: aBoolean  position: aPosition [ 
-	^self basicNew 
-	initialize:aTable datasource: aList selectedItem:anObject allowEdit: aBoolean  position: aPosition 
-	yourself 
+FTDropListCellMorph class >> table: aTable datasource: aList selectedItem: anObject allowEdit: aBoolean position: aPosition [
+	^ self new
+		initialize: aTable
+			datasource: aList
+			selectedItem: anObject
+			allowEdit: aBoolean
+			position: aPosition;
+		yourself
 ]
 
 { #category : #accessing }
@@ -49,17 +48,17 @@ FTDropListCellMorph >> hasEditingProvider [
 ]
 
 { #category : #initialization }
-FTDropListCellMorph >> initialize:aTable datasource: aList selectedItem:anObject allowEdit: aBoolean  position: aPosition [ 
-"All editing is in reality allow change selection"
+FTDropListCellMorph >> initialize: aTable datasource: aList selectedItem: anObject allowEdit: aBoolean position: aPosition [
+	"All editing is in reality allow change selection"
 
-super initialize.
-	self table: aTable.
-	self itemSource: aList.
-	self cellPosition: aPosition.
-	self selectedItem: anObject. "We need to make sure that the object is part of the list"
-	self setupDropList.
-	self allowEdit: aBoolean.
-	self addMorphBack:dropList.
+	self
+		table: aTable;
+		itemSource: aList;
+		cellPosition: aPosition;
+		selectedItem: anObject;
+		setupDropList;
+		allowEdit: aBoolean;
+		addMorphBack: dropList
 ]
 
 { #category : #accessing }

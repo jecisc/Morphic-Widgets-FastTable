@@ -13,15 +13,13 @@ Class {
 }
 
 { #category : #'instance creation' }
-FTDateCellMorph class >> new [
-	self error: 'use #table:date:allowEdit:position:'
-]
-
-{ #category : #'instance creation' }
-FTDateCellMorph class >> table: aTable date: aDate allowEdit: aBoolean  position: aPosition [ 
-	^self basicNew 
-	initialize:aTable date: aDate allowEdit: aBoolean  position: aPosition 
-	yourself 
+FTDateCellMorph class >> table: aTable date: aDate allowEdit: aBoolean position: aPosition [
+	^ self new
+		initialize: aTable
+			date: aDate
+			allowEdit: aBoolean
+			position: aPosition;
+		yourself
 ]
 
 { #category : #accessing }
@@ -77,14 +75,13 @@ FTDateCellMorph >> hasEditingProvider [
 ]
 
 { #category : #initialization }
-FTDateCellMorph >> initialize: aTable date: aDate allowEdit: aBoolean  position: aPosition [ 
-
-	super initialize.
-	self table: aTable.
-      self cellPosition: aPosition.
-	self allowEdit: aBoolean.
-	self date: aDate.
-	self addMorphBack: aDate asStringMorph.
+FTDateCellMorph >> initialize: aTable date: aDate allowEdit: aBoolean position: aPosition [
+	self
+		table: aTable;
+		cellPosition: aPosition;
+		allowEdit: aBoolean;
+		date: aDate;
+		addMorphBack: aDate asStringMorph
 ]
 
 { #category : #initialization }
