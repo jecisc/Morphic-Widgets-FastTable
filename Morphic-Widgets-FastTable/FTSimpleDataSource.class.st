@@ -74,13 +74,15 @@ FTSimpleDataSource >> searchText: aString [
 ]
 
 { #category : #sorting }
-FTSimpleDataSource >> sortElements: aBlock [
+FTSimpleDataSource >> sortElements: aSortFunction [
 	unsortedElements ifNil: [ unsortedElements := self elements copy ].
-	self elements sort: aBlock
+	self elements sort: aSortFunction
 ]
 
 { #category : #sorting }
 FTSimpleDataSource >> unsortElements [
+	unsortedElements ifNil: [ ^ self ].
+
 	self elements: unsortedElements.
 	unsortedElements := nil
 ]

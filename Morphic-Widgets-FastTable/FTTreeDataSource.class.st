@@ -286,9 +286,9 @@ FTTreeDataSource >> searchText: aString [
 ]
 
 { #category : #sorting }
-FTTreeDataSource >> sortElements: aBlock [
+FTTreeDataSource >> sortElements: aSortFunction [
 	unsortedElements ifNil: [ unsortedElements := self rootsItems copy ].
-	self rootsItems sort: aBlock
+	self rootsItems sort: aSortFunction
 ]
 
 { #category : #sorting }

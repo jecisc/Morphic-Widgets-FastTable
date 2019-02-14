@@ -52,7 +52,7 @@ Class {
 		'width',
 		'sortingStrategy'
 	],
-	#category : #'Morphic-Widgets-FastTable'
+	#category : #'Morphic-Widgets-FastTable-Model'
 }
 
 { #category : #'instance creation' }
