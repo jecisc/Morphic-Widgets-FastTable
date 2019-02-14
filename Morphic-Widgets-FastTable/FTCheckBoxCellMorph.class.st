@@ -38,7 +38,7 @@ FTCheckBoxCellMorph >> allowEdit: aBool [
 
 { #category : #accesing }
 FTCheckBoxCellMorph >> checkbox [
-	^checkbox 
+	^ checkbox
 ]
 
 { #category : #accesing }
@@ -48,19 +48,22 @@ FTCheckBoxCellMorph >> checkbox: aMorph [
 
 { #category : #accesing }
 FTCheckBoxCellMorph >> content [
-	^content 
+	^ content
 ]
 
 { #category : #accesing }
 FTCheckBoxCellMorph >> content: aBool [
-	|oldValue newValue|
-	cellPosition ifNotNil: [oldValue :=((self table dataSource elements at: self cellPosition  second) perform:  self cellPosition first property).] ifNil: [ oldValue :=nil ].
+	| oldValue newValue |
+	cellPosition ifNotNil: [ oldValue := (self table dataSource elementAt: self cellPosition second) perform: self cellPosition first property ] ifNil: [ oldValue := nil ].
 	content := aBool.
 	newValue := aBool.
-	newValue = oldValue ifFalse:  [self table doAnnounce:((FTCellContentChanged  from: oldValue  to: newValue)
-				fastTable: self table;
-				yourself).  ].
-     self 	updateDataSource.
+	newValue = oldValue
+		ifFalse: [ self table
+				doAnnounce:
+					((FTCellContentChanged from: oldValue to: newValue)
+						fastTable: self table;
+						yourself) ].
+	self updateDataSource
 ]
 
 { #category : #testing }

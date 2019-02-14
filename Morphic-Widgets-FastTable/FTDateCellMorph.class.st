@@ -39,7 +39,7 @@ FTDateCellMorph >> allowEdit: aBool [
 
 { #category : #accessing }
 FTDateCellMorph >> calendar [
-	^calendar 
+	^ calendar
 ]
 
 { #category : #accessing }
@@ -49,7 +49,7 @@ FTDateCellMorph >> calendar: aCalendarMorph [
 
 { #category : #accessing }
 FTDateCellMorph >> cellIndex [
-	^cellIndex 
+	^ cellIndex
 ]
 
 { #category : #accessing }
@@ -59,19 +59,21 @@ FTDateCellMorph >> cellIndex: anInteger [
 
 { #category : #accessing }
 FTDateCellMorph >> date [
-	^date
+	^ date
 ]
 
 { #category : #accessing }
 FTDateCellMorph >> date: aDate [
-|oldValue newValue|
-	cellPosition ifNotNil: [oldValue :=((self table dataSource elements at: self cellPosition  second) perform:  self cellPosition first property).] ifNil: [ oldValue :=nil ].
+	| oldValue newValue |
+	cellPosition ifNotNil: [ oldValue := (self table dataSource elementAt: self cellPosition second) perform: self cellPosition first property ] ifNil: [ oldValue := nil ].
 	date := aDate.
 	newValue := aDate.
-	newValue = oldValue ifFalse:  [ self table doAnnounce:((FTCellContentChanged  from: oldValue  to: newValue)
-				fastTable: self table;
-				yourself).  ].
-
+	newValue = oldValue
+		ifFalse: [ self table
+				doAnnounce:
+					((FTCellContentChanged from: oldValue to: newValue)
+						fastTable: self table;
+						yourself) ]
 ]
 
 { #category : #testing }
