@@ -1,3 +1,28 @@
+"
+Description
+--------------------
+
+I am an abstract classes to define the API of FastTable column sorting strategies. 
+
+My subclasses will implement different way to sort a FastTable.
+
+I am linked to a FTColumn implementing the Strategy design pattern.
+
+Public API and Key Messages
+--------------------
+
+- #isSortingEnable 		Return a boolean to know if the sorting through this column is currently enabled.
+- #sortDatasource: 		Sort a datasource depending on my state. This behavior will be defined by my subclasses.
+- #sortingIcon 				Return an icon that can be displayed in the header cell to indicated in which state we are.
+	
+ 
+Internal Representation and Key Implementation Points.
+--------------------
+
+    Instance Variables
+	column:		<aFTColumn>	 The column using me to sort its table.
+
+"
 Class {
 	#name : #FTAbstractColumnSortingStrategy,
 	#superclass : #Object,
