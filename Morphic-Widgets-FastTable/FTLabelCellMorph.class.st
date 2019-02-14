@@ -12,14 +12,7 @@ Class {
 
 { #category : #'instance creation' }
 FTLabelCellMorph class >> new [
-	self error: 'use #table: content: allowEdit:'
-]
-
-{ #category : #'instance creation' }
-FTLabelCellMorph class >> table: aTable content: aString allowEdit: aBoolean [
-	^self basicNew 
-	initialize:aTable content: aString allowEdit: aBoolean
-	yourself 
+	self error: 'use #table:content:allowEdit:position:'
 ]
 
 { #category : #'instance creation' }
@@ -45,16 +38,6 @@ FTLabelCellMorph >> content: aString [
 			((FTCellContentChanged from: oldValue to: content)
 				fastTable: self table;
 				yourself)
-]
-
-{ #category : #initialization }
-FTLabelCellMorph >> initialize:aTable content: aString allowEdit: aBoolean [
-
-	super initialize.
-	self table: aTable.
-	self allowEdit: aBoolean.
-	self content: aString.
-	self addMorphBack: content asStringMorph.
 ]
 
 { #category : #initialization }

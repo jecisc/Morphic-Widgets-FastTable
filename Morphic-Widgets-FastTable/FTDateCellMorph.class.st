@@ -14,14 +14,7 @@ Class {
 
 { #category : #'instance creation' }
 FTDateCellMorph class >> new [
-	self error: 'use #table: date: allowEdit:'
-]
-
-{ #category : #'instance creation' }
-FTDateCellMorph class >> table: aTable date: aDate allowEdit: aBoolean [
-	^self basicNew 
-	initialize:aTable date: aDate allowEdit: aBoolean
-	yourself 
+	self error: 'use #table:date:allowEdit:position:'
 ]
 
 { #category : #'instance creation' }
@@ -81,16 +74,6 @@ FTDateCellMorph >> hasEditingProvider [
 	"the date cell morph  has its own editing provider that shows the calender morph"
 
 	^ true
-]
-
-{ #category : #initialization }
-FTDateCellMorph >> initialize: aTable date: aDate allowEdit: aBoolean [
-
-	super initialize.
-	self table: aTable.
-	self allowEdit: aBoolean.
-	self date: aDate.
-	self addMorphBack: aDate asStringMorph.
 ]
 
 { #category : #initialization }

@@ -13,14 +13,7 @@ Class {
 
 { #category : #'instance creation' }
 FTCheckBoxCellMorph class >> new [
-	self error: 'use #table: content: allowEdit:positIon:'
-]
-
-{ #category : #'instance creation' }
-FTCheckBoxCellMorph class >> table: aTable content: aBooleanContent allowEdit: aBoolean [
-	^self basicNew 
-	initialize:aTable content: aBooleanContent allowEdit: aBoolean
-	yourself 
+	self error: 'use #table:content:allowEdit:position:'
 ]
 
 { #category : #'instance creation' }
@@ -71,17 +64,6 @@ FTCheckBoxCellMorph >> hasEditingProvider [
 	"the date cell morph  has its own editing provider that shows the calender morph"
 
 	^ true
-]
-
-{ #category : #initialization }
-FTCheckBoxCellMorph >> initialize: aTable content: aBooleanContent allowEdit: aBoolean [
-
-	super initialize.
-	self table: aTable.
-	self content: aBooleanContent.
-	self setupCheckBox.
-	self allowEdit: aBoolean.
-	self addMorphBack:checkbox.
 ]
 
 { #category : #initialization }

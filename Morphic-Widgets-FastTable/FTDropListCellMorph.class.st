@@ -15,7 +15,7 @@ Class {
 
 { #category : #'instance creation' }
 FTDropListCellMorph class >> new [
-	self error: 'use #table: selectedItem: allowEdit: or #table: itemSource: selectedItem: allowEdit:'
+	self error: 'use #table:itemSource:selectedItem:allowEdit:position:'
 ]
 
 { #category : #'instance creation' }
@@ -46,21 +46,6 @@ FTDropListCellMorph >> hasEditingProvider [
 	"the date cell morph  has its own editing provider that shows the calender morph"
 
 	^ true
-]
-
-{ #category : #initialization }
-FTDropListCellMorph >> initialize:aTable datasource: aList selectedItem:anObject allowEdit: aBoolean [
-"All editing is in reality allow change selection"
-
-super initialize.
-	self table: aTable.
-	self itemSource: aList.
-	self selectedItem: anObject. "We need to make sure that the object is part of the list"
-	
-   "self selectedIndex: 1."
-	self setupDropList.
-	self allowEdit: aBoolean.
-	self addMorphBack:dropList.
 ]
 
 { #category : #initialization }

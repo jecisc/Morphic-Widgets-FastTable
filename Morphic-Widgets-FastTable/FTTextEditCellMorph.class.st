@@ -13,14 +13,7 @@ Class {
 
 { #category : #'instance creation' }
 FTTextEditCellMorph class >> new [
-	self error: 'use #table: content: allowEdit:position:'
-]
-
-{ #category : #'instance creation' }
-FTTextEditCellMorph class >> table: aTable content: aString allowEdit: aBoolean [
-	^self basicNew 
-	initialize:aTable content: aString allowEdit: aBoolean
-	yourself 
+	self error: 'use #table:content:allowEdit:position:'
 ]
 
 { #category : #'instance creation' }
