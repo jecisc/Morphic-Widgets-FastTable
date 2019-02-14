@@ -49,7 +49,6 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'id',
-		'property',
 		'width',
 		'sortingStrategy'
 	],
@@ -99,11 +98,6 @@ FTColumn >> initialize [
 { #category : #testing }
 FTColumn >> isSortEnabled [
 	^ self sortingStrategy isSortingEnabled
-]
-
-{ #category : #accessing }
-FTColumn >> property [
-	^ property
 ]
 
 { #category : #initialization }
